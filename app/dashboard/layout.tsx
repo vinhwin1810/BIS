@@ -1,8 +1,7 @@
-// src/app/dashboard/layout.tsx
 "use client";
 
 import { useState } from "react";
-import Sidebar from "@/app/components/Sidebar"; // Update this path
+import Sidebar from "@/app/components/Sidebar";
 
 export default function DashboardLayout({
   children,

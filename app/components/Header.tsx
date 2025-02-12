@@ -1,5 +1,4 @@
-// components/Header.tsx
-import { Search, Star, User, Building2, MapPinHouse } from "lucide-react";
+import { Search, Star, Building2, MapPinHouse } from "lucide-react";
 import Image from "next/image";
 
 interface HeaderProps {
