@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         } transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
       >
         <div className="flex-1">
-          <div className="h-12" /> {/* Spacer to align with menu button */}
+          <div className="h-12" />
           <nav>
             {menuItems.map((item) => (
               <Link
