@@ -25,58 +25,58 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     {
       icon: <Star size={20} />,
       label: "All Favorites",
-      href: "/dashboard/favorites",
+      href: "/dashboard",
     },
     {
       icon: <RefreshCcw size={20} />,
       label: "Order Processing",
-      href: "/dashboard/orders",
+      href: "/dashboard",
     },
     {
       icon: <List size={20} />,
       label: "Inventory Management",
-      href: "/dashboard/inventory",
+      href: "/dashboard",
       active: true,
     },
     {
       icon: <ShoppingCart size={20} />,
       label: "Purchasing/Receiving",
-      href: "/dashboard/purchasing",
+      href: "/dashboard",
     },
     {
       icon: <DollarSign size={20} />,
       label: "Accounts Receivable",
-      href: "/dashboard/receivable",
+      href: "/dashboard",
     },
     {
       icon: <FileText size={20} />,
       label: "Accounts Payable",
-      href: "/dashboard/payable",
+      href: "/dashboard",
     },
     {
       icon: <Factory size={20} />,
       label: "Manufacturing",
-      href: "/dashboard/manufacturing",
+      href: "/dashboard",
     },
     {
       icon: <BarChart2 size={20} />,
       label: "Sales Analysis",
-      href: "/dashboard/sales",
+      href: "/dashboard",
     },
     {
       icon: <Users size={20} />,
       label: "Customer Service",
-      href: "/dashboard/customer",
+      href: "/dashboard",
     },
     {
       icon: <Users size={20} />,
       label: "Admin Maintenance",
-      href: "/dashboard/admin",
+      href: "/dashboard",
     },
     {
       icon: <Shield size={20} />,
       label: "Security",
-      href: "/dashboard/security",
+      href: "/dashboard",
     },
   ];
 
@@ -84,8 +84,8 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     <div className="flex flex-col">
       {/* Menu button container */}
       <div
-        className={`flex h-12  bg-[#2d3748] text-white transition-all duration-500 ease-in-out
-          ${isOpen ? "w-64 px-4 py-5" : "w-12 m-2 p-3 rounded-md"}`}
+        className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+          ${isOpen ? "w-64" : "w-16"}`}
       >
         <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
       </div>
@@ -93,8 +93,8 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
       {/* Sidebar content */}
       <div
         className={`${
-          isOpen ? "w-64" : "w-0"
-        } transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
+          isOpen ? "w-64" : "w-16"
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
       >
         <div className="flex-1">
           <div className="h-12" />
@@ -103,16 +103,26 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 hover:bg-[#3a4a61] transition-colors
-                  ${item.active ? "bg-teal-400 text-[#2d3748]" : ""}`}
+                className={`flex items-center gap-3 px-5 py-3  transition-colors
+                  ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
               >
-                {item.icon}
-                <span className="whitespace-nowrap">{item.label}</span>
+                <div>{item.icon}</div>
+                <span
+                  className={`whitespace-nowrap ${
+                    isOpen ? "opacity-100" : "opacity-0 w-0"
+                  } transition-all duration-500`}
+                >
+                  {item.label}
+                </span>
               </Link>
             ))}
           </nav>
         </div>
-        <div className="p-4 mt-auto">
+        <div
+          className={`p-4 mt-auto ${
+            isOpen ? "opacity-100" : "opacity-0"
+          } transition-opacity duration-500`}
+        >
           <div className="flex items-center gap-2">
             <span className="text-sm">BIS Computer Solutions</span>
           </div>
