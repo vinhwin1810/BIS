@@ -1,5 +1,6 @@
-import { Search, Star, Building2, MapPinHouse } from "lucide-react";
-import Image from "next/image";
+import { Building2, MapPinHouse } from "lucide-react";
+import User from "./User";
+import SearchBar from "./Search";
 
 interface HeaderProps {
   userName?: string;
@@ -30,27 +31,10 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
               </select>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">{userName}</span>
-            <Image
-              className="text-gray-500"
-              src="/bis-logo.png"
-              alt="BIS Computer Solutions"
-              width={30}
-              height={30}
-            />
-          </div>
+          <User userName={userName} />
         </div>
         <div className="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="pl-10 pr-10 py-2 border border-[#A4A4A4] rounded-2xl w-1/2"
-          />
-          <Search className="absolute left-3 top-2.5 h-5 w-5" />
-          <button className="absolute ml-4 bg-[#58E2D3] rounded-full shadow-md p-3 ">
-            <Star className="h-5 w-5" />
-          </button>
+          <SearchBar />
         </div>
 
         {/* <div className="flex items-center gap-4">

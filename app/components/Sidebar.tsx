@@ -35,7 +35,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     {
       icon: <List size={20} />,
       label: "Inventory Management",
-      href: "/dashboard",
+      href: "/dashboard/item-maintenance",
       active: true,
     },
     {
@@ -103,7 +103,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`flex items-center gap-3 px-5 py-3  transition-colors
+                className={`flex items-center gap-3 px-5 py-3 transition-colors
                   ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
               >
                 <div>{item.icon}</div>
