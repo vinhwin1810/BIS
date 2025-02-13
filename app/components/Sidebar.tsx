@@ -24,10 +24,11 @@ const menuData = [
 ];
 
 export default function Sidebar() {
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const [activeItem, setActiveItem] = useState(null);
-  const [highlightedItem, setHighlightedItem] = useState(null);
+  const [activeMenu, setActiveMenu] = useState<number | null>(null);
+  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+  const [activeItem, setActiveItem] = useState<number | null>(null);
+  const [highlightedItem, setHighlightedItem] = useState<string | null>(null);
+
 
   return (
     <div className="flex">
@@ -37,7 +38,7 @@ export default function Sidebar() {
           <button
             key={i}
             className={`w-full text-left p-2 rounded-lg ${activeMenu === i ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`}
-            onClick={() => setActiveMenu(activeMenu === i ? null : i)}
+            onClick={() => setActiveMenu((prev) => (prev === i ? null : i))}
           >
             {menu.title}
           </button>
@@ -51,7 +52,9 @@ export default function Sidebar() {
             <div key={j}>
               <button
                 className={`w-full text-left p-2 rounded-lg ${activeSubmenu === j ? 'bg-orange-500 text-white' : 'hover:bg-gray-200'}`}
-                onClick={() => setActiveSubmenu(activeSubmenu === j ? null : j)}
+                onClick={() => setActiveSubmenu((prev) => (prev === j ? null : j))}
+
+
               >
                 {submenu.title}
               </button>
@@ -72,7 +75,9 @@ export default function Sidebar() {
         <aside className="w-64 bg-white text-black p-4 shadow-lg">
           <button
             className={`w-full text-left p-2 rounded-lg ${highlightedItem === 'Item Maintenance' ? 'bg-orange-500 text-white' : 'hover:bg-gray-200'}`}
-            onClick={() => setHighlightedItem(highlightedItem === 'Item Maintenance' ? null : 'Item Maintenance')}
+            onClick={() =>
+              setHighlightedItem((prev) => (prev === 'Item Maintenance' ? null : 'Item Maintenance'))
+            }            
           >
             {menuData[activeMenu].submenus[activeSubmenu].nextMenu.title}
           </button>
