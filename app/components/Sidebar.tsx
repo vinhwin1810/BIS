@@ -117,35 +117,31 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                     {item.label}
                   </span>
                 </Link>
-                {item.label === "All Favorites" && <hr className="border-white-600 mx-4 my-2"/>}
-                {item.label === "Customer Service" && <hr className="border-white-600 mx-4 my-2"/>}
+                {item.label === "All Favorites" && (
+                  <hr className="border-white-600 mx-4 my-2" />
+                )}
+                {item.label === "Customer Service" && (
+                  <hr className="border-white-600 mx-4 my-2" />
+                )}
               </React.Fragment>
             ))}
           </nav>
         </div>
 
-      <div className= {`flex items-center ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
-          <Image 
-            src="/bis.png"
-            alt="BIS"
-            width={100}
-            height={100}
-          />
+        <div
+          className={`flex items-center ${
+            isOpen ? "opacity-100" : "opacity-0"
+          } transition-all duration-500`}
+        >
+          <Image src="/bis.png" alt="BIS" width={100} height={100} />
           <div className={` ml-2 ${isOpen ? "opacity-100" : "opacity-0 w-0"}`}>
             <span className="text-sm">BIS Computer Solutions</span>
-            <span className="text-xs text-gray-400 mt-1 flex">All rights reserved</span>
+            <span className="text-xs text-gray-400 mt-1 flex">
+              All rights reserved
+            </span>
           </div>
         </div>
       </div>
-    
-  </div>
-
-
-
-
-
-
-
-
+    </div>
   );
 }
