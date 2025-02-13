@@ -1,5 +1,5 @@
+"use client";
 import React from "react";
-// components/Sidebar.tsx
 import {
   Star,
   RefreshCcw,
@@ -14,73 +14,52 @@ import {
   Menu,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
 }
+const menuData = [
+  { title: "All Favorites", icon: <Star size={20} /> },
+  {
+    title: "Inventory Management",
+    icon: <List size={20} />,
+    submenus: [
+      {
+        title: "Maintenance",
+        items: ["Physical Inventory", "Transaction Processing", "Reports"],
+        nextMenu: {
+          title: "Item Maintenance",
+          items: [
+            "Reason Codes",
+            "Transaction Types",
+            "Warehouses",
+            "Item Images",
+            "Department Code Maintenance",
+            "Inventory Price/Vendor Cost Loading",
+            "Classes",
+            "UOM Maintenance",
+            "Cross References",
+            "Unit References",
+            "Unit Conversion Factors",
+            "Item Images Query",
+            "Pricing Level Maintenance",
+          ],
+        },
+      },
+    ],
+  },
+  { title: "Order Processing", icon: <ShoppingCart size={20} /> },
+  { title: "Purchasing/Receiving", icon: <FileText size={20} /> },
+  { title: "Accounts Receivable", icon: <DollarSign size={20} /> },
+  { title: "Accounts Payable", icon: <Users size={20} /> },
+  { title: "Manufacturing", icon: <Factory size={20} /> },
+  { title: "Sales Analysis", icon: <BarChart2 size={20} /> },
+  { title: "Customer Service", icon: <Shield size={20} /> },
+  { title: "Admin Maintenance", icon: <Star size={20} /> },
+  { title: "Security", icon: <RefreshCcw size={20} /> },
+];
 
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
-  const menuItems = [
-    {
-      icon: <Star size={20} />,
-      label: "All Favorites",
-      href: "/dashboard",
-    },
-    {
-      icon: <RefreshCcw size={20} />,
-      label: "Order Processing",
-      href: "/dashboard",
-    },
-    {
-      icon: <List size={20} />,
-      label: "Inventory Management",
-      href: "/dashboard/item-maintenance",
-      active: true,
-    },
-    {
-      icon: <ShoppingCart size={20} />,
-      label: "Purchasing/Receiving",
-      href: "/dashboard",
-    },
-    {
-      icon: <DollarSign size={20} />,
-      label: "Accounts Receivable",
-      href: "/dashboard",
-    },
-    {
-      icon: <FileText size={20} />,
-      label: "Accounts Payable",
-      href: "/dashboard",
-    },
-    {
-      icon: <Factory size={20} />,
-      label: "Manufacturing",
-      href: "/dashboard",
-    },
-    {
-      icon: <BarChart2 size={20} />,
-      label: "Sales Analysis",
-      href: "/dashboard",
-    },
-    {
-      icon: <Users size={20} />,
-      label: "Customer Service",
-      href: "/dashboard",
-    },
-    {
-      icon: <Users size={20} />,
-      label: "Admin Maintenance",
-      href: "/dashboard",
-    },
-    {
-      icon: <Shield size={20} />,
-      label: "Security",
-      href: "/dashboard",
-    },
-  ];
-
   return (
     <div className="flex flex-col">
       {/* Menu button container */}
@@ -101,13 +80,11 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         <div className="flex-1">
           <div className="h-7" />
           <nav>
-            {menuItems.map((item) => (
-              <React.Fragment key={item.label}>
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 transition-colors
-                    ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
+            {menuData.map((item) => (
+              <React.Fragment key={item.title}>
+                <button
+                  key={item.title}
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors`}
                 >
                   <div>{item.icon}</div>
                   <span
@@ -115,13 +92,13 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                       isOpen ? "opacity-100" : "opacity-0 w-0"
                     } transition-all duration-500`}
                   >
-                    {item.label}
+                    {item.title}
                   </span>
-                </Link>
-                {item.label === "All Favorites" && (
+                </button>
+                {item.title === "All Favorites" && (
                   <hr className="border-white-600 mx-4 my-2" />
                 )}
-                {item.label === "Customer Service" && (
+                {item.title === "Customer Service" && (
                   <hr className="border-white-600 mx-4 my-2" />
                 )}
               </React.Fragment>
