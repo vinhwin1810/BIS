@@ -98,7 +98,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
       >
         <div className="flex-1">
-          <div className="h-12" />
+          <div className="h-7" />
           <nav>
             {menuItems.map((item) => (
               <React.Fragment key={item.label}>
