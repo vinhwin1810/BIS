@@ -1,3 +1,4 @@
+import React from "react";
 // components/Sidebar.tsx
 import {
   Star,
@@ -100,35 +101,51 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <div className="h-12" />
           <nav>
             {menuItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 transition-colors
-                  ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
-              >
-                <div>{item.icon}</div>
-                <span
-                  className={`whitespace-nowrap ${
-                    isOpen ? "opacity-100" : "opacity-0 w-0"
-                  } transition-all duration-500`}
+              <React.Fragment key={item.label}>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors
+                    ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
                 >
-                  {item.label}
-                </span>
-              </Link>
+                  <div>{item.icon}</div>
+                  <span
+                    className={`whitespace-nowrap ${
+                      isOpen ? "opacity-100" : "opacity-0 w-0"
+                    } transition-all duration-500`}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+                {item.label === "All Favorites" && <hr className="border-white-600 mx-4 my-2"/>}
+                {item.label === "Customer Service" && <hr className="border-white-600 mx-4 my-2"/>}
+              </React.Fragment>
             ))}
           </nav>
         </div>
-        <div
-          className={`p-4 mt-auto ${
-            isOpen ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-500`}
-        >
-          <div className="flex items-center gap-2">
+
+      <div className= {`flex items-center ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
+          <Image 
+            src="/bis.png"
+            alt="BIS"
+            width={100}
+            height={100}
+          />
+          <div className={` ml-2 ${isOpen ? "opacity-100" : "opacity-0 w-0"}`}>
             <span className="text-sm">BIS Computer Solutions</span>
+            <span className="text-xs text-gray-400 mt-1 flex">All rights reserved</span>
           </div>
-          <p className="text-xs text-gray-400 mt-1">All rights reserved</p>
         </div>
       </div>
-    </div>
+    
+  </div>
+
+
+
+
+
+
+
+
   );
 }
