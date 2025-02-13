@@ -93,9 +93,10 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
       {/* Sidebar content */}
       <div
+        style={{top:'46px'}}
         className={`${
           isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white min-h-screen flex flex-col overflow-hidden h-full lg:fixed lg:bottom-0 fixed bottom-0 left-0 right-0`}
       >
         <div className="flex-1">
           <div className="h-7" />
