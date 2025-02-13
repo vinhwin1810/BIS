@@ -1,134 +1,97 @@
 // components/Sidebar.tsx
-import {
-  Star,
-  RefreshCcw,
-  List,
-  ShoppingCart,
-  DollarSign,
-  FileText,
-  Factory,
-  BarChart2,
-  Users,
-  Shield,
-  Menu,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 
-interface SidebarProps {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-}
+const menuData = [
+  {
+    title: "Inventory Management",
+    submenus: [
+      {
+        title: "Maintenance",
+        items: ["Physical Inventory", "Transaction Processing", "Reports"],
+        nextMenu: {
+          title: "Item Maintenance",
+          items: [
+            "Reason Codes", "Transaction Types", "Warehouses", "Item Images",
+            "Department Code Maintenance", "Inventory Price/Vendor Cost Loading",
+            "Classes", "UOM Maintenance", "Cross References", "Unit References",
+            "Unit Conversion Factors", "Item Images Query", "Pricing Level Maintenance"
+      
+          ]
+        }
+      }
+    ]
+  }
+];
 
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
-  const menuItems = [
-    {
-      icon: <Star size={20} />,
-      label: "All Favorites",
-      href: "/dashboard",
-    },
-    {
-      icon: <RefreshCcw size={20} />,
-      label: "Order Processing",
-      href: "/dashboard",
-    },
-    {
-      icon: <List size={20} />,
-      label: "Inventory Management",
-      href: "/dashboard/item-maintenance",
-      active: true,
-    },
-    {
-      icon: <ShoppingCart size={20} />,
-      label: "Purchasing/Receiving",
-      href: "/dashboard",
-    },
-    {
-      icon: <DollarSign size={20} />,
-      label: "Accounts Receivable",
-      href: "/dashboard",
-    },
-    {
-      icon: <FileText size={20} />,
-      label: "Accounts Payable",
-      href: "/dashboard",
-    },
-    {
-      icon: <Factory size={20} />,
-      label: "Manufacturing",
-      href: "/dashboard",
-    },
-    {
-      icon: <BarChart2 size={20} />,
-      label: "Sales Analysis",
-      href: "/dashboard",
-    },
-    {
-      icon: <Users size={20} />,
-      label: "Customer Service",
-      href: "/dashboard",
-    },
-    {
-      icon: <Users size={20} />,
-      label: "Admin Maintenance",
-      href: "/dashboard",
-    },
-    {
-      icon: <Shield size={20} />,
-      label: "Security",
-      href: "/dashboard",
-    },
-  ];
+export default function Sidebar() {
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
+  const [highlightedItem, setHighlightedItem] = useState(null);
 
   return (
-    <div className="flex flex-col">
-      {/* Menu button container */}
-      <div
-        className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
-          ${isOpen ? "w-64" : "w-16"}`}
-      >
-        <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
-      </div>
+    <div className="flex">
+      {/* Dark Blue Sidebar */}
+      <aside className="w-64 bg-gray-900 text-white p-4">
+        {menuData.map((menu, i) => (
+          <button
+            key={i}
+            className={`w-full text-left p-2 rounded-lg ${activeMenu === i ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`}
+            onClick={() => setActiveMenu(activeMenu === i ? null : i)}
+          >
+            {menu.title}
+          </button>
+        ))}
+      </aside>
 
-      {/* Sidebar content */}
-      <div
-        className={`${
-          isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
-      >
-        <div className="flex-1">
-          <div className="h-12" />
-          <nav>
-            {menuItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`flex items-center gap-3 px-5 py-3 transition-colors
-                  ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
+      {/* White Sidebar (First Level - Appears to the Right) */}
+      {activeMenu !== null && (
+        <aside className="w-64 bg-white text-black p-4 shadow-lg">
+          {menuData[activeMenu].submenus.map((submenu, j) => (
+            <div key={j}>
+              <button
+                className={`w-full text-left p-2 rounded-lg ${activeSubmenu === j ? 'bg-orange-500 text-white' : 'hover:bg-gray-200'}`}
+                onClick={() => setActiveSubmenu(activeSubmenu === j ? null : j)}
               >
-                <div>{item.icon}</div>
-                <span
-                  className={`whitespace-nowrap ${
-                    isOpen ? "opacity-100" : "opacity-0 w-0"
-                  } transition-all duration-500`}
+                {submenu.title}
+              </button>
+              {activeSubmenu === j && (
+                <ul>
+                  {submenu.items.map((item, k) => (
+                    <li key={k} className="p-2 hover:bg-gray-100">{item}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </aside>
+      )}
+
+      {/* White Sidebar (Second Level - Appears to the Right of First Sidebar) */}
+      {activeMenu !== null && activeSubmenu !== null && menuData[activeMenu].submenus[activeSubmenu].nextMenu && (
+        <aside className="w-64 bg-white text-black p-4 shadow-lg">
+          <button
+            className={`w-full text-left p-2 rounded-lg ${highlightedItem === 'Item Maintenance' ? 'bg-orange-500 text-white' : 'hover:bg-gray-200'}`}
+            onClick={() => setHighlightedItem(highlightedItem === 'Item Maintenance' ? null : 'Item Maintenance')}
+          >
+            {menuData[activeMenu].submenus[activeSubmenu].nextMenu.title}
+          </button>
+          {highlightedItem === 'Item Maintenance' && (
+            <ul>
+              {menuData[activeMenu].submenus[activeSubmenu].nextMenu.items.map((item, l) => (
+                <li
+                  key={l}
+                  className={`p-2 rounded-lg cursor-pointer ${activeItem === l ? 'bg-orange-500 text-white' : 'hover:bg-gray-100'}`}
+                  onClick={() => setActiveItem(l)}
                 >
-                  {item.label}
-                </span>
-              </Link>
-            ))}
-          </nav>
-        </div>
-        <div
-          className={`p-4 mt-auto ${
-            isOpen ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-500`}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-sm">BIS Computer Solutions</span>
-          </div>
-          <p className="text-xs text-gray-400 mt-1">All rights reserved</p>
-        </div>
-      </div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </aside>
+      )}
     </div>
   );
 }
+
