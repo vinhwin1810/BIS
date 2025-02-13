@@ -85,7 +85,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     <div className="flex flex-col">
       {/* Menu button container */}
       <div
-        className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+        className={`flex h-12 p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
         <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
@@ -95,7 +95,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
       <div
         className={`${
           isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white h-screen flex flex-col overflow-hidden`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white h-screen flex flex-col overflow-hidden`}
       >
         <div className="flex-1">
           <div className="h-7" />
@@ -106,7 +106,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                   key={item.label}
                   href={item.href}
                   className={`flex items-center gap-3 px-5 py-3 transition-colors
-                    ${item.active ? "bg-teal-400 rounded-lg " : ""}`}
+                    ${item.active ? "bg-[#FFD942] rounded-lg " : ""}`}
                 >
                   <div>{item.icon}</div>
                   <span
