@@ -17,7 +17,7 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
                 className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500"
                 size={20}
               />
-              <select className="flex space-x-2 p-2 pl-9 border-[#A4A4A4] border rounded-xl min-w-[200px] appearance-normal">
+              <select className="flex space-x-2 p-2 pl-9 border-[#A4A4A4] border rounded-xl min-w-[200px]">
                 <option>Company</option>
               </select>
             </div>
@@ -26,7 +26,7 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
                 className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-500"
                 size={20}
               />
-              <select className="flex space-x-2 p-2 pl-9 border-[#A4A4A4] border rounded-xl min-w-[200px] appearance-normal">
+              <select className="flex space-x-2 p-2 pl-9 border-[#A4A4A4] border rounded-xl min-w-[200px]">
                 <option>Location</option>
               </select>
             </div>
