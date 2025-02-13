@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, MapPinHouse, Search, Star } from "lucide-react";
+import { Building2, MapPinHouse, Search, Star, ChevronDown } from "lucide-react";
 import User from "./User";
+import Image from "next/image"; // Import for the company logo
 
 interface HeaderProps {
   userName?: string;
@@ -10,9 +11,10 @@ interface HeaderProps {
 
 export default function Header({ userName = "Last, First" }: HeaderProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false); // Controls dropdown visibility
 
   return (
-    <header className="bg-white text-[#333333] shadow-sm">
+    <header className="bg-white text-[#333333] shadow-sm relative">
       <div className="p-4">
         {/* Top Section: Company & Location Dropdowns */}
         <div className="flex items-center justify-between gap-4 mb-4">
@@ -34,8 +36,35 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
             </div>
           </div>
 
-          {/* User Profile */}
-          <User userName={userName} />
+          {/* User Profile (Company Logo Clickable for Dropdown) */}
+          <div className="relative flex items-center gap-2">
+            <span>{userName}</span>
+
+            {/* Company Logo (Restored & Clickable) */}
+            <button
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="focus:outline-none relative"
+            >
+              <Image
+                src="/company-logo.png" // Replace with actual image path
+                alt="Company Logo"
+                width={30}
+                height={30}
+                className="rounded-full cursor-pointer"
+              />
+            </button>
+
+            {/* White Dropdown (Now Appears Below Company Logo) */}
+            {showDropdown && (
+              <div className="absolute right-0 mt-10 w-48 bg-white rounded-2xl shadow-lg z-50 p-2 border border-gray-200">
+                <ul>
+                  <li className="p-2 hover:bg-gray-100 hover:font-bold cursor-pointer">Change Password</li>
+                  <li className="p-2 hover:bg-gray-100 hover:font-bold cursor-pointer">Log Out</li>
+                  <li className="p-2 hover:bg-gray-100 hover:font-bold cursor-pointer">Help</li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Search Bar & Favorite Icon Section */}
@@ -67,6 +96,9 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
     </header>
   );
 }
+
+
+
 
 
 
