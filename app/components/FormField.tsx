@@ -18,8 +18,8 @@ export default function FormField({
   className,
 }: FormFieldProps) {
   return (
-    <div className={`flex items-center justify-between ${type === 'text' || type === 'number' ? 'border-b border-gray-300' : ''} ${className}`}>
-      <label className="text-sm">{label}</label>
+    <div className={`flex ${type === "long text" ? "flex-col" : "items-center justify-between"} ${type === 'text' || type === 'number' ? 'border-b border-gray-300' : ''} ${className}`}>
+      <label className="text-sm text-gray-500">{label}</label>
       {type === "select" ? (
         <select
           className="border rounded-md p-2 bg-white"
@@ -42,18 +42,17 @@ export default function FormField({
           disabled={disabled}
         />
       ) : type === "long text" ? (  
-        <input
-          type={type}
-          className={`text-right focus:outline-none min-w-0 ${value ? 'w-auto' : 'w-[50px]'}`}
+        <textarea
+          className="p-2 rounded-md bg-gray-100 resize-none"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
-          placeholder="01234"
+          rows={4} // Adjust the number of rows as needed
         />
       ) : (
         <input
           type={type}
-          className={`text-right focus:outline-none min-w-0 ${value ? 'w-auto' : 'w-[50px]'}`}
+          className="text-right focus:outline-none w-[80px]"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
