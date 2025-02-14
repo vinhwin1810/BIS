@@ -13,8 +13,8 @@ export default function SearchBar() {
     <div className = "flex flex-col">
       <div className="flex items-start w-1/2">
         {/* Input Container with Search Icon */}
-        <div className="flex flex-col flex-grow border border-[#A4A4A4] rounded-2xl px-4 py-2">
-          <div className="flex items-center">
+        <div className="flex flex-col flex-grow border border-[#A4A4A4] rounded-2xl py-2">
+          <div className="flex items-center px-4">
           <Search className="h-5 w-5 text-gray-500" />
           <input
             type="text"
@@ -37,27 +37,48 @@ export default function SearchBar() {
 }
 
 function SearchSuggestions({ searched }) {
-  if (searched){
-    return (
+    let possibleResults = [];
+  
+    if (searched) {
+      possibleResults = itemList.filter((item) =>
+        item.label.toLowerCase().includes(searched.toLowerCase())
+      );
+    }
+  
+    return searched && possibleResults.length > 0 ? (
       <div className="flex flex-col">
-        <hr className="border-t border-gray-400 w-full my-2" />
-        <OneSuggestion searchResult = {searched}/>
-        <OneSuggestion searchResult = {searched}/>
+        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+        {possibleResults.map((item, index) => (
+          <OneSuggestion key={index} searchResult={item.label} searched={searched} />
+        ))}
       </div>
-    );
-  }
+    ) : null;
+  
 }
 
-function OneSuggestion({searchResult}){
-  return(
-    <button className="bg-white hover:bg-gray-200 py-2 transition-colors duration-300 text-left w-full">
-          {/* Flex container for icon + text */}
-          <div className="flex items-center">
-            <Search className="h-5 w-5 text-gray-500 mr-2" />
-            <span>{searchResult}</span>
-          </div>
+function OneSuggestion({ searchResult, searched }) {
+  // Highlight matching text
+  const regex = new RegExp(`(${searched})`, "gi");
+  const parts = searchResult.split(regex);
+
+  return (
+    <button className="bg-white hover:bg-gray-200 py-2 rounded-md transition-colors duration-300 text-left w-full">
+      <div className="flex items-center px-4">
+        <Search className="h-5 w-5 text-gray-500 mr-2" />
+        <span>
+          {parts.map((part, index) =>
+            part.toLowerCase() === searched.toLowerCase() ? (
+              <span key={index} className="font-bold text-black">
+                {part}
+              </span>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      </div>
     </button>
-  )
+  );
 }
 
 
@@ -77,3 +98,101 @@ function StarButton({ isFilled }){
     );
   }
 }
+
+const itemList = [
+  {
+    label: "Order Processing",
+    href: "/dashboard",
+  },
+  {
+    label: "Inventory Management",
+    href: "/dashboard/item-maintenance",
+    active: true,
+  },
+  {
+    label: "Purchasing/Receiving",
+    href: "/dashboard",
+  },
+  {
+    label: "Accounts Receivable",
+    href: "/dashboard",
+  },
+  {
+    label: "Accounts Payable",
+    href: "/dashboard",
+  },
+  {
+    label: "Manufacturing",
+    href: "/dashboard",
+  },
+  {
+    label: "Sales Analysis",
+    href: "/dashboard",
+  },
+  {
+    label: "Customer Service",
+    href: "/dashboard",
+  },
+  {
+    label: "Admin Maintenance",
+    href: "/dashboard",
+  },
+  {
+    label: "Security",
+    href: "/dashboard",
+  },
+  {
+    label: "Maintenance",
+  },
+  {
+    label: "Physical Inventory",
+  },
+  {
+    label: "Transaction Processing",
+  },
+  {
+    label: "Reports",
+  },
+  {
+    label: "Item Maintenance",
+  },
+  {
+    label: "Reason Codes",
+  },
+  {
+    label: "Transaction Types",
+  },
+  {
+    label: "Warehouses",
+  },
+  {
+    label: "Item Images",
+  },
+  {
+    label: "Department Code Maintenance",
+  },
+  {
+    label: "Inventory Price/Vendor Cost Loading",
+  },
+  {
+    label: "Classes",
+  },
+  {
+    label: "UOM Maintenance",
+  },
+  {
+    label: "Cross References",
+  },
+  {
+    label: "Unit References",
+  },
+  {
+    label: "Unit Conversion Factors",
+  },
+  {
+    label: "Item Images Query",
+  },
+  {
+    label: "Pricing Leve Maintenance",
+  },
+];
