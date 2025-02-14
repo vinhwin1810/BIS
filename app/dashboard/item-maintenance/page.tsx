@@ -230,13 +230,19 @@ export default function ItemMaintenance() {
           </div>
         </div>
 
-        <div className="flex justify-center gap-4 mt-6 mb-8">
-          <button className="px-8 py-2 border border-blue-800 text-blue-800 rounded-md hover:bg-blue-50">
-            Delete
-          </button>
-          <button className="px-8 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900">
-            Save
-          </button>
+        {/* Buttons at the bottom */}
+        <div className="flex justify-between mt-6 mb-4"> 
+          <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
+            Clear Screen
+          </button>         
+          <div className="flex gap-6"> 
+            <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
+              Delete
+            </button>
+            <button className="px-20 py-2 bg-[#1B3487] text-white rounded-lg hover:bg-blue-700">
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
