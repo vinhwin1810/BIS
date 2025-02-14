@@ -108,12 +108,14 @@ export default function ItemMaintenance() {
               <div className="col-span-1">
                 <FormField
                   label="Description"
+                  type="long text"
                   value={formData.description}
                   onChange={handleChange("description")}
                   className="h-32"
                 />
                 <FormField
                   label="Description (International)"
+                  type="long text"
                   value={formData.descriptionInt}
                   onChange={handleChange("descriptionInt")}
                   className="mt-4 h-32"
