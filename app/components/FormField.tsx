@@ -6,6 +6,7 @@ interface FormFieldProps {
   onChange?: (value: string) => void;
   disabled?: boolean;
   className?: string;
+  isFirst?: boolean;
 }
 
 export default function FormField({
@@ -16,13 +17,17 @@ export default function FormField({
   onChange,
   disabled,
   className,
+  isFirst = false,
 }: FormFieldProps) {
   return (
-    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} ${type === 'text' || type === 'number' ? 'border-b border-gray-300' : ''} ${className}`}>
+    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} 
+                    ${["text", "select", "number"].includes(type) ? 'border-b border-gray-300' : ''} 
+                    ${!isFirst ? "mt-4" : ""}
+                    ${className}`}>
       <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
       {type === "select" ? (
         <select
-          className="border rounded-md p-2 bg-white"
+          className="text-gray-400"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
@@ -52,7 +57,7 @@ export default function FormField({
       ) : (
         <input
           type={type}
-          className="text-right focus:outline-none w-[80px]"
+          className="text-right focus:outline-none w-24"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}

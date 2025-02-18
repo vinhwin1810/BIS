@@ -68,6 +68,7 @@ export default function ItemMaintenance() {
                   label="Inv Code"
                   value={formData.invCode}
                   onChange={handleChange("invCode")}
+                  isFirst={true}
                 />
                 <FormField
                   label="Inv Class"
@@ -75,19 +76,16 @@ export default function ItemMaintenance() {
                   options={["Class A", "Class B", "Class C"]}
                   value={formData.invClass}
                   onChange={handleChange("invClass")}
-                  className="mt-4"
                 />
                 <FormField
                   label="List Price"
                   value={formData.listPrice}
                   onChange={handleChange("listPrice")}
-                  className="mt-4"
                 />
                 <FormField
                   label="UOM"
                   value={formData.uom}
                   onChange={handleChange("uom")}
-                  className="mt-4"
                 />
                 <FormField
                   label="Taxable"
@@ -106,14 +104,12 @@ export default function ItemMaintenance() {
                   type="long text"
                   value={formData.description}
                   onChange={handleChange("description")}
-                  className="h-32"
                 />
                 <FormField
                   label="Description (International)"
                   type="long text"
                   value={formData.descriptionInt}
                   onChange={handleChange("descriptionInt")}
-                  className="mt-4 h-32"
                 />
             </MaintenanceSection>
 
