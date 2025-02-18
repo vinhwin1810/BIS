@@ -64,11 +64,11 @@ export default function ItemMaintenance() {
           <div className="flex-1 flex flex-col gap-6">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-2">
                 <FormField
                   label="Inv Code"
                   value={formData.invCode}
                   onChange={handleChange("invCode")}
+                  isFirst={true}
                 />
                 <FormField
                   label="Inv Class"
@@ -76,49 +76,41 @@ export default function ItemMaintenance() {
                   options={["Class A", "Class B", "Class C"]}
                   value={formData.invClass}
                   onChange={handleChange("invClass")}
-                  className="mt-4"
                 />
                 <FormField
                   label="List Price"
                   value={formData.listPrice}
                   onChange={handleChange("listPrice")}
-                  className="mt-4"
                 />
                 <FormField
                   label="UOM"
                   value={formData.uom}
                   onChange={handleChange("uom")}
-                  className="mt-4"
                 />
-                <div className="flex gap-8 mt-4">
-                  <FormField
-                    label="Taxable"
-                    type="checkbox"
-                    value={formData.taxable}
-                    onChange={handleChange("taxable")}
-                  />
-                  <FormField
-                    label="Active"
-                    type="checkbox"
-                    value={formData.active}
-                    onChange={handleChange("active")}
-                  />
-                </div>
-              </div>
-              <div className="col-span-1">
+                <FormField
+                  label="Taxable"
+                  type="checkbox"
+                  value={formData.taxable}
+                  onChange={handleChange("taxable")}
+                />
+                <FormField
+                  label="Active"
+                  type="checkbox"
+                  value={formData.active}
+                  onChange={handleChange("active")}
+                />
                 <FormField
                   label="Description"
+                  type="long text"
                   value={formData.description}
                   onChange={handleChange("description")}
-                  className="h-32"
                 />
                 <FormField
                   label="Description (International)"
+                  type="long text"
                   value={formData.descriptionInt}
                   onChange={handleChange("descriptionInt")}
-                  className="mt-4 h-32"
                 />
-              </div>
             </MaintenanceSection>
 
             {/* Second main box */}

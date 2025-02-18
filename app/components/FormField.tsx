@@ -1,11 +1,12 @@
 interface FormFieldProps {
   label: string;
   value?: string;
-  type?: "text" | "number" | "select" | "checkbox";
+  type?: "text" | "number" | "select" | "checkbox" | "long text";
   options?: string[];
   onChange?: (value: string) => void;
   disabled?: boolean;
   className?: string;
+  isFirst?: boolean;
 }
 
 export default function FormField({
@@ -16,13 +17,17 @@ export default function FormField({
   onChange,
   disabled,
   className,
+  isFirst = false,
 }: FormFieldProps) {
   return (
-    <div className={`flex flex-col ${className}`}>
-      <label className="text-sm mb-1">{label}</label>
+    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} 
+                    ${["text", "select", "number"].includes(type) ? 'border-b border-gray-300' : ''} 
+                    ${!isFirst ? "mt-4" : ""}
+                    ${className}`}>
+      <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
       {type === "select" ? (
         <select
-          className="border rounded-md p-2 bg-white"
+          className="text-gray-400"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
@@ -41,10 +46,18 @@ export default function FormField({
           onChange={(e) => onChange?.(e.target.checked.toString())}
           disabled={disabled}
         />
+      ) : type === "long text" ? (  
+        <textarea
+          className="p-2 rounded-md bg-gray-100 resize-none"
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+          disabled={disabled}
+          rows={4} // Adjust the number of rows as needed
+        />
       ) : (
         <input
           type={type}
-          className="border rounded-md p-2"
+          className="text-right focus:outline-none w-24"
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
