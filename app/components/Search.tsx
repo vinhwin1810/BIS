@@ -59,7 +59,7 @@ function SearchSuggestions({ searched }) {
       return(
         <div className="flex flex-col max-w-[500px] max-h-[200px] overflow-y-auto">
         <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
-          <OneSuggestion searchResult={"Sorry, we couldn't find any matches for " + searched} searched={searched} />
+          <OneSuggestion searchResult={"Sorry, we couldn't find any matches for " + searched} searched={searched}/>
         </div>
       )
     }
