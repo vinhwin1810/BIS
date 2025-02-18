@@ -64,7 +64,6 @@ export default function ItemMaintenance() {
           <div className="flex-1 flex flex-col gap-6">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-2">
                 <FormField
                   label="Inv Code"
                   value={formData.invCode}
@@ -90,22 +89,18 @@ export default function ItemMaintenance() {
                   onChange={handleChange("uom")}
                   className="mt-4"
                 />
-                <div className="flex gap-8 mt-4">
-                  <FormField
-                    label="Taxable"
-                    type="checkbox"
-                    value={formData.taxable}
-                    onChange={handleChange("taxable")}
-                  />
-                  <FormField
-                    label="Active"
-                    type="checkbox"
-                    value={formData.active}
-                    onChange={handleChange("active")}
-                  />
-                </div>
-              </div>
-              <div className="col-span-1">
+                <FormField
+                  label="Taxable"
+                  type="checkbox"
+                  value={formData.taxable}
+                  onChange={handleChange("taxable")}
+                />
+                <FormField
+                  label="Active"
+                  type="checkbox"
+                  value={formData.active}
+                  onChange={handleChange("active")}
+                />
                 <FormField
                   label="Description"
                   type="long text"
@@ -120,7 +115,6 @@ export default function ItemMaintenance() {
                   onChange={handleChange("descriptionInt")}
                   className="mt-4 h-32"
                 />
-              </div>
             </MaintenanceSection>
 
             {/* Second main box */}
