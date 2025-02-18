@@ -18,8 +18,8 @@ export default function FormField({
   className,
 }: FormFieldProps) {
   return (
-    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center" : "items-center justify-between"} ${type === 'text' || type === 'number' ? 'border-b border-gray-300' : ''} ${className}`}>
-      <label className="text-sm text-gray-500">{label}</label>
+    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} ${type === 'text' || type === 'number' ? 'border-b border-gray-300' : ''} ${className}`}>
+      <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
       {type === "select" ? (
         <select
           className="border rounded-md p-2 bg-white"
