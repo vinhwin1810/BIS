@@ -13,12 +13,12 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   const pathname = usePathname();
 
-  // State management
+  // The state management to control the clicks for the submenu bars ( THE GEM )
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
   const [showThirdMenu, setShowThirdMenu] = useState<boolean>(false);
 
-  // Main Sidebar Items (Restored Icons + White Lines)
+  // Main Sidebar Items ( THEY ARE LIKE THE ONES IN THE new_dev branch so no complaints )
   const menuItems = [
     { icon: <Star size={20} />, label: "All Favorites", href: "/dashboard" },
     { icon: <RefreshCcw size={20} />, label: "Order Processing", href: "/dashboard" },
@@ -74,7 +74,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   // Function to handle submenu clicks (White sidebar under Inventory Management)
   const handleSubmenuClick = (label: string) => {
     setActiveItem((prev) => (prev === label ? null : label));
-    if (label === "Maintenance") {
+    if (label === "Maintenance") { 
       setShowThirdMenu(!showThirdMenu);
     }
   };
@@ -85,16 +85,16 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     if (href && href !== "#") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
-      toggleSidebar(); // ✅ Collapse sidebar when clicking "Item Maintenance"
+      toggleSidebar(); // Collapse sidebar when clicking "Item Maintenance"
     }
   };
 
   // Function to collapse all sidebars when clicking the burger menu (NEW FEATURE)
   const handleSidebarToggle = () => {
     toggleSidebar();
-    setShowSubmenu(false); // ✅ Close submenu when collapsing sidebar
-    setShowThirdMenu(false); // ✅ Close third sidebar when collapsing
-    setActiveItem(null); // ✅ Remove highlight effect
+    setShowSubmenu(false); //  Close submenu when collapsing sidebar
+    setShowThirdMenu(false); // Close third sidebar when collapsing
+    setActiveItem(null); //  Remove highlight effect
   };
 
   // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance'
@@ -108,7 +108,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   return (
     <div className="flex flex-col">
-      {/* Menu button container (Restored Sidebar Collapse Behavior) */}
+      {/* Menu button container (Restored Sidebar Collapse Behavior so no damn complaints) */}
       <div
         className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
@@ -144,7 +144,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           </nav>
         </div>
 
-        {/* Restored Footer (BIS Logo & Text) */}
+        {/* Restored Footer (BIS Logo & Text) juts like it was */}
         <div className={`flex items-center p-3 ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
           <Image src="/bis.png" alt="BIS" width={100} height={100} />
           <div className={`ml-2 ${isOpen ? "opacity-100" : "opacity-0 w-0"}`}>
