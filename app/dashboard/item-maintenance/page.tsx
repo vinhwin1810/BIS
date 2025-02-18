@@ -119,6 +119,7 @@ export default function ItemMaintenance() {
                 label="Bill of Lading Code"
                 value={formData.billOfLadingCode}
                 onChange={handleChange("billOfLadingCode")}
+                isFirst={true}
               />
               <FormField
                 label="Season"
@@ -142,6 +143,7 @@ export default function ItemMaintenance() {
                 label="Min Supplier QTY"
                 value={formData.minSupplierQty}
                 onChange={handleChange("minSupplierQty")}
+                isFirst={true}
               />
               <FormField
                 label="Pallet Count"
@@ -161,6 +163,7 @@ export default function ItemMaintenance() {
                 label="Cub FT"
                 value={formData.cubeFt}
                 onChange={handleChange("cubeFt")}
+                isFirst={true}
               />
               <FormField
                 label="Length"
