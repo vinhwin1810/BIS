@@ -13,7 +13,7 @@ export default function SearchBar() {
     <div className = "flex flex-col">
       <div className="flex items-start w-1/2">
         {/* Input Container with Search Icon */}
-        <div className="flex flex-col flex-grow border border-[#A4A4A4] rounded-2xl py-2">
+        <div className="flex flex-col flex-grow border border-[#A4A4A4] rounded-2xl py-2 max-w-[500px] max-h-[300px]">
           <div className="flex items-center px-4">
           <Search className="h-5 w-5 text-gray-500" />
           <input
@@ -44,16 +44,36 @@ function SearchSuggestions({ searched }) {
         item.label.toLowerCase().includes(searched.toLowerCase())
       );
     }
-  
-    return searched && possibleResults.length > 0 ? (
-      <div className="flex flex-col">
+
+    if (searched && possibleResults.length > 0){
+      return (
+        <div className="flex flex-col max-w-[500px] max-h-[200px] overflow-y-auto">
         <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
         {possibleResults.map((item, index) => (
           <OneSuggestion key={index} searchResult={item.label} searched={searched} />
         ))}
       </div>
-    ) : null;
-  
+      )
+    }
+    else if (searched && searched.length < 14 && possibleResults.length <= 0){
+      return(
+        <div className="flex flex-col max-w-[500px] max-h-[200px] overflow-y-auto">
+        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+          <OneSuggestion searchResult={"Sorry, we couldn't find any matches for " + searched} searched={searched} />
+        </div>
+      )
+    }
+    else if (searched && searched.length >= 14 && possibleResults.length <= 0){
+      return(
+        <div className="flex flex-col max-w-[500px] max-h-[200px] overflow-y-auto">
+        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+          <OneSuggestion searchResult={"Sorry, we couldn't find any matches for " + searched.slice(0,14) + "..."} searched={searched.slice(0,14)} />
+        </div>
+      )
+    }
+    else{
+      return null;
+    }
 }
 
 function OneSuggestion({ searchResult, searched }) {
@@ -83,7 +103,7 @@ function OneSuggestion({ searchResult, searched }) {
 
 
 function StarButton({ isFilled }){
-  if (isFilled){
+  if (!isFilled){
     return (
       <Star className="h-5 w-5"
       />
