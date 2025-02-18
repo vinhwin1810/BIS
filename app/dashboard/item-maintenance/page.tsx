@@ -58,13 +58,18 @@ export default function ItemMaintenance() {
         <User />
       </div>
 
-      <div className="px-6">
+      <div className="flex justify-between mb-1 px-8">
+        <div className="text-gray-300">Header</div>
+        <div className="text-gray-300 w-64">Header</div>
+      </div>
+
+      <div className="boxes px-8">
         <div className="flex gap-6">
           {/* Left side - Two main boxes */}
-          <div className="flex-1 flex flex-col gap-6">
+          <div className="flex-1 flex flex-col gap-1">
             {/* First main box */}
-            <MaintenanceSection title="Header">
-              <div className="col-span-2">
+            <MaintenanceSection>
+              <div className="col-span-2 flex flex-col gap-x-6">
                 <FormField
                   label="Inv Code"
                   value={formData.invCode}
@@ -121,9 +126,10 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
 
+            <div className="text-gray-300 mt-4">Header</div> 
             {/* Second main box */}
-            <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-3 gap-6">
+            <MaintenanceSection>
+              <div className=" col-span-3 grid grid-cols-3 gap-x-10">
                 <FormField
                   label="Bill of Lading Code"
                   value={formData.billOfLadingCode}
@@ -139,16 +145,80 @@ export default function ItemMaintenance() {
                   value={formData.glCode}
                   onChange={handleChange("glCode")}
                 />
+
+                <FormField
+                  label="Molder Labor Cost"
+                  value={formData.billOfLadingCode}
+                  onChange={handleChange("molderLaborCost")}
+                />
+                <FormField
+                  label="Promo Code"
+                  value={formData.season}
+                  onChange={handleChange("promoCode")}
+                />
+                <FormField
+                  label="Bulk"
+                  value={formData.glCode}
+                  onChange={handleChange("bulk")}
+                />
+
+                <FormField
+                  label="Item State Exclusion Code"
+                  value={formData.billOfLadingCode}
+                  onChange={handleChange("itemStateExclusionCode")}
+                />
+                <FormField
+                  label="SA Code"
+                  value={formData.season}
+                  onChange={handleChange("saCode")}
+                />
+                <FormField
+                  label="Max %"
+                  value={formData.glCode}
+                  onChange={handleChange("max%")}
+                />
+
+                <FormField
+                  label="Production Overage %"
+                  value={formData.billOfLadingCode}
+                  onChange={handleChange("productionOverage%")}
+                />
+                <FormField
+                  label="Recycle Fee %"
+                  value={formData.season}
+                  onChange={handleChange("recycleFee%")}
+                />
+                <FormField
+                  label="ROP %"
+                  value={formData.glCode}
+                  onChange={handleChange("rop%")}
+                />
+
+                <FormField
+                  label="Tariff Code"
+                  value={formData.billOfLadingCode}
+                  onChange={handleChange("tariffCode")}
+                />
+                <FormField
+                  label="VOC"
+                  value={formData.season}
+                  onChange={handleChange("voc")}
+                />
+                <FormField
+                  label="AT Code"
+                  value={formData.glCode}
+                  onChange={handleChange("atCode")}
+                />                
                 {/* ... other fields in the second box */}
               </div>
             </MaintenanceSection>
           </div>
 
           {/* Right side - Two smaller boxes */}
-          <div className="w-80 flex flex-col gap-6">
+          <div className="w-80 flex flex-col gap-x-6">
             {/* First small box */}
-            <MaintenanceSection title="Header">
-              <div className="col-span-3 flex flex-col gap-4">
+            <MaintenanceSection>
+              <div className="col-span-3 flex flex-col gap">
                 <FormField
                   label="Min Supplier QTY"
                   value={formData.minSupplierQty}
@@ -167,9 +237,10 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
 
+            <div className="text-gray-300 w-64 mt-4">Header</div>
             {/* Second small box */}
-            <MaintenanceSection title="Header">
-              <div className="col-span-3 flex flex-col gap-4">
+            <MaintenanceSection>
+              <div className="col-span-3 flex flex-col gap-y-3">
                 <FormField
                   label="Cub FT"
                   value={formData.cubeFt}
