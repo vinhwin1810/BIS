@@ -64,53 +64,53 @@ export default function ItemMaintenance() {
           <div className="flex-1 flex flex-col gap-6">
             {/* First main box */}
             <MaintenanceSection title="Header">
-                <FormField
-                  label="Inv Code"
-                  value={formData.invCode}
-                  onChange={handleChange("invCode")}
-                  isFirst={true}
-                />
-                <FormField
-                  label="Inv Class"
-                  type="select"
-                  options={["Class A", "Class B", "Class C"]}
-                  value={formData.invClass}
-                  onChange={handleChange("invClass")}
-                />
-                <FormField
-                  label="List Price"
-                  value={formData.listPrice}
-                  onChange={handleChange("listPrice")}
-                />
-                <FormField
-                  label="UOM"
-                  value={formData.uom}
-                  onChange={handleChange("uom")}
-                />
-                <FormField
-                  label="Taxable"
-                  type="checkbox"
-                  value={formData.taxable}
-                  onChange={handleChange("taxable")}
-                />
-                <FormField
-                  label="Active"
-                  type="checkbox"
-                  value={formData.active}
-                  onChange={handleChange("active")}
-                />
-                <FormField
-                  label="Description"
-                  type="long text"
-                  value={formData.description}
-                  onChange={handleChange("description")}
-                />
-                <FormField
-                  label="Description (International)"
-                  type="long text"
-                  value={formData.descriptionInt}
-                  onChange={handleChange("descriptionInt")}
-                />
+              <FormField
+                label="Inv Code"
+                value={formData.invCode}
+                onChange={handleChange("invCode")}
+                isFirst={true}
+              />
+              <FormField
+                label="Inv Class"
+                type="select"
+                options={["Class A", "Class B", "Class C"]}
+                value={formData.invClass}
+                onChange={handleChange("invClass")}
+              />
+              <FormField
+                label="List Price"
+                value={formData.listPrice}
+                onChange={handleChange("listPrice")}
+              />
+              <FormField
+                label="UOM"
+                value={formData.uom}
+                onChange={handleChange("uom")}
+              />
+              <FormField
+                label="Taxable"
+                type="checkbox"
+                value={formData.taxable}
+                onChange={handleChange("taxable")}
+              />
+              <FormField
+                label="Active"
+                type="checkbox"
+                value={formData.active}
+                onChange={handleChange("active")}
+              />
+              <FormField
+                label="Description"
+                type="long text"
+                value={formData.description}
+                onChange={handleChange("description")}
+              />
+              <FormField
+                label="Description (International)"
+                type="long text"
+                value={formData.descriptionInt}
+                onChange={handleChange("descriptionInt")}
+              />
             </MaintenanceSection>
 
             {/* Second main box */}
@@ -231,4 +231,3 @@ export default function ItemMaintenance() {
     </div>
   );
 }
-
