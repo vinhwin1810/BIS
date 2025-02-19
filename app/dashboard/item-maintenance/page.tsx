@@ -52,10 +52,16 @@ export default function ItemMaintenance() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="p-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <SearchBar />
-        <User />
+    <div>
+      
+      {/* searchbar and user */}
+      <div className="flex justify-between p-4">
+        <div className="flex-grow">
+          <SearchBar />
+        </div>
+        <div>
+          <User />
+        </div>
       </div>
 
       <div className="px-6">
