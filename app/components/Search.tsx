@@ -19,7 +19,7 @@ export default function SearchBar() {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow px-2 py-1 outline-none"
+              className="flex px-2 py-1 bg-transparent outline-none"
             />
           </div>
           <SearchSuggestions searched={searchQuery} />

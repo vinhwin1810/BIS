@@ -124,7 +124,9 @@ export default function ItemMaintenance() {
                   className="mt-4 h-32"
                 />
               </div>
-            <MaintenanceSection title="Header">
+            </MaintenanceSection>
+            
+            <MaintenanceSection>
               <FormField
                 label="Inv Code"
                 value={formData.invCode}
@@ -259,7 +261,8 @@ export default function ItemMaintenance() {
                 />                
                 {/* ... other fields in the second box */}
               </div>
-            <MaintenanceSection title="Header">
+            </MaintenanceSection>
+            <MaintenanceSection>
               <FormField
                 label="Bill of Lading Code"
                 value={formData.billOfLadingCode}
@@ -301,7 +304,8 @@ export default function ItemMaintenance() {
                   onChange={handleChange("palletRows")}
                 />
               </div>
-            <MaintenanceSection title="Header">
+            </MaintenanceSection>
+            <MaintenanceSection>
               <FormField
                 label="Min Supplier QTY"
                 value={formData.minSupplierQty}
@@ -323,7 +327,7 @@ export default function ItemMaintenance() {
             <div className="text-gray-300 mt-4">Header</div>
             {/* Second small box */}
             <MaintenanceSection>
-              <div className="col-span-3 flex flex-col">
+               <div className="col-span-3 flex flex-col">
                 <FormField
                   label="Cub FT"
                   value={formData.cubeFt}
@@ -380,63 +384,6 @@ export default function ItemMaintenance() {
                   onChange={handleChange("leadTimeWeeks")}
                 />
               </div>
-            <MaintenanceSection title="Header">
-              <FormField
-                label="Cub FT"
-                value={formData.cubeFt}
-                onChange={handleChange("cubeFt")}
-                isFirst={true}
-              />
-              <FormField
-                label="Length"
-                value={formData.length}
-                onChange={handleChange("length")}
-              />
-              <FormField
-                label="Width"
-                value={formData.width}
-                onChange={handleChange("width")}
-              />
-              <FormField
-                label="Height"
-                value={formData.height}
-                onChange={handleChange("height")}
-              />
-              <FormField
-                label="Weight"
-                value={formData.weight}
-                onChange={handleChange("weight")}
-              />
-              <FormField
-                label="Net Weight"
-                value={formData.netWeight}
-                onChange={handleChange("netWeight")}
-              />
-              <FormField
-                label="Cust Stock Code"
-                value={formData.custStockCode}
-                onChange={handleChange("custStockCode")}
-              />
-              <FormField
-                label="Vendor Code"
-                value={formData.vendorCode}
-                onChange={handleChange("vendorCode")}
-              />
-              <FormField
-                label="Pack QTY"
-                value={formData.packQty}
-                onChange={handleChange("packQty")}
-              />
-              <FormField
-                label="Purchase UOM"
-                value={formData.purchaseUom}
-                onChange={handleChange("purchaseUom")}
-              />
-              <FormField
-                label="Lead Time (wks)"
-                value={formData.leadTimeWeeks}
-                onChange={handleChange("leadTimeWeeks")}
-              />
             </MaintenanceSection>
           </div>
         </div>

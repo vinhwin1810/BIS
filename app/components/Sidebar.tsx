@@ -28,9 +28,9 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         <div className="flex flex-col">
           <div className="h-7" />
           <nav>
-            {menuItems.map((item) => (
+            {menuData.map((item) => (
               <React.Fragment key={item.label}>
-                <Link
+                <div
                   key={item.label}
                   href={item.href}
                   className={`flex items-center gap-3 px-5 py-3 transition-colors
@@ -44,7 +44,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                   >
                     {item.title}
                   </span>
-                </button>
+                </div>
                 {["All Favorites", "Customer Service"].includes(item.title) && (
                   <hr className="border-white-600 mx-4 my-2" />
                 )}
