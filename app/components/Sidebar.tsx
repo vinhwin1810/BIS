@@ -1,37 +1,144 @@
 "use client";
-import React from "react";
-import { Menu } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Poppins } from "next/font/google";
+import { usePathname } from "next/navigation";
+import { Menu, Star, RefreshCcw, List, ShoppingCart, DollarSign, FileText, Factory, BarChart2, Users, Shield } from "lucide-react";
 import Image from "next/image";
-import { menuData } from "./constants/constant";
+import Link from "next/link";
+
+const poppins = Poppins({ 
+  subsets: ["latin"], 
+  weight: ["400", "600", "700"], 
+  display: "swap" 
+});
+
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
 }
 
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+  const pathname = usePathname();
+
+  // The states to control the clicks for the submenu bars thingys 
+  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
+  const [showThirdMenu, setShowThirdMenu] = useState<boolean>(false);
+
+  // Main Sidebar Items ( THEY ARE LIKE THE ONES IN THE new_dev branch so no complaints )
+  const menuItems = [
+    { icon: <Star size={20} />, label: "All Favorites", href: "/dashboard" },
+    { icon: <ShoppingCart size={20} />, label: "Order Processing", href: "/dashboard" },
+    { icon: <List size={20} />, label: "Inventory Management", href: "#" },
+    { icon: <FileText size={20} />, label: "Purchasing/Receiving", href: "/dashboard" },
+    { icon: <DollarSign size={20} />, label: "Accounts Receivable", href: "/dashboard" },
+    { icon: <Users size={20} />, label: "Accounts Payable", href: "/dashboard" },
+    { icon: <Factory size={20} />, label: "Manufacturing", href: "/dashboard" },
+    { icon: <BarChart2 size={20} />, label: "Sales Analysis", href: "/dashboard" },
+    { icon: <Shield size={20} />, label: "Customer Service", href: "/dashboard" },
+    { icon: <Star size={20} />, label: "Admin Maintenance", href: "/dashboard" },
+    { icon: <RefreshCcw size={20} />, label: "Security", href: "/dashboard" },
+  ];
+
+  // First Submenu Items (Appears when clicking Inventory Management)
+  const submenuItems = [
+    { label: "Maintenance", href: "#" },
+    { label: "Physical Inventory", href: "#" },
+    { label: "Transaction Processing", href: "#" },
+    { label: "Reports", href: "#" },
+  ];
+
+  // Third Sidebar Items (Appears when clicking Maintenance)
+  const thirdMenuItems = [  
+    { label: "Item Maintenance", href: "/dashboard/item-maintenance/page.tsx" },
+    { label: "Reason Codes", href: "#" },
+    { label: "Transaction Types", href: "#" },
+    { label: "Warehouses", href: "#" },
+    { label: "Item Images", href: "#" },
+    { label: "Department Code Maintenance", href: "#" },
+    { label: "Inventory Price/Vendor Cost Loading", href: "#" },
+    { label: "Classes", href: "#" },
+    { label: "UOM Maintenance", href: "#" },
+    { label: "Cross References", href: "#" },
+    { label: "Unit References", href: "#" },
+    { label: "Unit Conversion Factors", href: "#" },
+    { label: "Item Images Query", href: "#" },
+    { label: "Pricing Level Maintenance", href: "#" },
+  ];
+
+  // Function to handle main sidebar item clicks
+  const handleItemClick = (label: string) => {
+    if (label === "Inventory Management") {
+      setShowSubmenu(!showSubmenu);
+      setShowThirdMenu(false);
+    } else {
+      setShowSubmenu(false);
+      setShowThirdMenu(false);
+    }
+    setActiveItem((prev) => (prev === label ? null : label));
+  };
+
+  // Function to handle submenu clicks 
+  const handleSubmenuClick = (label: string) => {
+    setActiveItem((prev) => (prev === label ? null : label));
+    if (label === "Maintenance") { 
+      setShowThirdMenu(!showThirdMenu);
+    }
+  };
+
+  // Function to handle third sidebar clicks and it appears after clicking Maintenance 
+  const handleThirdMenuClick = (label: string, href?: string) => {
+    setActiveItem((prev) => (prev === label ? null : label));
+    if (href && href !== "#") {
+      setShowSubmenu(false);
+      setShowThirdMenu(false);
+      toggleSidebar(); // Collapse sidebar when clicking "Item Maintenance"
+    }
+  };
+
+  // Function to collapse all sidebars when clicking the burger menu (NEW FEATURE)
+  const handleSidebarToggle = () => {
+    toggleSidebar();
+    setShowSubmenu(false); //  Close submenu when collapsing sidebar
+    setShowThirdMenu(false); // Close third sidebar when collapsing
+    setActiveItem(null); //  Remove highlight effect
+  };
+
+  // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance' as it will be a full page of the Item List
+  useEffect(() => {
+    if (pathname === "/dashboard/item-maintenance/page.tsx") {
+      setShowSubmenu(false);
+      setShowThirdMenu(false);
+      toggleSidebar();
+    }
+  }, [pathname]);
+
   return (
-    <aside className="fixed">
+    <aside className={`fixed ${poppins.className} `}>
       {/* Menu button container */}
       <div
-        className={`p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+        className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
-        <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
+        <Menu onClick={handleSidebarToggle} size={24} className="cursor-pointer" />
       </div>
-
+  
       {/* Sidebar content */}
       <div
         className={`${
           isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white min-h-screen overflow-hidden`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
       >
         <div className="flex flex-col">
           <div className="h-7" />
           <nav>
-            {menuData.map((item) => (
-              <React.Fragment key={item.title}>
+            {menuItems.map((item) => (
+              <React.Fragment key={item.label}>
                 <button
-                  className={`flex items-center gap-3 px-5 py-3 transition-colors`}
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
+                    activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851]"
+                  }`}
+                  onClick={() => handleItemClick(item.label)}
                 >
                   <div>{item.icon}</div>
                   <span
@@ -39,19 +146,20 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                       isOpen ? "opacity-100" : "opacity-0 w-0"
                     } transition-all duration-500`}
                   >
-                    {item.title}
+                    {item.label}
                   </span>
                 </button>
-                {["All Favorites", "Customer Service"].includes(item.title) && (
+                {["All Favorites", "Customer Service"].includes(item.label) && (
                   <hr className="border-white-600 mx-4 my-2" />
                 )}
               </React.Fragment>
             ))}
           </nav>
         </div>
-
+  
+        {/* Sidebar Footer */}
         <div
-          className={`flex items-center ${
+          className={`flex items-center -mb-4 pb-0 ${
             isOpen ? "opacity-100" : "opacity-0"
           } transition-all duration-500`}
         >
@@ -64,6 +172,29 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           </div>
         </div>
       </div>
+  
+      {/* Submenu Sidebar Now Inside the Return Block */}
+      {showSubmenu && (
+        <div className="absolute left-64 top-[200px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
+          {submenuItems.map((submenu) => (
+            <button key={submenu.label} className={`text-left p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
+              {submenu.label}
+            </button>
+          ))}
+        </div>
+      )}
+  
+      {/* Third Sidebar Also Moved Inside the Return Block */}
+      {showThirdMenu && (
+        <div className="absolute left-[490px] top-[200px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col ">
+          <div className="relative flex flex-col space-y-2 flex items-stretch overflow-y-auto max-h-[300px] rounded-3xl">
+            {thirdMenuItems.map((item) => (
+              <button key={item.label} className={`text-left p-3 rounded-3xl transition-colors ${activeItem === item.label ? " bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </aside>
-  );
-}
+  )};  
