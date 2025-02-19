@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Third Sidebar Items (Appears when clicking Maintenance)
   const thirdMenuItems = [  
-    { label: "Item Maintenance", href: "/dashboard/item-maintenance" },
+    { label: "Item Maintenance", href: "/dashboard/item-maintenance/page.tsx" },
     { label: "Reason Codes", href: "#" },
     { label: "Transaction Types", href: "#" },
     { label: "Warehouses", href: "#" },
@@ -99,7 +99,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance' as it will be a full page of the Item List
   useEffect(() => {
-    if (pathname === "/dashboard/item-maintenance") {
+    if (pathname === "/dashboard/item-maintenance/page.tsx") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
       toggleSidebar();
@@ -107,7 +107,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   }, [pathname]);
 
   return (
-    <div className="flex flex-col">
+    <div className=" flex flex-col">
       {/* Menu button container (With the original sidebar collapse effect thing) */}
       <div
         className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
