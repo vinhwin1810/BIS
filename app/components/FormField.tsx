@@ -44,7 +44,7 @@ export default function FormField({
       )}
       {type === "select" ? (
         <Select value={value} onValueChange={onChange} disabled={disabled}>
-          <SelectTrigger className="">
+          <SelectTrigger className="text-gray-500">
             <SelectValue placeholder="Inv Class"/>
           </SelectTrigger>
           <SelectContent>
