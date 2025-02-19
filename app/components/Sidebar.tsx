@@ -21,16 +21,16 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   // Main Sidebar Items ( THEY ARE LIKE THE ONES IN THE new_dev branch so no complaints )
   const menuItems = [
     { icon: <Star size={20} />, label: "All Favorites", href: "/dashboard" },
-    { icon: <RefreshCcw size={20} />, label: "Order Processing", href: "/dashboard" },
+    { icon: <ShoppingCart size={20} />, label: "Order Processing", href: "/dashboard" },
     { icon: <List size={20} />, label: "Inventory Management", href: "#" },
-    { icon: <ShoppingCart size={20} />, label: "Purchasing/Receiving", href: "/dashboard" },
+    { icon: <FileText size={20} />, label: "Purchasing/Receiving", href: "/dashboard" },
     { icon: <DollarSign size={20} />, label: "Accounts Receivable", href: "/dashboard" },
-    { icon: <FileText size={20} />, label: "Accounts Payable", href: "/dashboard" },
+    { icon: <Users size={20} />, label: "Accounts Payable", href: "/dashboard" },
     { icon: <Factory size={20} />, label: "Manufacturing", href: "/dashboard" },
     { icon: <BarChart2 size={20} />, label: "Sales Analysis", href: "/dashboard" },
-    { icon: <Users size={20} />, label: "Customer Service", href: "/dashboard" },
-    { icon: <Users size={20} />, label: "Admin Maintenance", href: "/dashboard" },
-    { icon: <Shield size={20} />, label: "Security", href: "/dashboard" },
+    { icon: <Shield size={20} />, label: "Customer Service", href: "/dashboard" },
+    { icon: <Star size={20} />, label: "Admin Maintenance", href: "/dashboard" },
+    { icon: <RefreshCcw size={20} />, label: "Security", href: "/dashboard" },
   ];
 
   // First Submenu Items (Appears when clicking Inventory Management)
