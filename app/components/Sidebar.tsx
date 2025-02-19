@@ -13,7 +13,7 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   const pathname = usePathname();
 
-  // The state management to control the clicks for the submenu bars ( THE GEM )
+  // The states to control the clicks for the submenu bars thingys 
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
   const [showThirdMenu, setShowThirdMenu] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   ];
 
   // Third Sidebar Items (Appears when clicking Maintenance)
-  const thirdMenuItems = [
+  const thirdMenuItems = [  
     { label: "Item Maintenance", href: "/dashboard/item-maintenance" },
     { label: "Reason Codes", href: "#" },
     { label: "Transaction Types", href: "#" },
@@ -71,7 +71,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     setActiveItem((prev) => (prev === label ? null : label));
   };
 
-  // Function to handle submenu clicks (White sidebar under Inventory Management)
+  // Function to handle submenu clicks 
   const handleSubmenuClick = (label: string) => {
     setActiveItem((prev) => (prev === label ? null : label));
     if (label === "Maintenance") { 
@@ -79,7 +79,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     }
   };
 
-  // Function to handle third sidebar clicks (White sidebar under Maintenance)
+  // Function to handle third sidebar clicks and it appears after clicking Maintenance 
   const handleThirdMenuClick = (label: string, href?: string) => {
     setActiveItem((prev) => (prev === label ? null : label));
     if (href && href !== "#") {
@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     setActiveItem(null); //  Remove highlight effect
   };
 
-  // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance'
+  // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance' as it will be a full page of the Item List
   useEffect(() => {
     if (pathname === "/dashboard/item-maintenance") {
       setShowSubmenu(false);
@@ -108,7 +108,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   return (
     <div className="flex flex-col">
-      {/* Menu button container (Restored Sidebar Collapse Behavior so no damn complaints) */}
+      {/* Menu button container (With the original sidebar collapse effect thing) */}
       <div
         className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
@@ -128,7 +128,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             {menuItems.map((item) => (
               <React.Fragment key={item.label}>
                 <button
-                  className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-lg ${
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
                     activeItem === item.label ? "bg-teal-400 text-white" : "hover:bg-gray-700"
                   }`}
                   onClick={() => handleItemClick(item.label)}
@@ -144,7 +144,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           </nav>
         </div>
 
-        {/* Restored Footer (BIS Logo & Text) juts like it was */}
+        {/* Restored Footer (BIS logo & Text) juts like it was */}
         <div className={`flex items-center p-3 ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
           <Image src="/bis.png" alt="BIS" width={100} height={100} />
           <div className={`ml-2 ${isOpen ? "opacity-100" : "opacity-0 w-0"}`}>
@@ -156,21 +156,21 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
       {/* New Submenu Sidebar */}
       {showSubmenu && (
-        <div className="absolute left-64 top-[160px] bg-white shadow-lg rounded-xl p-3 w-48 flex flex-col">
+        <div className="absolute left-64 top-[160px] bg-white shadow-lg rounded-3xl p-3 w-48 flex flex-col">
           {submenuItems.map((submenu) => (
-            <button key={submenu.label} className={`p-3 rounded-lg transition-colors ${activeItem === submenu.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
+            <button key={submenu.label} className={`p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
               {submenu.label}
             </button>
           ))}
         </div>
       )}
 
-      {/* Third Sidebar (Now with Scrollable Greyish Rectangle) */}
+      {/* Third Sidebar (with scrollable greyish rectangle) */}
       {showThirdMenu && (
-        <div className="absolute left-[450px] top-[160px] bg-white shadow-lg rounded-xl p-3 w-60 flex flex-col ">
-          <div className="relative flex flex-col space-y-2 flex items-stretch overflow-y-auto max-h-[300px]">
+        <div className="absolute left-[450px] top-[160px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col ">
+          <div className="relative flex flex-col space-y-2 flex items-stretch overflow-y-auto max-h-[300px] rounded-3xl">
             {thirdMenuItems.map((item) => (
-              <button key={item.label} className={`p-3 rounded-lg transition-colors ${activeItem === item.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
+              <button key={item.label} className={`p-3 rounded-lg transition-colors ${activeItem === item.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
                 {item.label}
               </button>
             ))}
