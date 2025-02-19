@@ -1,3 +1,15 @@
+import * as React from "react"
+ 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 interface FormFieldProps {
   label: string;
   value?: string;
@@ -7,6 +19,7 @@ interface FormFieldProps {
   disabled?: boolean;
   className?: string;
   isFirst?: boolean;
+  
 }
 
 export default function FormField({
@@ -24,20 +37,24 @@ export default function FormField({
                     ${["text", "select", "number"].includes(type) ? 'border-b border-gray-300' : ''} 
                     ${!isFirst ? "mt-4" : ""}
                     ${className}`}>
-      <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
+      {type !== "select" && (
+      <label className={`${type === "checkbox" ? "w-24" : ""} text-sm text-gray-500`}>
+        {label}
+      </label>
+      )}
       {type === "select" ? (
-        <select
-          className="text-gray-400"
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
-          disabled={disabled}
-        >
-          {options?.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+        <Select value={value} onValueChange={onChange} disabled={disabled}>
+          <SelectTrigger className="text-gray-500">
+            <SelectValue placeholder="Inv Class"/>
+          </SelectTrigger>
+          <SelectContent className="text-gray-500">
+            {options?.map((opt) => (
+              <SelectItem key={opt} value={opt}>
+                {opt}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       ) : type === "checkbox" ? (
         <input
           type="checkbox"
