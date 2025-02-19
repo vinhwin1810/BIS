@@ -29,10 +29,10 @@ export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   return (
-    <div className="flex flex-col w-full min-w-[500px]">
+    <div className="flex-col">
       <div className="flex items-start w-1/2">
         {/* Input Container with Search Icon */}
-        <div className="flex flex-col flex-grow border border-[#A4A4A4] rounded-2xl py-2">
+        <div className="relative flex flex-col flex-grow border border-[#A4A4A4] rounded-3xl py-2">
           <div className="flex items-center px-4">
             <Search className="h-5 w-5 text-gray-500" />
             <input
@@ -69,8 +69,8 @@ function SearchSuggestions({ searched }: SearchSuggestionsProps) {
 
   if (searched && possibleResults.length > 0) {
     return (
-      <div className="flex flex-col max-h-[200px] overflow-y-auto">
-        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+      
+      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
         {possibleResults.map((item, index) => (
           <OneSuggestion key={index} searchResult={item.label} searched={searched} />
         ))}
@@ -78,8 +78,7 @@ function SearchSuggestions({ searched }: SearchSuggestionsProps) {
     );
   } else if (searched && searched.length < 14 && possibleResults.length <= 0) {
     return (
-      <div className="flex flex-col">
-        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
         <OneSuggestion
           searchResult={"Sorry, we couldn't find any matches for " + searched}
           searched={searched}
@@ -88,8 +87,7 @@ function SearchSuggestions({ searched }: SearchSuggestionsProps) {
     );
   } else if (searched && searched.length >= 14 && possibleResults.length <= 0) {
     return (
-      <div className="flex flex-col">
-        <hr className="border-t border-gray-400 w-auto mx-4 my-2" />
+      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
         <OneSuggestion
           searchResult={"Sorry, we couldn't find any matches for " + searched.slice(0, 14) + "..."}
           searched={searched.slice(0, 14)}
@@ -108,7 +106,7 @@ function OneSuggestion({ searchResult, searched }: OneSuggestionProps) {
 
   return (
     <button className="bg-white hover:bg-gray-200 py-2 rounded-md transition-colors duration-300 text-left w-full">
-      <div className="flex items-center px-4">
+      <div className="flex items-start px-4">
         <Search className="h-5 w-5 text-gray-500 mr-2" />
         <span>
           {parts.map((part, index) =>
@@ -164,4 +162,3 @@ const itemList: Item[] = [
   { label: "Item Images Query" },
   { label: "Pricing Level Maintenance" },
 ];
-
