@@ -60,7 +60,7 @@ export default function ItemMaintenance() {
 
       <div className="flex justify-between mb-1 px-8">
         <div className="text-gray-300">Header</div>
-        <div className="text-gray-300 w-64">Header</div>
+        <div className="text-gray-300 w-80">Header</div>
       </div>
 
       <div className="boxes px-8">
@@ -215,10 +215,10 @@ export default function ItemMaintenance() {
           </div>
 
           {/* Right side - Two smaller boxes */}
-          <div className="w-80 flex flex-col gap-x-6">
+          <div className="w-80 flex flex-col">
             {/* First small box */}
             <MaintenanceSection>
-              <div className="col-span-3 flex flex-col gap">
+              <div className="col-span-3 flex flex-col">
                 <FormField
                   label="Min Supplier QTY"
                   value={formData.minSupplierQty}
@@ -237,10 +237,10 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
 
-            <div className="text-gray-300 w-64 mt-4">Header</div>
+            <div className="text-gray-300 mt-4">Header</div>
             {/* Second small box */}
             <MaintenanceSection>
-              <div className="col-span-3 flex flex-col gap-y-3">
+              <div className="col-span-3 flex flex-col">
                 <FormField
                   label="Cub FT"
                   value={formData.cubeFt}
