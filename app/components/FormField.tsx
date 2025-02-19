@@ -47,7 +47,7 @@ export default function FormField({
           <SelectTrigger className="text-gray-500">
             <SelectValue placeholder="Inv Class"/>
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="text-gray-500">
             {options?.map((opt) => (
               <SelectItem key={opt} value={opt}>
                 {opt}
