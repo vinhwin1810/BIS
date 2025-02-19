@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Third Sidebar Items (Appears when clicking Maintenance)
   const thirdMenuItems = [  
-    { label: "Item Maintenance", href: "/dashboard/item-maintenance/page.tsx" },
+    { label: "Item Maintenance", href: "/dashboard/item-maintenance" },
     { label: "Reason Codes", href: "#" },
     { label: "Transaction Types", href: "#" },
     { label: "Warehouses", href: "#" },
@@ -99,7 +99,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance' as it will be a full page of the Item List
   useEffect(() => {
-    if (pathname === "/dashboard/item-maintenance/page.tsx") {
+    if (pathname === "/dashboard/item-maintenance") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
       toggleSidebar();
@@ -107,10 +107,10 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   }, [pathname]);
 
   return (
-    <div className=" flex flex-col">
+    <div className="flex flex-col">
       {/* Menu button container (With the original sidebar collapse effect thing) */}
       <div
-        className={`p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+        className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
         <Menu onClick={handleSidebarToggle} size={24} className="cursor-pointer" />
@@ -118,9 +118,10 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
       {/* Sidebar content */}
       <div
+        style={{ top: "46px" }}
         className={`${
           isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white min-h-screen overflow-hidden`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white min-h-screen flex flex-col overflow-hidden h-full lg:fixed lg:bottom-0 fixed bottom-0 left-0 right-0`}
       >
         <div className="flex-1">
           <nav>
