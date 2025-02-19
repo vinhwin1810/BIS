@@ -136,7 +136,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
               <React.Fragment key={item.label}>
                 <button
                   className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
-                    activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-700"
+                    activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851]"
                   }`}
                   onClick={() => handleItemClick(item.label)}
                 >
@@ -175,9 +175,9 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   
       {/* Submenu Sidebar Now Inside the Return Block */}
       {showSubmenu && (
-        <div className="absolute left-64 top-[200px] bg-white shadow-lg rounded-3xl p-3 w-48 flex flex-col">
+        <div className="absolute left-64 top-[200px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
           {submenuItems.map((submenu) => (
-            <button key={submenu.label} className={`p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-100 text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
+            <button key={submenu.label} className={`text-left p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
               {submenu.label}
             </button>
           ))}
@@ -186,10 +186,10 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   
       {/* Third Sidebar Also Moved Inside the Return Block */}
       {showThirdMenu && (
-        <div className="absolute left-[450px] top-[200px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col ">
+        <div className="absolute left-[490px] top-[200px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col ">
           <div className="relative flex flex-col space-y-2 flex items-stretch overflow-y-auto max-h-[300px] rounded-3xl">
             {thirdMenuItems.map((item) => (
-              <button key={item.label} className={`p-3 rounded-lg transition-colors ${activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-100 text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
+              <button key={item.label} className={`text-left p-3 rounded-3xl transition-colors ${activeItem === item.label ? " bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
                 {item.label}
               </button>
             ))}
