@@ -7,13 +7,14 @@ import { cn } from "@/lib/utils";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState("");
+  const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
   const filteredItems = itemList.filter((item) => 
     item.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   return (
-    <div className="relative min-w-[320px] max-w-[600px] w-full">
+    <div className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
       <Command className={cn(
         "rounded-lg border",
         inputValue && "rounded-b-none border-b-0"
@@ -41,6 +42,12 @@ export default function SearchBar() {
           </div>
         )}
       </Command>
+      <button
+          className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
+          onClick={() => setIsStarFilled(!isStarFilled)}
+        >
+          <StarButton isFilled={isStarFilled} />
+        </button>
     </div>
   );
 }
