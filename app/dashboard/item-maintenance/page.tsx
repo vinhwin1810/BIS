@@ -52,7 +52,6 @@ export default function ItemMaintenance() {
   };
 
   return (
-    // <div className="min-h-screen bg-gray-50">
     <div>
       
       {/* searchbar and user */}
