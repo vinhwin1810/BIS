@@ -19,7 +19,7 @@ export default function DashboardLayout({
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div
         className={`flex-1 transition-all duration-500 ${
-          isSidebarOpen ? "ml-64" : "ml-16"
+          isSidebarOpen ? "md:ml-64" : "ml-16"
         }`}
       >
         <main>{children}</main>
