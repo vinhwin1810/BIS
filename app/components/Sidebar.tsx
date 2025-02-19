@@ -1,9 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Poppins } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { Menu, Star, RefreshCcw, List, ShoppingCart, DollarSign, FileText, Factory, BarChart2, Users, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+const poppins = Poppins({ 
+  subsets: ["latin"], 
+  weight: ["400", "600", "700"], 
+  display: "swap" 
+});
 
 interface SidebarProps {
   isOpen: boolean;
@@ -43,7 +50,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Third Sidebar Items (Appears when clicking Maintenance)
   const thirdMenuItems = [  
-    { label: "Item Maintenance", href: "/dashboard/item-maintenance" },
+    { label: "Item Maintenance", href: "/dashboard/item-maintenance/page.tsx" },
     { label: "Reason Codes", href: "#" },
     { label: "Transaction Types", href: "#" },
     { label: "Warehouses", href: "#" },
@@ -99,7 +106,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
   // Auto-collapse sidebar when navigating to '/dashboard/item-maintenance' as it will be a full page of the Item List
   useEffect(() => {
-    if (pathname === "/dashboard/item-maintenance") {
+    if (pathname === "/dashboard/item-maintenance/page.tsx") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
       toggleSidebar();
@@ -107,76 +114,87 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   }, [pathname]);
 
   return (
-    <div className="flex flex-col">
-      {/* Menu button container (With the original sidebar collapse effect thing) */}
+    <aside className={`fixed ${poppins.className} `}>
+      {/* Menu button container */}
       <div
-        className={`flex h-12 p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+        className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
         <Menu onClick={handleSidebarToggle} size={24} className="cursor-pointer" />
       </div>
-
+  
       {/* Sidebar content */}
       <div
-        style={{ top: "46px" }}
-        className={`fixed top-0 left-0 h-full bg-[#2d3748] transition-all duration-500 ${
+        className={`${
           isOpen ? "w-64" : "w-16"
-        }`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
       >
-        <div className="flex-1">
+        <div className="flex flex-col">
+          <div className="h-7" />
           <nav>
             {menuItems.map((item) => (
               <React.Fragment key={item.label}>
                 <button
                   className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
-                    activeItem === item.label ? "bg-teal-400 text-white" : "hover:bg-gray-700"
+                    activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-700"
                   }`}
                   onClick={() => handleItemClick(item.label)}
                 >
                   <div>{item.icon}</div>
-                  <span className={`whitespace-nowrap ${isOpen ? "opacity-100" : "opacity-0 w-0"} transition-all duration-500`}>
+                  <span
+                    className={`whitespace-nowrap ${
+                      isOpen ? "opacity-100" : "opacity-0 w-0"
+                    } transition-all duration-500`}
+                  >
                     {item.label}
                   </span>
                 </button>
-                {["All Favorites", "Customer Service"].includes(item.label) && <hr className="border-white-600 mx-4 my-2" />}
+                {["All Favorites", "Customer Service"].includes(item.label) && (
+                  <hr className="border-white-600 mx-4 my-2" />
+                )}
               </React.Fragment>
             ))}
           </nav>
         </div>
-
-        {/* Restored Footer (BIS logo & Text) juts like it was */}
-        <div className={`flex items-center p-3 ${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
+  
+        {/* Sidebar Footer */}
+        <div
+          className={`flex items-center -mb-4 pb-0 ${
+            isOpen ? "opacity-100" : "opacity-0"
+          } transition-all duration-500`}
+        >
           <Image src="/bis.png" alt="BIS" width={100} height={100} />
           <div className={`ml-2 ${isOpen ? "opacity-100" : "opacity-0 w-0"}`}>
             <span className="text-sm">BIS Computer Solutions</span>
-            <span className="text-xs text-gray-400 mt-1 flex">All rights reserved</span>
+            <span className="text-xs text-gray-400 mt-1 flex">
+              All rights reserved
+            </span>
           </div>
         </div>
       </div>
-
-      {/* New Submenu Sidebar */}
+  
+      {/* Submenu Sidebar Now Inside the Return Block */}
       {showSubmenu && (
-        <div className="absolute left-64 top-[160px] bg-white shadow-lg rounded-3xl p-3 w-48 flex flex-col">
+        <div className="absolute left-64 top-[200px] bg-white shadow-lg rounded-3xl p-3 w-48 flex flex-col">
           {submenuItems.map((submenu) => (
-            <button key={submenu.label} className={`p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
+            <button key={submenu.label} className={`p-3 rounded-3xl transition-colors ${activeItem === submenu.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-100 text-black"}`} onClick={() => handleSubmenuClick(submenu.label)}>
               {submenu.label}
             </button>
           ))}
         </div>
       )}
-
-      {/* Third Sidebar (with scrollable greyish rectangle) */}
+  
+      {/* Third Sidebar Also Moved Inside the Return Block */}
       {showThirdMenu && (
-        <div className="absolute left-[450px] top-[160px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col ">
+        <div className="absolute left-[450px] top-[200px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col ">
           <div className="relative flex flex-col space-y-2 flex items-stretch overflow-y-auto max-h-[300px] rounded-3xl">
             {thirdMenuItems.map((item) => (
-              <button key={item.label} className={`p-3 rounded-lg transition-colors ${activeItem === item.label ? "bg-teal-400 text-white" : "hover:bg-gray-100 text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
+              <button key={item.label} className={`p-3 rounded-lg transition-colors ${activeItem === item.label ? "bg-[#FFC851] text-black" : "hover:bg-gray-100 text-black rounded-3xl "}`} onClick={() => handleThirdMenuClick(item.label, item.href)}>
                 {item.label}
               </button>
             ))}
           </div>
         </div>
       )}
-    </div>
-  );
-}
+    </aside>
+  )};  
