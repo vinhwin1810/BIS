@@ -107,7 +107,7 @@ function OneSuggestion({ searchResult, searched }: OneSuggestionProps) {
   return (
     <button className="bg-white hover:bg-gray-200 py-2 rounded-md transition-colors duration-300 text-left w-full">
       <div className="flex items-start px-4">
-        <Search className="h-5 w-5 text-gray-500 mr-2" />
+        <Search className="h-5 w-5 text-gray-500 mr-2 " />
         <span>
           {parts.map((part, index) =>
             part.toLowerCase() === searched.toLowerCase() ? (
