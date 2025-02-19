@@ -13,7 +13,11 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
     <aside className="fixed">
       {/* Menu button container */}
       <div
+<<<<<<< HEAD
         className={`p-5 rounded-tr-xl bg-[#2d3748] text-white transition-all duration-500 ease-in-out
+=======
+        className={`flex h-12 p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
+>>>>>>> Anh_inventory_screen
           ${isOpen ? "w-64" : "w-16"}`}
       >
         <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
@@ -23,15 +27,29 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
       <div
         className={`${
           isOpen ? "w-64" : "w-16"
+<<<<<<< HEAD
         } rounded-br-xl transition-all duration-500 ease-in-out bg-[#2d3748] text-white min-h-screen overflow-hidden`}
+=======
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white h-screen flex flex-col overflow-hidden`}
+>>>>>>> Anh_inventory_screen
       >
         <div className="flex flex-col">
           <div className="h-7" />
           <nav>
+<<<<<<< HEAD
             {menuData.map((item) => (
               <React.Fragment key={item.title}>
                 <button
                   className={`flex items-center gap-3 px-5 py-3 transition-colors`}
+=======
+            {menuItems.map((item) => (
+              <React.Fragment key={item.label}>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors
+                    ${item.active ? "bg-[#FFD942] rounded-lg " : ""}`}
+>>>>>>> Anh_inventory_screen
                 >
                   <div>{item.icon}</div>
                   <span

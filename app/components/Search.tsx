@@ -24,10 +24,20 @@ export default function SearchBar() {
           </div>
           <SearchSuggestions searched={searchQuery} />
         </div>
+    <div className="flex items-center w-1/2">
+      {/* Input Container with Search Icon */}
+      <div className="flex items-center flex-grow border border-[#A4A4A4] rounded-3xl px-5 py-2">
+        <Search className="h-6 w-5 text-gray-500" />
+        <input
+          type="text"
+          placeholder="Search..."
+          className="flex-grow px-4 py-1 outline-none bg-transparent"
+        />
+      </div>
 
         {/* Button Outside Input */}
         <button
-          className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
+          className="ml-3 bg-[#FFD942] rounded-full shadow-md p-3.5"
           onClick={() => setIsStarFilled(!isStarFilled)}
         >
           <StarButton isFilled={isStarFilled} />
