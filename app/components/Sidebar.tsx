@@ -29,7 +29,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   // Handle clicking on the main sidebar items
   const handleItemClick = (menuItem: any) => {
     if (menuItem.submenus) {
-      // ✅ Extract all submenu items (including "Maintenance" and its `items`)
+      // Extract all submenu items (including "Maintenance" and its `items`)
       const expandedSubmenus = menuItem.submenus.flatMap((submenu) => {
         if (submenu.items) {
           return [{ ...submenu }, ...submenu.items.map((item) => ({ title: item }))];
@@ -130,7 +130,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
 
         {/* Sidebar Footer */}
         <div
-          className={`flex items-center -mb-4 pb-0 ${
+          className={`flex items-center  ${
             isOpen ? "opacity-100" : "opacity-0"
           } transition-all duration-500`}
         >
