@@ -24,7 +24,7 @@ interface StarButtonProps {
   isFilled: boolean;
 }
 
-export default function SearchBar(): JSX.Element {
+export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
   const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
@@ -71,7 +71,7 @@ export default function SearchBar(): JSX.Element {
   );
 }
 
-function StarButton({ isFilled }: StarButtonProps): JSX.Element {
+function StarButton({ isFilled }: StarButtonProps) {
   return (
     <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />
   );
