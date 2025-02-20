@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 import { Search, Star } from "lucide-react";
 import { useState } from "react";
-import { 
-  Command, 
-  CommandEmpty, 
-  CommandGroup, 
-  CommandInput, 
-  CommandItem, 
-  CommandList 
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 
@@ -28,19 +28,21 @@ export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
   const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
-  const filteredItems = itemList.filter((item) => 
+  const filteredItems = itemList.filter((item) =>
     item.label.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   return (
     <div className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
-      <Command className={cn(
-        "rounded-lg border",
-        inputValue && "rounded-b-none border-b-0"
-      )}>
-        <CommandInput 
-          placeholder="Search..." 
-          value={inputValue} 
+      <Command
+        className={cn(
+          "rounded-lg border",
+          inputValue && "rounded-b-none border-b-0"
+        )}
+      >
+        <CommandInput
+          placeholder="Search..."
+          value={inputValue}
           onValueChange={setInputValue}
         />
         {inputValue && (
@@ -72,14 +74,16 @@ export default function SearchBar() {
 }
 
 function StarButton({ isFilled }: StarButtonProps) {
-  return (
-    <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />
-  );
+  return <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />;
 }
 
 const itemList: Item[] = [
   { label: "Order Processing", href: "/dashboard" },
-  { label: "Inventory Management", href: "/dashboard/item-maintenance", active: true },
+  {
+    label: "Inventory Management",
+    href: "/dashboard/item-maintenance",
+    active: true,
+  },
   { label: "Purchasing/Receiving", href: "/dashboard" },
   { label: "Accounts Receivable", href: "/dashboard" },
   { label: "Accounts Payable", href: "/dashboard" },
