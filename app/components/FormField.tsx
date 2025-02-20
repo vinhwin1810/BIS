@@ -1,3 +1,13 @@
+import * as React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface FormFieldProps {
   label: string;
   value?: string;
@@ -20,24 +30,44 @@ export default function FormField({
   isFirst = false,
 }: FormFieldProps) {
   return (
-    <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} 
-                    ${["text", "select", "number"].includes(type) ? 'border-b border-gray-300' : ''} 
+    <div
+      className={`flex ${
+        type === "long text"
+          ? "flex-col"
+          : type === "checkbox"
+          ? "items-center mt-2 mb-2"
+          : "items-center justify-between"
+      } 
+                    ${
+                      ["text", "select", "number"].includes(type)
+                        ? "border-b border-gray-300"
+                        : ""
+                    } 
                     ${!isFirst ? "mt-4" : ""}
-                    ${className}`}>
-      <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
-      {type === "select" ? (
-        <select
-          className="text-gray-400"
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
-          disabled={disabled}
+                    ${className}`}
+    >
+      {type !== "select" && (
+        <label
+          className={`${
+            type === "checkbox" ? "w-24" : ""
+          } text-sm text-gray-500`}
         >
-          {options?.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+          {label}
+        </label>
+      )}
+      {type === "select" ? (
+        <Select value={value} onValueChange={onChange} disabled={disabled}>
+          <SelectTrigger className="text-gray-500">
+            <SelectValue placeholder="Inv Class" />
+          </SelectTrigger>
+          <SelectContent className="text-gray-500">
+            {options?.map((opt) => (
+              <SelectItem key={opt} value={opt}>
+                {opt}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       ) : type === "checkbox" ? (
         <input
           type="checkbox"
@@ -46,7 +76,7 @@ export default function FormField({
           onChange={(e) => onChange?.(e.target.checked.toString())}
           disabled={disabled}
         />
-      ) : type === "long text" ? (  
+      ) : type === "long text" ? (
         <textarea
           className="p-2 rounded-md bg-gray-100 resize-none"
           value={value}

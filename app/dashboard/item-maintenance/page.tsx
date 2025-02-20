@@ -115,24 +115,23 @@ export default function ItemMaintenance() {
 
             {/* Second main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-3 gap-6">
-                <FormField
-                  label="Bill of Lading Code"
-                  value={formData.billOfLadingCode}
-                  onChange={handleChange("billOfLadingCode")}
-                />
-                <FormField
-                  label="Season"
-                  value={formData.season}
-                  onChange={handleChange("season")}
-                />
-                <FormField
-                  label="GL Code"
-                  value={formData.glCode}
-                  onChange={handleChange("glCode")}
-                />
-                {/* ... other fields in the second box */}
-              </div>
+              <FormField
+                label="Bill of Lading Code"
+                value={formData.billOfLadingCode}
+                onChange={handleChange("billOfLadingCode")}
+                isFirst={true}
+              />
+              <FormField
+                label="Season"
+                value={formData.season}
+                onChange={handleChange("season")}
+              />
+              <FormField
+                label="GL Code"
+                value={formData.glCode}
+                onChange={handleChange("glCode")}
+              />
+              {/* ... other fields in the second box */}
             </MaintenanceSection>
           </div>
 
@@ -140,84 +139,82 @@ export default function ItemMaintenance() {
           <div className="w-80 flex flex-col gap-6">
             {/* First small box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 flex flex-col gap-4">
-                <FormField
-                  label="Min Supplier QTY"
-                  value={formData.minSupplierQty}
-                  onChange={handleChange("minSupplierQty")}
-                />
-                <FormField
-                  label="Pallet Count"
-                  value={formData.palletCount}
-                  onChange={handleChange("palletCount")}
-                />
-                <FormField
-                  label="Pallet Rows"
-                  value={formData.palletRows}
-                  onChange={handleChange("palletRows")}
-                />
-              </div>
+              <FormField
+                label="Min Supplier QTY"
+                value={formData.minSupplierQty}
+                onChange={handleChange("minSupplierQty")}
+                isFirst={true}
+              />
+              <FormField
+                label="Pallet Count"
+                value={formData.palletCount}
+                onChange={handleChange("palletCount")}
+              />
+              <FormField
+                label="Pallet Rows"
+                value={formData.palletRows}
+                onChange={handleChange("palletRows")}
+              />
             </MaintenanceSection>
 
             {/* Second small box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 flex flex-col gap-4">
-                <FormField
-                  label="Cub FT"
-                  value={formData.cubeFt}
-                  onChange={handleChange("cubeFt")}
-                />
-                <FormField
-                  label="Length"
-                  value={formData.length}
-                  onChange={handleChange("length")}
-                />
-                <FormField
-                  label="Width"
-                  value={formData.width}
-                  onChange={handleChange("width")}
-                />
-                <FormField
-                  label="Height"
-                  value={formData.height}
-                  onChange={handleChange("height")}
-                />
-                <FormField
-                  label="Weight"
-                  value={formData.weight}
-                  onChange={handleChange("weight")}
-                />
-                <FormField
-                  label="Net Weight"
-                  value={formData.netWeight}
-                  onChange={handleChange("netWeight")}
-                />
-                <FormField
-                  label="Cust Stock Code"
-                  value={formData.custStockCode}
-                  onChange={handleChange("custStockCode")}
-                />
-                <FormField
-                  label="Vendor Code"
-                  value={formData.vendorCode}
-                  onChange={handleChange("vendorCode")}
-                />
-                <FormField
-                  label="Pack QTY"
-                  value={formData.packQty}
-                  onChange={handleChange("packQty")}
-                />
-                <FormField
-                  label="Purchase UOM"
-                  value={formData.purchaseUom}
-                  onChange={handleChange("purchaseUom")}
-                />
-                <FormField
-                  label="Lead Time (wks)"
-                  value={formData.leadTimeWeeks}
-                  onChange={handleChange("leadTimeWeeks")}
-                />
-              </div>
+              <FormField
+                label="Cub FT"
+                value={formData.cubeFt}
+                onChange={handleChange("cubeFt")}
+                isFirst={true}
+              />
+              <FormField
+                label="Length"
+                value={formData.length}
+                onChange={handleChange("length")}
+              />
+              <FormField
+                label="Width"
+                value={formData.width}
+                onChange={handleChange("width")}
+              />
+              <FormField
+                label="Height"
+                value={formData.height}
+                onChange={handleChange("height")}
+              />
+              <FormField
+                label="Weight"
+                value={formData.weight}
+                onChange={handleChange("weight")}
+              />
+              <FormField
+                label="Net Weight"
+                value={formData.netWeight}
+                onChange={handleChange("netWeight")}
+              />
+              <FormField
+                label="Cust Stock Code"
+                value={formData.custStockCode}
+                onChange={handleChange("custStockCode")}
+              />
+              <FormField
+                label="Vendor Code"
+                value={formData.vendorCode}
+                onChange={handleChange("vendorCode")}
+              />
+              <FormField
+                label="Pack QTY"
+                value={formData.packQty}
+                onChange={handleChange("packQty")}
+              />
+              <FormField
+                label="Purchase UOM"
+                value={formData.purchaseUom}
+                onChange={handleChange("purchaseUom")}
+              />
+              <FormField
+                label="Lead Time (wks)"
+                value={formData.leadTimeWeeks}
+                onChange={handleChange("leadTimeWeeks")}
+              />
             </MaintenanceSection>
           </div>
         </div>
