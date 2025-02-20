@@ -1,12 +1,31 @@
-'use client'
+'use client';
 
 import { Search, Star } from "lucide-react";
 import { useState } from "react";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { 
+  Command, 
+  CommandEmpty, 
+  CommandGroup, 
+  CommandInput, 
+  CommandItem, 
+  CommandList 
+} from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 
-export default function SearchBar() {
-  const [inputValue, setInputValue] = useState("");
+// Define types for the item list
+interface Item {
+  label: string;
+  href?: string;
+  active?: boolean;
+}
+
+// Define the StarButton props
+interface StarButtonProps {
+  isFilled: boolean;
+}
+
+export default function SearchBar(): JSX.Element {
+  const [inputValue, setInputValue] = useState<string>("");
   const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
   const filteredItems = itemList.filter((item) => 
@@ -43,117 +62,48 @@ export default function SearchBar() {
         )}
       </Command>
       <button
-          className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
-          onClick={() => setIsStarFilled(!isStarFilled)}
-        >
-          <StarButton isFilled={isStarFilled} />
-        </button>
+        className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
+        onClick={() => setIsStarFilled(!isStarFilled)}
+      >
+        <StarButton isFilled={isStarFilled} />
+      </button>
     </div>
   );
 }
 
-function StarButton({ isFilled }) {
-  if (!isFilled) {
-    return <Star className="h-5 w-5" />;
-  } else {
-    return <Star className="h-5 w-5" fill="black" />;
-  }
+function StarButton({ isFilled }: StarButtonProps): JSX.Element {
+  return (
+    <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />
+  );
 }
 
-const itemList = [
-  {
-    label: "Order Processing",
-    href: "/dashboard",
-  },
-  {
-    label: "Inventory Management",
-    href: "/dashboard/item-maintenance",
-    active: true,
-  },
-  {
-    label: "Purchasing/Receiving",
-    href: "/dashboard",
-  },
-  {
-    label: "Accounts Receivable",
-    href: "/dashboard",
-  },
-  {
-    label: "Accounts Payable",
-    href: "/dashboard",
-  },
-  {
-    label: "Manufacturing",
-    href: "/dashboard",
-  },
-  {
-    label: "Sales Analysis",
-    href: "/dashboard",
-  },
-  {
-    label: "Customer Service",
-    href: "/dashboard",
-  },
-  {
-    label: "Admin Maintenance",
-    href: "/dashboard",
-  },
-  {
-    label: "Security",
-    href: "/dashboard",
-  },
-  {
-    label: "Maintenance",
-  },
-  {
-    label: "Physical Inventory",
-  },
-  {
-    label: "Transaction Processing",
-  },
-  {
-    label: "Reports",
-  },
-  {
-    label: "Item Maintenance",
-  },
-  {
-    label: "Reason Codes",
-  },
-  {
-    label: "Transaction Types",
-  },
-  {
-    label: "Warehouses",
-  },
-  {
-    label: "Item Images",
-  },
-  {
-    label: "Department Code Maintenance",
-  },
-  {
-    label: "Inventory Price/Vendor Cost Loading",
-  },
-  {
-    label: "Classes",
-  },
-  {
-    label: "UOM Maintenance",
-  },
-  {
-    label: "Cross References",
-  },
-  {
-    label: "Unit References",
-  },
-  {
-    label: "Unit Conversion Factors",
-  },
-  {
-    label: "Item Images Query",
-  },
-  {
-    label: "Pricing Leve Maintenance",
-  },
+const itemList: Item[] = [
+  { label: "Order Processing", href: "/dashboard" },
+  { label: "Inventory Management", href: "/dashboard/item-maintenance", active: true },
+  { label: "Purchasing/Receiving", href: "/dashboard" },
+  { label: "Accounts Receivable", href: "/dashboard" },
+  { label: "Accounts Payable", href: "/dashboard" },
+  { label: "Manufacturing", href: "/dashboard" },
+  { label: "Sales Analysis", href: "/dashboard" },
+  { label: "Customer Service", href: "/dashboard" },
+  { label: "Admin Maintenance", href: "/dashboard" },
+  { label: "Security", href: "/dashboard" },
+  { label: "Maintenance" },
+  { label: "Physical Inventory" },
+  { label: "Transaction Processing" },
+  { label: "Reports" },
+  { label: "Item Maintenance" },
+  { label: "Reason Codes" },
+  { label: "Transaction Types" },
+  { label: "Warehouses" },
+  { label: "Item Images" },
+  { label: "Department Code Maintenance" },
+  { label: "Inventory Price/Vendor Cost Loading" },
+  { label: "Classes" },
+  { label: "UOM Maintenance" },
+  { label: "Cross References" },
+  { label: "Unit References" },
+  { label: "Unit Conversion Factors" },
+  { label: "Item Images Query" },
+  { label: "Pricing Level Maintenance" },
 ];
