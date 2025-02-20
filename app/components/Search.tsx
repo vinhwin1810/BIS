@@ -47,7 +47,7 @@ export default function SearchBar() {
           <div className="absolute left-0 right-0 top-full z-50">
             <CommandList className="rounded-b-lg border border-t-0 bg-popover shadow-md">
               <CommandEmpty>
-                Sorry, we couldn't find any matches for "{inputValue}".
+                {`Sorry, we couldn't find any matches for "${inputValue}".`}
               </CommandEmpty>
               <CommandGroup>
                 {filteredItems.map((item) => (
