@@ -66,10 +66,10 @@ export default function ItemMaintenance() {
       <div className="boxes px-8">
         <div className="flex gap-6">
           {/* Left side - Two main boxes */}
-          <div className="flex-1 flex flex-col gap-1">
+          <div className="flex-1 flex flex-col gap-1 pr-7">
             {/* First main box */}
             <MaintenanceSection>
-              <div className="col-span-2 flex flex-col gap-x-6">
+              <div className="flex flex-col px-5 pb-4">
                 <FormField
                   label="Inv Code"
                   value={formData.invCode}
@@ -81,21 +81,21 @@ export default function ItemMaintenance() {
                   options={["Class A", "Class B", "Class C"]}
                   value={formData.invClass}
                   onChange={handleChange("invClass")}
-                  className="mt-4"
+                  className="mt-5"
                 />
                 <FormField
                   label="List Price"
                   value={formData.listPrice}
                   onChange={handleChange("listPrice")}
-                  className="mt-4"
+                  className="mt-5"
                 />
                 <FormField
                   label="UOM"
                   value={formData.uom}
                   onChange={handleChange("uom")}
-                  className="mt-4"
+                  className="mt-5"
                 />
-                <div className="flex gap-8 mt-4">
+                <div className="flex-1 mt-6 gap-3">
                   <FormField
                     label="Taxable"
                     type="checkbox"
@@ -110,15 +110,17 @@ export default function ItemMaintenance() {
                   />
                 </div>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-2 pr-5">
                 <FormField
                   label="Description"
+                  type="long text"
                   value={formData.description}
                   onChange={handleChange("description")}
                   className="h-32"
                 />
                 <FormField
                   label="Description (International)"
+                  type="long text"
                   value={formData.descriptionInt}
                   onChange={handleChange("descriptionInt")}
                   className="mt-4 h-32"
@@ -126,60 +128,10 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
             
-            <MaintenanceSection>
-              <FormField
-                label="Inv Code"
-                value={formData.invCode}
-                onChange={handleChange("invCode")}
-                isFirst={true}
-              />
-              <FormField
-                label="Inv Class"
-                type="select"
-                options={["Class A", "Class B", "Class C"]}
-                value={formData.invClass}
-                onChange={handleChange("invClass")}
-              />
-              <FormField
-                label="List Price"
-                value={formData.listPrice}
-                onChange={handleChange("listPrice")}
-              />
-              <FormField
-                label="UOM"
-                value={formData.uom}
-                onChange={handleChange("uom")}
-              />
-              <FormField
-                label="Taxable"
-                type="checkbox"
-                value={formData.taxable}
-                onChange={handleChange("taxable")}
-              />
-              <FormField
-                label="Active"
-                type="checkbox"
-                value={formData.active}
-                onChange={handleChange("active")}
-              />
-              <FormField
-                label="Description"
-                type="long text"
-                value={formData.description}
-                onChange={handleChange("description")}
-              />
-              <FormField
-                label="Description (International)"
-                type="long text"
-                value={formData.descriptionInt}
-                onChange={handleChange("descriptionInt")}
-              />
-            </MaintenanceSection>
-
             <div className="text-gray-300 mt-4">Header</div> 
             {/* Second main box */}
             <MaintenanceSection>
-              <div className=" col-span-3 grid grid-cols-3 gap-x-10">
+              <div className="col-span-3 grid grid-cols-3 gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
                   value={formData.billOfLadingCode}
@@ -198,96 +150,76 @@ export default function ItemMaintenance() {
 
                 <FormField
                   label="Molder Labor Cost"
-                  value={formData.billOfLadingCode}
+                  value={formData.molderLaborCost}
                   onChange={handleChange("molderLaborCost")}
                 />
                 <FormField
                   label="Promo Code"
-                  value={formData.season}
+                  value={formData.promoCode}
                   onChange={handleChange("promoCode")}
                 />
                 <FormField
                   label="Bulk"
-                  value={formData.glCode}
+                  value={formData.bulk}
                   onChange={handleChange("bulk")}
                 />
 
                 <FormField
                   label="Item State Exclusion Code"
-                  value={formData.billOfLadingCode}
+                  value={formData.itemStateExclusionCode}
                   onChange={handleChange("itemStateExclusionCode")}
                 />
                 <FormField
                   label="SA Code"
-                  value={formData.season}
+                  value={formData.saCode}
                   onChange={handleChange("saCode")}
                 />
                 <FormField
                   label="Max %"
-                  value={formData.glCode}
-                  onChange={handleChange("max%")}
+                  value={formData.maxPercentage}
+                  onChange={handleChange("maxPercentage")}
                 />
 
                 <FormField
                   label="Production Overage %"
-                  value={formData.billOfLadingCode}
-                  onChange={handleChange("productionOverage%")}
+                  value={formData.productionOverage}
+                  onChange={handleChange("productionOverage")}
                 />
                 <FormField
                   label="Recycle Fee %"
-                  value={formData.season}
-                  onChange={handleChange("recycleFee%")}
+                  value={formData.recycleFee}
+                  onChange={handleChange("recycleFee")}
                 />
                 <FormField
                   label="ROP %"
-                  value={formData.glCode}
-                  onChange={handleChange("rop%")}
+                  value={formData.ropPercentage}
+                  onChange={handleChange("ropPercentage")}
                 />
 
                 <FormField
                   label="Tariff Code"
-                  value={formData.billOfLadingCode}
+                  value={formData.tariffCode}
                   onChange={handleChange("tariffCode")}
                 />
                 <FormField
                   label="VOC"
-                  value={formData.season}
+                  value={formData.voc}
                   onChange={handleChange("voc")}
                 />
                 <FormField
                   label="AT Code"
-                  value={formData.glCode}
+                  value={formData.atCode}
                   onChange={handleChange("atCode")}
                 />                
-                {/* ... other fields in the second box */}
               </div>
-            </MaintenanceSection>
-            <MaintenanceSection>
-              <FormField
-                label="Bill of Lading Code"
-                value={formData.billOfLadingCode}
-                onChange={handleChange("billOfLadingCode")}
-                isFirst={true}
-              />
-              <FormField
-                label="Season"
-                value={formData.season}
-                onChange={handleChange("season")}
-              />
-              <FormField
-                label="GL Code"
-                value={formData.glCode}
-                onChange={handleChange("glCode")}
-              />
-              {/* ... other fields in the second box */}
             </MaintenanceSection>
           </div>
 
           {/* Right side - Two smaller boxes */}
-          <div className="w-80 flex flex-col">
+          <div className="w-80 flex flex-col pr-3">
             {/* First small box */}
             <MaintenanceSection>
-              <div className="col-span-3 flex flex-col">
+              <div className="col-span-3 flex flex-col px-2 pb-3">
                 <FormField
                   label="Min Supplier QTY"
                   value={formData.minSupplierQty}
@@ -305,29 +237,11 @@ export default function ItemMaintenance() {
                 />
               </div>
             </MaintenanceSection>
-            <MaintenanceSection>
-              <FormField
-                label="Min Supplier QTY"
-                value={formData.minSupplierQty}
-                onChange={handleChange("minSupplierQty")}
-                isFirst={true}
-              />
-              <FormField
-                label="Pallet Count"
-                value={formData.palletCount}
-                onChange={handleChange("palletCount")}
-              />
-              <FormField
-                label="Pallet Rows"
-                value={formData.palletRows}
-                onChange={handleChange("palletRows")}
-              />
-            </MaintenanceSection>
-
+            
             <div className="text-gray-300 mt-4">Header</div>
             {/* Second small box */}
             <MaintenanceSection>
-               <div className="col-span-3 flex flex-col">
+               <div className="col-span-3 flex flex-col px-2 pb-4">
                 <FormField
                   label="Cub FT"
                   value={formData.cubeFt}
@@ -389,7 +303,7 @@ export default function ItemMaintenance() {
         </div>
 
         {/* Buttons at the bottom */}
-        <div className="flex justify-between mt-6 mb-4"> 
+        <div className="flex justify-between mt-6 mb-4 pr-3"> 
           <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
             Clear Screen
           </button>         
