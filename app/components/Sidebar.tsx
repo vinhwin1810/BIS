@@ -4,7 +4,17 @@ import { Menu } from "lucide-react";
 import Image from "next/image";
 import { menuData } from "./constants/constant";
 
-import { useEffect } from "react";
+interface Submenu {
+  title: string;
+  items?: string[];  // Assuming each submenu can have a list of items
+}
+
+interface MenuItem {
+  title: string;
+  icon: React.ReactNode;  // The type for icons can be `ReactNode` since it's JSX
+  active?: boolean;
+  submenus?: Submenu[];
+}
 
 interface SidebarProps {
   isOpen: boolean;
@@ -17,6 +27,7 @@ interface SidebarProps {
   setActiveItems: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+
 export default function Sidebar({
   isOpen,
   toggleSidebar,
@@ -28,18 +39,17 @@ export default function Sidebar({
   setActiveItems,
 }: SidebarProps) {
   
-
   // Clicking "Inventory Management" opens submenu + keeps highlight
-  const handleItemClick = (menuItem: any) => {
+  const handleItemClick = (menuItem: MenuItem) => {
     if (menuItem.title === "Inventory Management") {
       if (activeItems.includes("Inventory Management")) {
         setShowSubmenu(false);
         setShowThirdMenu(false);
-        setActiveItems([]); //  Clear all active items
+        setActiveItems([]); // Clear all active items
       } else {
         setShowSubmenu(true);
         setShowThirdMenu(false);
-        setActiveItems(["Inventory Management"]); //  Set "Inventory Management" as active
+        setActiveItems(["Inventory Management"]); // Set "Inventory Management" as active
       }
       return;
     }
@@ -61,7 +71,7 @@ export default function Sidebar({
   };
 
   // Clicking "Maintenance" opens third sidebar and keeps first submenu open
-  const handleSubmenuClick = (submenu: any) => {
+  const handleSubmenuClick = (submenu: Submenu) => {
     if (submenu.title === "Maintenance") {
       setShowThirdMenu(true);
 
@@ -86,6 +96,7 @@ export default function Sidebar({
     });
   };
 
+
   // Clicking "Item Maintenance" collapses everything, including main sidebar
   const handleThirdMenuClick = (item: string) => {
     if (item === "Item Maintenance") {
@@ -99,6 +110,7 @@ export default function Sidebar({
       );
     }
   };
+  
 
 
   return (
