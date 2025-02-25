@@ -9,14 +9,36 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [showSubmenu, setShowSubmenu] = useState(false);
+  const [showThirdMenu, setShowThirdMenu] = useState(false);
+  const [activeItems, setActiveItems] = useState<string []>([]);
 
+
+
+  //  Ensures clicking the burger menu collapses everything and resets highlights
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+
+    if (isSidebarOpen) {
+      setShowSubmenu(false); // Close submenu
+      setShowThirdMenu(false); // Close third-level menu
+      setActiveItems([]); // Remove all highlights
+    }
   };
 
   return (
     <div className="flex h-screen bg-white">
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar} 
+        showSubmenu={showSubmenu}
+        setShowSubmenu={setShowSubmenu}
+        showThirdMenu={showThirdMenu}
+        setShowThirdMenu={setShowThirdMenu}
+        activeItems={activeItems}
+        setActiveItems={setActiveItems}
+        
+      />
       <div
         className={`flex-1 transition-all duration-500 ${
           isSidebarOpen ? "md:ml-64" : "ml-16"
