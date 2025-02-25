@@ -124,8 +124,7 @@ export default function ItemMaintenance() {
               <div className="col-span-3 grid grid-cols-3 gap-6">
                 <FormField
                   label="Bill of Lading Code"
-                  value={formData.billOfLadingCode}
-                  onChange={handleChange("billOfLadingCode")}
+                  type="hamburger"
                 />
                 <FormField
                   label="Season"
@@ -134,8 +133,7 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="GL Code"
-                  value={formData.glCode}
-                  onChange={handleChange("glCode")}
+                  type="hamburger"
                 />
                 {/* ... other fields in the second box */}
               </div>

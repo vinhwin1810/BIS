@@ -1,12 +1,15 @@
+import Hamburger from "./IM_Hmaburger"
+
 interface FormFieldProps {
   label: string;
   value?: string;
-  type?: "text" | "number" | "select" | "checkbox" | "long text";
+  type?: "text" | "number" | "select" | "checkbox" | "long text" | "hamburger";
   options?: string[];
   onChange?: (value: string) => void;
   disabled?: boolean;
   className?: string;
   isFirst?: boolean;
+  icon?: React.ReactNode
 }
 
 export default function FormField({
@@ -18,13 +21,20 @@ export default function FormField({
   disabled,
   className,
   isFirst = false,
+  icon,
 }: FormFieldProps) {
   return (
     <div className={`flex ${type === "long text" ? "flex-col" : type === "checkbox" ? "items-center mt-2 mb-2" : "items-center justify-between"} 
                     ${["text", "select", "number"].includes(type) ? 'border-b border-gray-300' : ''} 
                     ${!isFirst ? "mt-4" : ""}
                     ${className}`}>
-      <label className={`${type==="checkbox" ? "w-24" : ""} text-sm text-gray-500`}>{label}</label>
+       <div className="flex items-center gap-2">
+        <label className={`${type === "checkbox" ? "w-24" : ""} text-sm text-gray-500`}>
+          {label}
+        </label>
+        {icon && <span>{icon}</span>}
+      </div>
+
       {type === "select" ? (
         <select
           className="text-gray-400"
@@ -54,6 +64,8 @@ export default function FormField({
           disabled={disabled}
           rows={4} // Adjust the number of rows as needed
         />
+      ) : type === "hamburger" ? ( 
+          icon = <Hamburger />
       ) : (
         <input
           type={type}
