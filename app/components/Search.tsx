@@ -11,6 +11,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
+import { itemList } from "./constants/constant";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
