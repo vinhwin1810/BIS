@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 import { 
   Command, 
@@ -12,21 +12,14 @@ import {
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 
-// Define types for the item list
 interface Item {
   label: string;
   href?: string;
   active?: boolean;
 }
 
-// Define the StarButton props
-interface StarButtonProps {
-  isFilled: boolean;
-}
-
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
-  const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
   const filteredItems = itemList.filter((item) => 
     item.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -61,19 +54,7 @@ export default function SearchBar() {
           </div>
         )}
       </Command>
-      <button
-        className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
-        onClick={() => setIsStarFilled(!isStarFilled)}
-      >
-        <StarButton isFilled={isStarFilled} />
-      </button>
     </div>
-  );
-}
-
-function StarButton({ isFilled }: StarButtonProps) {
-  return (
-    <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />
   );
 }
 
