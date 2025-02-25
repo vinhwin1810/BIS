@@ -10,7 +10,7 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   return (
-    <aside className="fixed">
+    <aside className="fixed bg-gray-50">
       {/* Menu button container */}
       <div
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out

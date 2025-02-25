@@ -53,8 +53,8 @@ export default function ItemMaintenance() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <SearchBar />
+      <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
+        <SearchBar/>
         <User />
       </div>
 
