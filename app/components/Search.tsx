@@ -1,134 +1,79 @@
-"use client";
+'use client';
 
 import { Search, Star } from "lucide-react";
 import { useState } from "react";
+import { 
+  Command, 
+  CommandEmpty, 
+  CommandGroup, 
+  CommandInput, 
+  CommandItem, 
+  CommandList 
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
-// Define types for item list entries
+// Define types for the item list
 interface Item {
   label: string;
   href?: string;
   active?: boolean;
 }
 
-// Define props for components
-interface SearchSuggestionsProps {
-  searched: string;
-}
-
-interface OneSuggestionProps {
-  searchResult: string;
-  searched: string;
-}
-
+// Define the StarButton props
 interface StarButtonProps {
   isFilled: boolean;
 }
 
 export default function SearchBar() {
+  const [inputValue, setInputValue] = useState<string>("");
   const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const filteredItems = itemList.filter((item) => 
+    item.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
 
   return (
-    <div className="flex-col">
-      <div className="flex items-start w-1/2">
-        {/* Input Container with Search Icon */}
-        <div className="relative flex flex-col flex-grow border border-[#A4A4A4] rounded-3xl py-2">
-          <div className="flex items-center px-4">
-            <Search className="h-5 w-5 text-gray-500" />
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-grow px-2 py-1 outline-none"
-            />
+    <div className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
+      <Command className={cn(
+        "rounded-lg border",
+        inputValue && "rounded-b-none border-b-0"
+      )}>
+        <CommandInput 
+          placeholder="Search..." 
+          value={inputValue} 
+          onValueChange={setInputValue}
+        />
+        {inputValue && (
+          <div className="absolute left-0 right-0 top-full z-50">
+            <CommandList className="rounded-b-lg border border-t-0 bg-popover shadow-md">
+              <CommandEmpty>
+                {`Sorry, we couldn't find any matches for "${inputValue}".`}
+              </CommandEmpty>
+              <CommandGroup>
+                {filteredItems.map((item) => (
+                  <CommandItem key={item.label} value={item.label}>
+                    <Search className="" />
+                    <span>{item.label}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
           </div>
-          <SearchSuggestions searched={searchQuery} />
-        </div>
-
-        {/* Button Outside Input */}
-        <button
-          className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
-          onClick={() => setIsStarFilled(!isStarFilled)}
-        >
-          <StarButton isFilled={isStarFilled} />
-        </button>
-      </div>
+        )}
+      </Command>
+      <button
+        className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
+        onClick={() => setIsStarFilled(!isStarFilled)}
+      >
+        <StarButton isFilled={isStarFilled} />
+      </button>
     </div>
   );
 }
 
-function SearchSuggestions({ searched }: SearchSuggestionsProps) {
-  let possibleResults: Item[] = [];
-
-  if (searched) {
-    possibleResults = itemList.filter((item) =>
-      item.label.toLowerCase().includes(searched.toLowerCase())
-    );
-  }
-
-  if (searched && possibleResults.length > 0) {
-    return (
-      
-      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
-        {possibleResults.map((item, index) => (
-          <OneSuggestion key={index} searchResult={item.label} searched={searched} />
-        ))}
-      </div>
-    );
-  } else if (searched && searched.length < 14 && possibleResults.length <= 0) {
-    return (
-      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
-        <OneSuggestion
-          searchResult={"Sorry, we couldn't find any matches for " + searched}
-          searched={searched}
-        />
-      </div>
-    );
-  } else if (searched && searched.length >= 14 && possibleResults.length <= 0) {
-    return (
-      <div className="absolute top-full max-h-[200px] bg-white border border-grey shadow-lg rounded-2xl overflow-y-auto z-10">
-        <OneSuggestion
-          searchResult={"Sorry, we couldn't find any matches for " + searched.slice(0, 14) + "..."}
-          searched={searched.slice(0, 14)}
-        />
-      </div>
-    );
-  } else {
-    return null;
-  }
-}
-
-function OneSuggestion({ searchResult, searched }: OneSuggestionProps) {
-  // Highlight matching text
-  const regex = new RegExp(`(${searched})`, "gi");
-  const parts = searchResult.split(regex);
-
-  return (
-    <button className="bg-white hover:bg-gray-200 py-2 rounded-md transition-colors duration-300 text-left w-full">
-      <div className="flex items-start px-4">
-        <Search className="h-5 w-5 text-gray-500 mr-2 " />
-        <span>
-          {parts.map((part, index) =>
-            part.toLowerCase() === searched.toLowerCase() ? (
-              <span key={index} className="font-bold text-black">
-                {part}
-              </span>
-            ) : (
-              part
-            )
-          )}
-        </span>
-      </div>
-    </button>
-  );
-}
-
 function StarButton({ isFilled }: StarButtonProps) {
-  return isFilled ? (
-    <Star className="h-5 w-5" fill="black" />
-  ) : (
-    <Star className="h-5 w-5" />
+  return (
+    <Star className="h-5 w-5" fill={isFilled ? "black" : "none"} />
   );
 }
 
