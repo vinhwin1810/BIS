@@ -24,7 +24,7 @@ export const menuData = [
         items: ["Physical Inventory", "Transaction Processing", "Reports"],
         nextMenu: {
           title: "Item Maintenance",
-          items: ["Item Maintence",
+          items: [
             "Reason Codes",
             "Transaction Types",
             "Warehouses",

@@ -1,43 +1,51 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { Poppins } from "next/font/google";
-import { usePathname } from "next/navigation";
+import React from "react";
 import { Menu } from "lucide-react";
 import Image from "next/image";
-import { menuData } from "./constants/constant"; // Import menuData
+import { menuData } from "./constants/constant";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
+import {useEffect} from "react";
+import { usePathname } from "next/navigation"; 
 
 interface SidebarProps {
   isOpen: boolean;
   toggleSidebar: () => void;
+  showSubmenu: boolean;
+  setShowSubmenu: (value: boolean) => void;
+  showThirdMenu: boolean;
+  setShowThirdMenu: (value: boolean) => void;
+  activeItem: string | null;
+  setActiveItem: (value: string | null) => void;
 }
 
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({
+  isOpen,
+  toggleSidebar,
+  showSubmenu,
+  setShowSubmenu,
+  showThirdMenu,
+  setShowThirdMenu,
+  activeItem,
+  setActiveItem
+}: SidebarProps) {
   const pathname = usePathname();
 
-  const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [submenuItems, setSubmenuItems] = useState<any[]>([]);
-  const [thirdMenuItems, setThirdMenuItems] = useState<any[]>([]);
-  const [showSubmenu, setShowSubmenu] = useState<boolean>(false);
-  const [showThirdMenu, setShowThirdMenu] = useState<boolean>(false);
-
-  // Handle clicking on the main sidebar items
+  // Clicking "Inventory Management" opens submenu + keeps highlight
   const handleItemClick = (menuItem: any) => {
-    if (menuItem.submenus) {
-      // Extract all submenu items (including "Maintenance" and its `items`)
-      const expandedSubmenus = menuItem.submenus.flatMap((submenu) => {
-        if (submenu.items) {
-          return [{ ...submenu }, ...submenu.items.map((item) => ({ title: item }))];
-        }
-        return [submenu];
-      });
+    if (menuItem.title === "Inventory Management") {
+      if (activeItem === "Inventory Management") {
+        setShowSubmenu(false);
+        setShowThirdMenu(false);
+        setActiveItem(null);
+      } else {
+        setShowSubmenu(true);
+        setShowThirdMenu(false);
+        setActiveItem("Inventory Management");
+      }
+      return;
+    }
 
-      setSubmenuItems(expandedSubmenus); // ✅ Set all extracted submenu items
+    if (menuItem.submenus) {
       setShowSubmenu(true);
       setShowThirdMenu(false);
     } else {
@@ -45,39 +53,37 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
       setShowThirdMenu(false);
     }
 
-    setActiveItem((prev) => (prev === menuItem.title ? null : menuItem.title));
+    const newActiveItem = activeItem === menuItem.title ? null : menuItem.title;
+    setActiveItem(newActiveItem);
+
+
   };
 
-
-  // Handle clicking on submenu items (like "Maintenance")
+  // Clicking "Maintenance" opens third sidebar and keeps first submenu open
   const handleSubmenuClick = (submenu: any) => {
-    setActiveItem(submenu.title);
-    if (submenu.items) {
-      setThirdMenuItems(submenu.nextMenu.items);
+    if (submenu.title === "Maintenance") {
+      setActiveItem("Maintenance");
       setShowThirdMenu(true);
     } else {
       setShowThirdMenu(false);
     }
   };
 
-  // Handle clicking on third-level menu items
+  // Clicking "Item Maintenance" collapses everything, including main sidebar
   const handleThirdMenuClick = (item: string) => {
-    setActiveItem(item);
-    setShowSubmenu(false);
-    setShowThirdMenu(false);
-    toggleSidebar(); // Collapse sidebar after selecting an option
+    if (item === "Item Maintenance") {
+      setShowSubmenu(false);
+      setShowThirdMenu(false);
+      setActiveItem(null);
+      toggleSidebar();
+    } else {
+      setActiveItem(item);
+    }
   };
 
-  // Close all submenus when clicking the burger menu
-  const handleSidebarToggle = () => {
-    toggleSidebar();
-    setShowSubmenu(false);
-    setShowThirdMenu(false);
-    setActiveItem(null);
-  };
 
   useEffect(() => {
-    if (pathname === "/dashboard/item-maintenance/page") {
+    if (pathname === "./dashboard/item-maintenance/page") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
       toggleSidebar();
@@ -85,13 +91,13 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
   }, [pathname]);
 
   return (
-    <aside className={`fixed ${poppins.className}`}>
-      {/* Menu button container */}
+    <aside className={`fixed`}>
       <div
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
-        <Menu onClick={handleSidebarToggle} size={24} className="cursor-pointer" />
+        {/* Now using toggleSidebar directly as requested */}
+        <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
       </div>
 
       {/* Sidebar content */}
@@ -128,9 +134,9 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           </nav>
         </div>
 
-        {/* Sidebar Footer */}
+        {/* Sidebar Footer (Restored BIS Logo and Text) */}
         <div
-          className={`flex items-center  ${
+          className={`flex items-center p-5 ${
             isOpen ? "opacity-100" : "opacity-0"
           } transition-all duration-500`}
         >
@@ -144,41 +150,78 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         </div>
       </div>
 
-      {/* Submenu Sidebar (Opens when clicking "Inventory Management") */}
+      {/* First Submenu (Inventory Management -> Maintenance + other items) */}
       {showSubmenu && (
         <div className="absolute left-64 top-[150px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
-          {submenuItems.map((submenu) => (
-            <button
-              key={submenu.title}
-              className={`text-left p-3 rounded-3xl transition-colors ${
-                activeItem === submenu.title ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
-              }`}
-              onClick={() => handleSubmenuClick(submenu)}
-            >
-              {submenu.title}
-            </button>
+          {menuData.find((item) => item.title === "Inventory Management")?.submenus?.map((submenu) => (
+            <React.Fragment key={submenu.title}>
+              <button
+                className={`text-left p-3 rounded-3xl transition-colors ${
+                  activeItem === submenu.title ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
+                }`}
+                onClick={() => handleSubmenuClick(submenu)}
+              >
+                {submenu.title}
+              </button>
+              {/* Ensure all submenu items appear */}
+              {submenu.items?.map((item) => (
+                <button
+                  key={item}
+                  className={`text-left p-3 rounded-3xl transition-colors ${
+                    activeItem === item ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
+                  }`}
+                  onClick={() => setActiveItem(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </React.Fragment>
           ))}
         </div>
       )}
 
-      {/* Third-Level Sidebar (Opens when clicking "Maintenance" in submenu) */}
+      {/* Third-Level Sidebar (Maintenance -> Item Maintenance + components) */}
       {showThirdMenu && (
         <div className="absolute left-[490px] top-[150px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col">
-          <div className="relative flex flex-col space-y-2 overflow-y-auto max-h-[300px] rounded-3xl">
-            {thirdMenuItems.map((item, index) => (
-              <button
-                key={index}
-                className={`text-left p-3 rounded-3xl transition-colors ${
-                  activeItem === item ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black rounded-3xl"
-                }`}
-                onClick={() => handleThirdMenuClick(item)}
-              >
-                {item}
-              </button>
-            ))}
+          {/* Scrollable & Properly Aligned Container */}
+          <div className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 flex flex-col space-y-2 p-2">
+            {menuData.find((item) => item.title === "Inventory Management")
+              ?.submenus?.find((submenu) => submenu.title === "Maintenance")
+              ?.nextMenu && (
+                <>
+                  <button
+                    className={`text-left p-3 rounded-3xl transition-colors ${
+                      activeItem === "Item Maintenance"
+                        ? "bg-[#FFC851] text-black"
+                        : "hover:bg-[#FFC851] text-black rounded-3xl"
+                    }`}
+                    onClick={() => handleThirdMenuClick("Item Maintenance")}
+                  >
+                    Item Maintenance
+                  </button>
+                  {menuData
+                    .find((item) => item.title === "Inventory Management")
+                    ?.submenus?.find((submenu) => submenu.title === "Maintenance")
+                    ?.nextMenu?.items?.map((item, index) => (
+                      <button
+                        key={index}
+                        className={`text-left p-3 rounded-3xl transition-colors ${
+                          activeItem === item
+                            ? "bg-[#FFC851] text-black"
+                            : "hover:bg-[#FFC851] text-black rounded-3xl"
+                        }`}
+                        onClick={() => handleThirdMenuClick(item)}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                </>
+              )}
           </div>
         </div>
       )}
+
+      
     </aside>
   );
 }

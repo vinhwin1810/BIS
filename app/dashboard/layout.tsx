@@ -28,7 +28,7 @@ export default function DashboardLayout({
     <div className="flex h-screen bg-white">
       <Sidebar
         isOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar} // Now ensures full reset
+        toggleSidebar={toggleSidebar} 
         showSubmenu={showSubmenu}
         setShowSubmenu={setShowSubmenu}
         showThirdMenu={showThirdMenu}
