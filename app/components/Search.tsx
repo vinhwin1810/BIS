@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 import {
   Command,
@@ -11,18 +11,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-
-// Define types for the item list
-interface Item {
-  label: string;
-  href?: string;
-  active?: boolean;
-}
-
-// Define the StarButton props
-interface StarButtonProps {
-  isFilled: boolean;
-}
+import { StarButton } from "./constants/constant";
+import { itemList } from "./constants/constant";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
