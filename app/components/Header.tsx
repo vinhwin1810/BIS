@@ -11,7 +11,7 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
   return (
     <header className="bg-white text-[#333333] shadow-sm">
       <div className="p-4">
-        <div className="flex items-center justify-between gap-4 mb-20">
+        <div className="flex items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-4">
             <div className="relative inline-block">
               <Building2

@@ -29,12 +29,9 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           <div className="h-7" />
           <nav>
             {menuData.map((item) => (
-              <React.Fragment key={item.label}>
-                <div
-                  key={item.label}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-5 py-3 transition-colors
-                    ${item.active ? "bg-[#FFD942] rounded-lg " : ""}`}
+              <React.Fragment key={item.title}>
+                <button
+                  className={`flex items-center gap-3 px-5 py-3 transition-colors`}
                 >
                   <div>{item.icon}</div>
                   <span
@@ -44,7 +41,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
                   >
                     {item.title}
                   </span>
-                </div>
+                </button>
                 {["All Favorites", "Customer Service"].includes(item.title) && (
                   <hr className="border-white-600 mx-4 my-2" />
                 )}
