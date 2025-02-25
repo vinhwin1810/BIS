@@ -103,6 +103,7 @@ export default function Sidebar({
 
   return (
     <aside className="fixed">
+      {/* Menu button container */}
       <div
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
@@ -144,7 +145,8 @@ export default function Sidebar({
           </nav>
         </div>
 
-        {/* Sidebar Footer (Restored BIS Logo and Text) */}
+        
+        
         <div
           className={`flex items-center ${
             isOpen ? "opacity-100" : "opacity-0"
