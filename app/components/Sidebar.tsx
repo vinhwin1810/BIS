@@ -91,7 +91,7 @@ export default function Sidebar({
   }, [pathname]);
 
   return (
-    <aside className={`fixed`}>
+    <aside className="fixed">
       <div
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
@@ -136,7 +136,7 @@ export default function Sidebar({
 
         {/* Sidebar Footer (Restored BIS Logo and Text) */}
         <div
-          className={`flex items-center p-5 ${
+          className={`flex items-center ${
             isOpen ? "opacity-100" : "opacity-0"
           } transition-all duration-500`}
         >

@@ -1,10 +1,12 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+
 
 interface UserProps {
   userName?: string;
 }
+
+import Image from "next/image";
 
 export default function User({ userName = "Last, First" }: UserProps) {
   // State to control the visibility of the dropdown sidebar
