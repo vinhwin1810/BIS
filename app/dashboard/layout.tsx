@@ -11,7 +11,9 @@ export default function DashboardLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showSubmenu, setShowSubmenu] = useState(false);
   const [showThirdMenu, setShowThirdMenu] = useState(false);
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [activeItems, setActiveItems] = useState<string []>([]);
+
+
 
   //  Ensures clicking the burger menu collapses everything and resets highlights
   const toggleSidebar = () => {
@@ -20,7 +22,7 @@ export default function DashboardLayout({
     if (isSidebarOpen) {
       setShowSubmenu(false); // Close submenu
       setShowThirdMenu(false); // Close third-level menu
-      setActiveItem(null); // Remove all highlights
+      setActiveItems([]); // Remove all highlights
     }
   };
 
@@ -33,8 +35,9 @@ export default function DashboardLayout({
         setShowSubmenu={setShowSubmenu}
         showThirdMenu={showThirdMenu}
         setShowThirdMenu={setShowThirdMenu}
-        activeItem={activeItem}
-        setActiveItem={setActiveItem}
+        activeItems={activeItems}
+        setActiveItems={setActiveItems}
+        
       />
       <div
         className={`flex-1 transition-all duration-500 ${

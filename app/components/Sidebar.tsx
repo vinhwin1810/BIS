@@ -4,8 +4,7 @@ import { Menu } from "lucide-react";
 import Image from "next/image";
 import { menuData } from "./constants/constant";
 
-import {useEffect} from "react";
-import { usePathname } from "next/navigation"; 
+import { useEffect } from "react";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -14,8 +13,8 @@ interface SidebarProps {
   setShowSubmenu: (value: boolean) => void;
   showThirdMenu: boolean;
   setShowThirdMenu: (value: boolean) => void;
-  activeItem: string | null;
-  setActiveItem: (value: string | null) => void;
+  activeItems: string[]; // Supports multiple active items
+  setActiveItems: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function Sidebar({
@@ -25,22 +24,22 @@ export default function Sidebar({
   setShowSubmenu,
   showThirdMenu,
   setShowThirdMenu,
-  activeItem,
-  setActiveItem
+  activeItems,
+  setActiveItems,
 }: SidebarProps) {
-  const pathname = usePathname();
+  
 
   // Clicking "Inventory Management" opens submenu + keeps highlight
   const handleItemClick = (menuItem: any) => {
     if (menuItem.title === "Inventory Management") {
-      if (activeItem === "Inventory Management") {
+      if (activeItems.includes("Inventory Management")) {
         setShowSubmenu(false);
         setShowThirdMenu(false);
-        setActiveItem(null);
+        setActiveItems([]); //  Clear all active items
       } else {
         setShowSubmenu(true);
         setShowThirdMenu(false);
-        setActiveItem("Inventory Management");
+        setActiveItems(["Inventory Management"]); //  Set "Inventory Management" as active
       }
       return;
     }
@@ -53,20 +52,38 @@ export default function Sidebar({
       setShowThirdMenu(false);
     }
 
-    const newActiveItem = activeItem === menuItem.title ? null : menuItem.title;
-    setActiveItem(newActiveItem);
-
-
+    // Allow multiple active items instead of replacing the value
+    setActiveItems((prev) =>
+      prev.includes(menuItem.title)
+        ? prev.filter((item) => item !== menuItem.title)
+        : [...prev, menuItem.title]
+    );
   };
 
   // Clicking "Maintenance" opens third sidebar and keeps first submenu open
   const handleSubmenuClick = (submenu: any) => {
     if (submenu.title === "Maintenance") {
-      setActiveItem("Maintenance");
       setShowThirdMenu(true);
-    } else {
-      setShowThirdMenu(false);
+
+      // Ensure both "Inventory Management" and "Maintenance" are active
+      setActiveItems((prev) => {
+        const updatedItems = new Set(prev);
+        updatedItems.add("Inventory Management");
+        updatedItems.add("Maintenance");
+        return Array.from(updatedItems);
+      });
+      return;
     }
+
+    setShowThirdMenu(false);
+
+    // Keep "Inventory Management" highlighted even when clicking other submenu items
+    setActiveItems((prev) => {
+      const updatedItems = new Set(prev);
+      updatedItems.add("Inventory Management");
+      updatedItems.add(submenu.title);
+      return Array.from(updatedItems);
+    });
   };
 
   // Clicking "Item Maintenance" collapses everything, including main sidebar
@@ -74,21 +91,15 @@ export default function Sidebar({
     if (item === "Item Maintenance") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
-      setActiveItem(null);
+      setActiveItems([]); // Reset all active items
       toggleSidebar();
     } else {
-      setActiveItem(item);
+      setActiveItems((prev) =>
+        prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+      );
     }
   };
 
-
-  useEffect(() => {
-    if (pathname === "./dashboard/item-maintenance/page") {
-      setShowSubmenu(false);
-      setShowThirdMenu(false);
-      toggleSidebar();
-    }
-  }, [pathname]);
 
   return (
     <aside className="fixed">
@@ -96,7 +107,6 @@ export default function Sidebar({
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
           ${isOpen ? "w-64" : "w-16"}`}
       >
-        {/* Now using toggleSidebar directly as requested */}
         <Menu onClick={toggleSidebar} size={24} className="cursor-pointer" />
       </div>
 
@@ -113,7 +123,7 @@ export default function Sidebar({
               <React.Fragment key={item.title}>
                 <button
                   className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
-                    activeItem === item.title ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851]"
+                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851]"
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
@@ -157,20 +167,19 @@ export default function Sidebar({
             <React.Fragment key={submenu.title}>
               <button
                 className={`text-left p-3 rounded-3xl transition-colors ${
-                  activeItem === submenu.title ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
+                  activeItems.includes(submenu.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                 }`}
                 onClick={() => handleSubmenuClick(submenu)}
               >
                 {submenu.title}
               </button>
-              {/* Ensure all submenu items appear */}
               {submenu.items?.map((item) => (
                 <button
                   key={item}
                   className={`text-left p-3 rounded-3xl transition-colors ${
-                    activeItem === item ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
+                    activeItems.includes(item) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                   }`}
-                  onClick={() => setActiveItem(item)}
+                  onClick={() => handleThirdMenuClick(item)}
                 >
                   {item}
                 </button>
@@ -183,15 +192,15 @@ export default function Sidebar({
       {/* Third-Level Sidebar (Maintenance -> Item Maintenance + components) */}
       {showThirdMenu && (
         <div className="absolute left-[490px] top-[150px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col">
-          {/* Scrollable & Properly Aligned Container */}
           <div className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 flex flex-col space-y-2 p-2">
             {menuData.find((item) => item.title === "Inventory Management")
               ?.submenus?.find((submenu) => submenu.title === "Maintenance")
               ?.nextMenu && (
                 <>
+                  {/* Restored "Item Maintenance" button */}
                   <button
                     className={`text-left p-3 rounded-3xl transition-colors ${
-                      activeItem === "Item Maintenance"
+                      activeItems.includes("Item Maintenance")
                         ? "bg-[#FFC851] text-black"
                         : "hover:bg-[#FFC851] text-black rounded-3xl"
                     }`}
@@ -199,6 +208,8 @@ export default function Sidebar({
                   >
                     Item Maintenance
                   </button>
+
+                  {/* Restored all missing third-level submenu items */}
                   {menuData
                     .find((item) => item.title === "Inventory Management")
                     ?.submenus?.find((submenu) => submenu.title === "Maintenance")
@@ -206,9 +217,7 @@ export default function Sidebar({
                       <button
                         key={index}
                         className={`text-left p-3 rounded-3xl transition-colors ${
-                          activeItem === item
-                            ? "bg-[#FFC851] text-black"
-                            : "hover:bg-[#FFC851] text-black rounded-3xl"
+                          activeItems.includes(item) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                         }`}
                         onClick={() => handleThirdMenuClick(item)}
                       >
@@ -220,8 +229,8 @@ export default function Sidebar({
           </div>
         </div>
       )}
-
-      
     </aside>
   );
 }
+
+
