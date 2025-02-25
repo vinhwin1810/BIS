@@ -11,12 +11,9 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { StarButton } from "./constants/constant";
-import { itemList } from "./constants/constant";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
-  const [isStarFilled, setIsStarFilled] = useState<boolean>(false);
 
   const filteredItems = itemList.filter((item) =>
     item.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -53,12 +50,6 @@ export default function SearchBar() {
           </div>
         )}
       </Command>
-      <button
-        className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3"
-        onClick={() => setIsStarFilled(!isStarFilled)}
-      >
-        <StarButton isFilled={isStarFilled} />
-      </button>
     </div>
   );
 }

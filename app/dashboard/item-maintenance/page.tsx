@@ -3,6 +3,7 @@
 import { useState } from "react";
 import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search";
+import StarButton from "@/app/components/Star";
 import MaintenanceSection from "@/app/components/MaintenanceSection";
 import FormField from "@/app/components/FormField";
 
@@ -54,7 +55,10 @@ export default function ItemMaintenance() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <SearchBar/>
+        <div className="flex w-full">
+          <SearchBar/>
+          <StarButton/>
+        </div>
         <User />
       </div>
 
