@@ -1,6 +1,7 @@
 import { Building2, MapPinHouse } from "lucide-react";
 import User from "./User";
 import SearchBar from "./Search";
+import StarButton from "./Star";
 
 interface HeaderProps {
   userName?: string;
@@ -34,7 +35,10 @@ export default function Header({ userName = "Last, First" }: HeaderProps) {
           <User userName={userName} />
         </div>
         <div className="relative">
-          <SearchBar />
+          <div className="flex w-full">
+            <SearchBar />
+            <StarButton/>
+          </div>
         </div>
 
         {/* <div className="flex items-center gap-4">

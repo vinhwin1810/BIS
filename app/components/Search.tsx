@@ -1,22 +1,56 @@
-import { Search, Star } from "lucide-react";
+"use client";
+
+import { Search } from "lucide-react";
+import { useState } from "react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { itemList } from "./constants/constant";
 
 export default function SearchBar() {
-  return (
-    <div className="flex items-center w-1/2">
-      {/* Input Container with Search Icon */}
-      <div className="flex items-center flex-grow border border-[#A4A4A4] rounded-2xl px-4 py-2">
-        <Search className="h-5 w-5 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="flex-grow px-2 py-1 outline-none"
-        />
-      </div>
+  const [inputValue, setInputValue] = useState<string>("");
 
-      {/* Button Outside Input */}
-      <button className="ml-3 bg-[#58E2D3] rounded-full shadow-md p-3">
-        <Star className="h-5 w-5" />
-      </button>
+  const filteredItems = itemList.filter((item) =>
+    item.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
+  return (
+    <div className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
+      <Command
+        className={cn(
+          "rounded-lg border",
+          inputValue && "rounded-b-none border-b-0"
+        )}
+      >
+        <CommandInput
+          placeholder="Search..."
+          value={inputValue}
+          onValueChange={setInputValue}
+        />
+        {inputValue && (
+          <div className="absolute left-0 right-0 top-full z-50">
+            <CommandList className="rounded-b-lg border border-t-0 bg-popover shadow-md">
+              <CommandEmpty>
+                {`Sorry, we couldn't find any matches for "${inputValue}".`}
+              </CommandEmpty>
+              <CommandGroup>
+                {filteredItems.map((item) => (
+                  <CommandItem key={item.label} value={item.label}>
+                    <Search className="" />
+                    <span>{item.label}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </div>
+        )}
+      </Command>
     </div>
   );
 }
