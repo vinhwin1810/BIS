@@ -134,8 +134,8 @@ export default function Sidebar({
             {menuData.map((item) => (
               <React.Fragment key={item.title}>
                 <button
-                  className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
-                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] hover:text-black"
+                  className={`flex items-center gap-3 px-5 py-2  transition-colors rounded-3xl ${
+                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black " :  "hover:bg-[#FFC851] hover:text-black"
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
@@ -175,11 +175,11 @@ export default function Sidebar({
 
       {/* First Submenu (Inventory Management -> Maintenance + other items) */}
       {showSubmenu && (
-        <div className="absolute left-64 top-[145px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
+        <div className="absolute left-64 top-[140px] bg-white shadow-lg rounded-3xl p-2 w-60 flex flex-col">
           {menuData.find((item) => item.title === "Inventory Management")?.submenus?.map((submenu) => (
             <React.Fragment key={submenu.title}>
               <button
-                className={`text-left p-3 rounded-3xl transition-colors ${
+                className={`text-left p-2 rounded-3xl transition-colors ${
                   activeItems.includes(submenu.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                 }`}
                 onClick={() => handleSubmenuClick(submenu)}
@@ -189,7 +189,7 @@ export default function Sidebar({
               {submenu.items?.map((item) => (
                 <button
                   key={item}
-                  className={`text-left p-3 rounded-3xl transition-colors ${
+                  className={`text-left p-2.5 rounded-3xl transition-colors ${
                     activeItems.includes(item) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                   }`}
                   onClick={() => handleThirdMenuClick(item)}
@@ -204,15 +204,15 @@ export default function Sidebar({
 
       {/* Third-Level Sidebar (Maintenance -> Item Maintenance + components) */}
       {showThirdMenu && (
-        <div className="absolute left-[490px] top-[145px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col">
-          <div className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 flex flex-col space-y-2 p-2">
+        <div className="absolute left-[490px] top-[134px] bg-white shadow-lg rounded-3xl p-2 w-96 flex flex-col">
+          <div className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 flex flex-col space-y-1 p-1">
             {menuData.find((item) => item.title === "Inventory Management")
               ?.submenus?.find((submenu) => submenu.title === "Maintenance")
               ?.nextMenu && (
                 <>
                   {/* Restored "Item Maintenance" button */}
                   <button
-                    className={`text-left p-3 rounded-3xl transition-colors ${
+                    className={`text-left p-2 rounded-3xl transition-colors ${
                       activeItems.includes("Item Maintenance")
                         ? "bg-[#FFC851] text-black"
                         : "hover:bg-[#FFC851] text-black rounded-3xl"
@@ -229,7 +229,7 @@ export default function Sidebar({
                     ?.nextMenu?.items?.map((item, index) => (
                       <button
                         key={index}
-                        className={`text-left p-3 rounded-3xl transition-colors ${
+                        className={`text-left p-2 rounded-3xl transition-colors ${
                           activeItems.includes(item) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] text-black"
                         }`}
                         onClick={() => handleThirdMenuClick(item)}
