@@ -31,7 +31,6 @@ export default function FormField({
   disabled,
   className,
   isFirst = false,
-  icon,
 }: FormFieldProps) {
   return (
     <div
