@@ -55,7 +55,7 @@ export default function ItemMaintenance() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <div className="flex w-3/4 max-w-[700px]">
+        <div className="flex md:w-4/5 lg:w-3/4 max-w-[700px]">
           <SearchBar/>
           <StarButton/>
         </div>
