@@ -3,6 +3,7 @@
 import { useState } from "react";
 import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search";
+import StarButton from "@/app/components/Star";
 import MaintenanceSection from "@/app/components/MaintenanceSection";
 import FormField from "@/app/components/FormField";
 
@@ -54,63 +55,74 @@ export default function ItemMaintenance() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <SearchBar/>
+        <div className="flex w-full">
+          <SearchBar/>
+          <StarButton/>
+        </div>
         <User />
       </div>
 
       <div className="px-6">
-        <div className="flex gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left side - Two main boxes */}
           <div className="flex-1 flex flex-col gap-6">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <FormField
-                label="Inv Code"
-                value={formData.invCode}
-                onChange={handleChange("invCode")}
-                isFirst={true}
-              />
-              <FormField
-                label="Inv Class"
-                type="select"
-                options={["Class A", "Class B", "Class C"]}
-                value={formData.invClass}
-                onChange={handleChange("invClass")}
-              />
-              <FormField
-                label="List Price"
-                value={formData.listPrice}
-                onChange={handleChange("listPrice")}
-              />
-              <FormField
-                label="UOM"
-                value={formData.uom}
-                onChange={handleChange("uom")}
-              />
-              <FormField
-                label="Taxable"
-                type="checkbox"
-                value={formData.taxable}
-                onChange={handleChange("taxable")}
-              />
-              <FormField
-                label="Active"
-                type="checkbox"
-                value={formData.active}
-                onChange={handleChange("active")}
-              />
-              <FormField
-                label="Description"
-                type="long text"
-                value={formData.description}
-                onChange={handleChange("description")}
-              />
-              <FormField
-                label="Description (International)"
-                type="long text"
-                value={formData.descriptionInt}
-                onChange={handleChange("descriptionInt")}
-              />
+              <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
+                {/* Left side - Form fields */}
+                <div className="flex-1">
+                  <FormField
+                    label="Inv Code"
+                    value={formData.invCode}
+                    onChange={handleChange("invCode")}
+                    isFirst={true}
+                  />
+                  <FormField
+                    label="Inv Class"
+                    type="select"
+                    options={["Class A", "Class B", "Class C"]}
+                    value={formData.invClass}
+                    onChange={handleChange("invClass")}
+                  />
+                  <FormField
+                    label="List Price"
+                    value={formData.listPrice}
+                    onChange={handleChange("listPrice")}
+                  />
+                  <FormField
+                    label="UOM"
+                    value={formData.uom}
+                    onChange={handleChange("uom")}
+                  />
+                  <FormField
+                    label="Taxable"
+                    type="checkbox"
+                    value={formData.taxable}
+                    onChange={handleChange("taxable")}
+                  />
+                  <FormField
+                    label="Active"
+                    type="checkbox"
+                    value={formData.active}
+                    onChange={handleChange("active")}
+                  />
+                </div>
+                {/* Right side - Descriptions */}
+                <div className="md:w-2/3">
+                  <FormField
+                    label="Description"
+                    type="long text"
+                    value={formData.description}
+                    onChange={handleChange("description")}
+                  />
+                  <FormField
+                    label="Description (International)"
+                    type="long text"
+                    value={formData.descriptionInt}
+                    onChange={handleChange("descriptionInt")}
+                  />
+                </div>
+              </div>
             </MaintenanceSection>
 
             {/* Second main box */}
@@ -134,8 +146,8 @@ export default function ItemMaintenance() {
             </MaintenanceSection>
           </div>
 
-          {/* Right side - Two smaller boxes */}
-          <div className="w-80 flex flex-col gap-6">
+          {/* Right side boxes - Stack in a single column on smaller screens */}
+          <div className="lg:w-80 flex flex-col gap-6">
             {/* First small box */}
             <MaintenanceSection title="Header">
               <FormField
@@ -218,7 +230,7 @@ export default function ItemMaintenance() {
           </div>
         </div>
 
-        <div className="flex justify-center gap-4 mt-6 mb-8">
+        <div className="text-center pb-4 space-x-4">
           <button className="px-8 py-2 border border-blue-800 text-blue-800 rounded-md hover:bg-blue-50">
             Delete
           </button>
