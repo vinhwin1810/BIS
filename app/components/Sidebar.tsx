@@ -68,6 +68,8 @@ export default function Sidebar({
 
   // Clicking "Maintenance" opens third sidebar and keeps first submenu open
   const handleSubmenuClick = (submenu: Submenu) => {
+    setActiveItems([submenu.title]);  
+    
     if (submenu.title === "Maintenance") {
       setShowThirdMenu(true);
 
@@ -95,6 +97,7 @@ export default function Sidebar({
 
   // Clicking "Item Maintenance" collapses everything, including main sidebar
   const handleThirdMenuClick = (item: string) => {
+    setActiveItems([item]);
     if (item === "Item Maintenance") {
       setShowSubmenu(false);
       setShowThirdMenu(false);
@@ -172,7 +175,7 @@ export default function Sidebar({
 
       {/* First Submenu (Inventory Management -> Maintenance + other items) */}
       {showSubmenu && (
-        <div className="absolute left-64 top-[150px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
+        <div className="absolute left-64 top-[145px] bg-white shadow-lg rounded-3xl p-3 w-60 flex flex-col">
           {menuData.find((item) => item.title === "Inventory Management")?.submenus?.map((submenu) => (
             <React.Fragment key={submenu.title}>
               <button
@@ -201,7 +204,7 @@ export default function Sidebar({
 
       {/* Third-Level Sidebar (Maintenance -> Item Maintenance + components) */}
       {showThirdMenu && (
-        <div className="absolute left-[490px] top-[150px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col">
+        <div className="absolute left-[490px] top-[145px] bg-white shadow-lg rounded-3xl p-3 w-96 flex flex-col">
           <div className="max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 flex flex-col space-y-2 p-2">
             {menuData.find((item) => item.title === "Inventory Management")
               ?.submenus?.find((submenu) => submenu.title === "Maintenance")
