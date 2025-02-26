@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import Hamburger from "./IM_Hmaburger"
+import Hamburger from "./IM_Hamburger"
 
 interface FormFieldProps {
   label: string;
@@ -89,7 +89,7 @@ export default function FormField({
           rows={4} // Adjust the number of rows as needed
         />
       ) : type === "hamburger" ? ( 
-          icon = <Hamburger />
+          <Hamburger />
       ) : (
         <input
           type={type}
