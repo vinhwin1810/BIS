@@ -41,6 +41,7 @@ export default function Sidebar({
   
   // Clicking "Inventory Management" opens submenu + keeps highlight
   const handleItemClick = (menuItem: MenuItem) => {
+    setActiveItems([menuItem.title]); // Ensure only one item is active at a time for the highlights to be good 
     if (menuItem.title === "Inventory Management") {
       if (activeItems.includes("Inventory Management")) {
         setShowSubmenu(false);
@@ -62,12 +63,7 @@ export default function Sidebar({
       setShowThirdMenu(false);
     }
 
-    // Allow multiple active items instead of replacing the value
-    setActiveItems((prev) =>
-      prev.includes(menuItem.title)
-        ? prev.filter((item) => item !== menuItem.title)
-        : [...prev, menuItem.title]
-    );
+    
   };
 
   // Clicking "Maintenance" opens third sidebar and keeps first submenu open
@@ -136,7 +132,7 @@ export default function Sidebar({
               <React.Fragment key={item.title}>
                 <button
                   className={`flex items-center gap-3 px-5 py-3 transition-colors rounded-3xl ${
-                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851]"
+                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black" : "hover:bg-[#FFC851] hover:text-black"
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
