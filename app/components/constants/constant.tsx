@@ -53,3 +53,10 @@ export const menuData = [
   { title: "Admin Maintenance", icon: <Star size={20} /> },
   { title: "Security", icon: <RefreshCcw size={20} /> },
 ];
+
+export const TwoLineHamburger = () => (
+  <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="6" y1="6" x2="18" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <line x1="6" y1="10" x2="18" y2="10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);

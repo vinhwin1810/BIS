@@ -43,7 +43,7 @@ export default function FormField({
           : "items-center justify-between"
       } 
                     ${
-                      ["text", "select", "number"].includes(type)
+                      ["text", "select", "number", "hamburger"].includes(type)
                         ? "border-b border-gray-300"
                         : ""
                     } 
