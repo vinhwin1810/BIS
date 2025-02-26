@@ -49,14 +49,14 @@ export default function User({ userName = "Last, First" }: UserProps) {
 
       {/* User Dropdown Sidebar (Appears Below the User Icon) */}
       {showUserMenu && (
-        <div className="absolute right-0 top-10 w-48 bg-white shadow-lg rounded-xl p-3 flex flex-col z-50">
-          <button className="p-3 rounded-lg hover:bg-gray-100 hover:font-bold text-black transition-all">
+        <div className="absolute right-0 top-10 w-36 bg-white shadow-md rounded-xl p-3 z-50">
+          <button className="rounded-lg text-black transition-all text-sm text-right w-full hover:underline">
             Change Password
           </button>
-          <button className="p-3 rounded-lg hover:bg-gray-100 hover:font-bold text-black transition-all">
+          <button className="rounded-lg text-black transition-all text-sm text-right w-full hover:underline">
             Log Out
           </button>
-          <button className="p-3 rounded-lg hover:bg-gray-100 hover:font-bold text-black transition-all">
+          <button className="rounded-lg text-black transition-all text-sm text-right w-full hover:underline">
             Help
           </button>
         </div>
