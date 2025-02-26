@@ -127,22 +127,22 @@ export default function ItemMaintenance() {
 
             {/* Second main box */}
             <MaintenanceSection title="Header">
-              <FormField
-                label="Bill of Lading Code"
-                value={formData.billOfLadingCode}
-                onChange={handleChange("billOfLadingCode")}
-                isFirst={true}
-              />
-              <FormField
-                label="Season"
-                value={formData.season}
-                onChange={handleChange("season")}
-              />
-              <FormField
-                label="GL Code"
-                value={formData.glCode}
-                onChange={handleChange("glCode")}
-              />
+              <div className="col-span-3 grid grid-cols-3 gap-6">
+                <FormField
+                  label="Bill of Lading Code"
+                  type="hamburger"
+                />
+                <FormField
+                  label="Season"
+                  value={formData.season}
+                  onChange={handleChange("season")}
+                />
+                <FormField
+                  label="GL Code"
+                  type="hamburger"
+                />
+                {/* ... other fields in the second box */}
+              </div>
             </MaintenanceSection>
           </div>
 

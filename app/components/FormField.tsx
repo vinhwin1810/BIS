@@ -8,15 +8,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import Hamburger from "./IM_Hamburger"
+
 interface FormFieldProps {
   label: string;
   value?: string;
-  type?: "text" | "number" | "select" | "checkbox" | "long text";
+  type?: "text" | "number" | "select" | "checkbox" | "long text" | "hamburger";
   options?: string[];
   onChange?: (value: string) => void;
   disabled?: boolean;
   className?: string;
   isFirst?: boolean;
+  icon?: React.ReactNode
 }
 
 export default function FormField({
@@ -39,7 +42,7 @@ export default function FormField({
           : "items-center justify-between"
       } 
                     ${
-                      ["text", "select", "number"].includes(type)
+                      ["text", "select", "number", "hamburger"].includes(type)
                         ? "border-b border-gray-300"
                         : ""
                     } 
@@ -84,6 +87,8 @@ export default function FormField({
           disabled={disabled}
           rows={4} // Adjust the number of rows as needed
         />
+      ) : type === "hamburger" ? ( 
+          <Hamburger />
       ) : (
         <input
           type={type}
