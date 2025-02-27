@@ -37,8 +37,10 @@ export default function SearchBar() {
     <div ref={searchBarRef} className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
       <Command
         className={cn(
-          "rounded-lg border",
-          isOpen && "rounded-b-none border-b-0"
+          "border border-gray-500 shadow-sm", // Change rounded-lg to rounded-full
+          isOpen 
+            ? "rounded-t-[22px] rounded-b-none border-b-0"
+            : "rounded-full"
         )}
       >
         <CommandInput
@@ -51,7 +53,7 @@ export default function SearchBar() {
         />
         {isOpen && (
           <div className="absolute left-0 right-0 top-full z-50">
-            <CommandList className="rounded-b-lg border border-t-0 bg-popover shadow-md">
+            <CommandList className="rounded-b-[22px] border border-gray-500 border-t-0 bg-popover shadow-md">
               <CommandEmpty>
                 {`Sorry, we couldn't find any matches for "${inputValue}".`}
               </CommandEmpty>
