@@ -44,6 +44,7 @@ export default function SearchBar() {
         )}
       >
         <CommandInput
+          className="placeholder:text-black"
           placeholder="Search..."
           value={inputValue}
           onValueChange={(value) => {
