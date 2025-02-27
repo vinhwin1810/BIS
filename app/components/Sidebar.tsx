@@ -41,29 +41,29 @@ export default function Sidebar({
   
   // Clicking "Inventory Management" opens submenu + keeps highlight
   const handleItemClick = (menuItem: MenuItem) => {
-    setActiveItems([menuItem.title]); // Ensure only one item is active at a time for the highlights to be good 
-    if (menuItem.title === "Inventory Management") {
-      if (activeItems.includes("Inventory Management")) {
-        setShowSubmenu(false);
-        setShowThirdMenu(false);
-        setActiveItems([]); // Clear all active items
-      } else {
-        setShowSubmenu(true);
-        setShowThirdMenu(false);
-        setActiveItems(["Inventory Management"]); // Set "Inventory Management" as active
+    
+    // Toggle highlight for all items except "Inventory Management"
+    setActiveItems((prev) => {
+      if (menuItem.title === "Inventory Management") {
+        if (prev.includes("Inventory Management")) {
+          setShowSubmenu(false);
+          setShowThirdMenu(false);
+          return [];
+        } else {
+          setShowSubmenu(true);
+          setShowThirdMenu(false);
+          return ["Inventory Management"];
+        }
       }
-      return;
-    }
-
-    if (menuItem.submenus) {
-      setShowSubmenu(true);
-      setShowThirdMenu(false);
-    } else {
+      
+      // Close any open submenus when clicking on an item
       setShowSubmenu(false);
       setShowThirdMenu(false);
-    }
-
-    
+      
+      return prev.includes(menuItem.title)
+        ? prev.filter((item) => item !== menuItem.title)
+        : [menuItem.title]; // Ensures only one item is active at a time
+    });
   };
 
   // Clicking "Maintenance" opens third sidebar and keeps first submenu open
@@ -109,6 +109,12 @@ export default function Sidebar({
       );
     }
   };
+  // This ensures that clickign an icon when the sidebra is collapsed opens it again
+  const handleIconClick =() => {
+    if (!isOpen) {
+      toggleSidebar();
+    }
+  };
   
 
 
@@ -130,16 +136,26 @@ export default function Sidebar({
       >
         <div className="flex flex-col">
           <div className="h-7" />
-          <nav>
+          <nav >
             {menuData.map((item) => (
               <React.Fragment key={item.title}>
                 <button
                   className={`flex items-center gap-3 px-5 py-2  transition-colors rounded-3xl ${
-                    activeItems.includes(item.title) ? "bg-[#FFC851] text-black " :  "hover:bg-[#FFC851] hover:text-black"
+                    activeItems.includes(item.title) 
+                    ? "bg-[#FFC851] text-black "  
+                    :isOpen 
+                    ? "hover:bg-[#FFC851] hover:text-black"
+                    :""
                   }`}
                   onClick={() => handleItemClick(item)}
                 >
-                  <div>{item.icon}</div>
+                  <div
+                    className = {`flex items-center justify-center transition-colors duration-300 ${!isOpen ? "hover:text-[#FFC851] text-white" : "hover:text-black " }`}
+                    onClick={handleIconClick} // Ensures clicking icon opens the sidebra when collapsed 
+                    
+                  >
+                    {item.icon}
+                  </div>
                   <span
                     className={`whitespace-nowrap ${
                       isOpen ? "opacity-100" : "opacity-0 w-0"
