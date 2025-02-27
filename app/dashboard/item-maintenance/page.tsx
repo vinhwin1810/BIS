@@ -58,11 +58,6 @@ export default function ItemMaintenance() {
         <User />
       </div>
 
-      {/* <div className="flex justify-between mb-1 px-8">
-        <div className="text-gray-300">Header</div>
-        <div className="text-gray-300 w-80">Header</div>
-      </div> */}
-
       <div className="boxes px-8">
         <div className="flex gap-6">
           {/* Left side - Two main boxes */}
@@ -130,7 +125,6 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
             
-            {/* <div className="text-gray-300 mt-4">Header</div>  */}
             {/* Second main box */}
             <MaintenanceSection title="Header">
               <div className="col-span-3 grid grid-cols-1 xl:grid-cols-3 gap-x-20 gap-3 px-5 pb-4">
@@ -240,7 +234,6 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
             
-            {/* <div className="text-gray-300 mt-4">Header</div> */}
             {/* Second small box */}
             <MaintenanceSection title="Header">
                <div className="col-span-3 flex flex-col px-2 pb-4">
