@@ -26,26 +26,17 @@ export default function SearchBar() {
   );
 
   return (
-    <div className="relative min-w-[320px] max-w-[600px] w-full flex items-center">
-      <Command className={cn(
-        "rounded-lg border",
-        inputValue && "rounded-b-none border-b-0"
-      )}>
-        <CommandInput 
-          placeholder="Search..." 
-          value={inputValue} 
-          onValueChange={setInputValue}
-        />
+    <div className="relative flex-1 min-w-0">
+      <Command className={cn("rounded-lg border w-full", inputValue && "rounded-b-none border-b-0")}>
+        <CommandInput placeholder="Search..." value={inputValue} onValueChange={setInputValue} />
         {inputValue && (
           <div className="absolute left-0 right-0 top-full z-50">
             <CommandList className="rounded-b-lg border border-t-0 bg-popover shadow-md">
-              <CommandEmpty>
-                {`Sorry, we couldn't find any matches for "${inputValue}".`}
-              </CommandEmpty>
+              <CommandEmpty>{`Sorry, we couldn't find any matches for "${inputValue}".`}</CommandEmpty>
               <CommandGroup>
                 {filteredItems.map((item) => (
                   <CommandItem key={item.label} value={item.label}>
-                    <Search className="" />
+                    <Search className="mr-2 h-4 w-4" />
                     <span>{item.label}</span>
                   </CommandItem>
                 ))}

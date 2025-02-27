@@ -59,12 +59,9 @@ export default function ItemMaintenance() {
           <SearchBar/>
           <StarButton/>
         </div>
-        <User />
-      </div>
-
-      <div className="flex justify-between mb-1 px-8">
-        <div className="text-gray-300">Header</div>
-        <div className="text-gray-300 w-80">Header</div>
+        <div className="flex-shrink-0 ml-2">
+          <User />
+        </div>
       </div>
 
       <div className="boxes px-8">
