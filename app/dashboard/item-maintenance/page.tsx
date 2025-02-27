@@ -69,70 +69,71 @@ export default function ItemMaintenance() {
           {/* Left side - Two main boxes */}
           <div className="flex-1 flex flex-col gap-1 pr-7">
             {/* First main box */}
-            <MaintenanceSection>
-              <div className="flex flex-col px-5 pb-4">
-                <FormField
-                  label="Inv Code"
-                  value={formData.invCode}
-                  onChange={handleChange("invCode")}
-                />
-                <FormField
-                  label="Inv Class"
-                  type="select"
-                  options={["Class A", "Class B", "Class C"]}
-                  value={formData.invClass}
-                  onChange={handleChange("invClass")}
-                  className="mt-5"
-                />
-                <FormField
-                  label="List Price"
-                  value={formData.listPrice}
-                  onChange={handleChange("listPrice")}
-                  className="mt-5"
-                />
-                <FormField
-                  label="UOM"
-                  value={formData.uom}
-                  onChange={handleChange("uom")}
-                  className="mt-5"
-                />
-                <div className="flex-1 mt-6 gap-3">
+            <MaintenanceSection title="Header">
+              <div className="col-span-3 grid grid-cols-1 xl:grid-cols-3"> 
+                <div className="flex flex-col px-5 pb-4">
                   <FormField
-                    label="Taxable"
-                    type="checkbox"
-                    value={formData.taxable}
-                    onChange={handleChange("taxable")}
+                    label="Inv Code"
+                    value={formData.invCode}
+                    onChange={handleChange("invCode")}
                   />
                   <FormField
-                    label="Active"
-                    type="checkbox"
-                    value={formData.active}
-                    onChange={handleChange("active")}
+                    label="Inv Class"
+                    type="select"
+                    options={["Class A", "Class B", "Class C"]}
+                    value={formData.invClass}
+                    onChange={handleChange("invClass")}
+                    className="mt-5"
+                  />
+                  <FormField
+                    label="List Price"
+                    value={formData.listPrice}
+                    onChange={handleChange("listPrice")}
+                    className="mt-5"
+                  />
+                  <FormField
+                    label="UOM"
+                    value={formData.uom}
+                    onChange={handleChange("uom")}
+                    className="mt-5"
+                  />
+                  <div className="flex-1 mt-6 gap-3">
+                    <FormField
+                      label="Taxable"
+                      type="checkbox"
+                      value={formData.taxable}
+                      onChange={handleChange("taxable")}
+                    />
+                    <FormField
+                      label="Active"
+                      type="checkbox"
+                      value={formData.active}
+                      onChange={handleChange("active")}
+                    />
+                  </div>
+                </div>
+                <div className="col-span-2 pr-5">
+                  <FormField
+                    label="Description"
+                    type="long text"
+                    value={formData.description}
+                    onChange={handleChange("description")}
+                    className="h-32"
+                  />
+                  <FormField
+                    label="Description (International)"
+                    type="long text"
+                    value={formData.descriptionInt}
+                    onChange={handleChange("descriptionInt")}
+                    className="mt-4 h-32"
                   />
                 </div>
               </div>
-              <div className="col-span-2 pr-5">
-                <FormField
-                  label="Description"
-                  type="long text"
-                  value={formData.description}
-                  onChange={handleChange("description")}
-                  className="h-32"
-                />
-                <FormField
-                  label="Description (International)"
-                  type="long text"
-                  value={formData.descriptionInt}
-                  onChange={handleChange("descriptionInt")}
-                  className="mt-4 h-32"
-                />
-              </div>
             </MaintenanceSection>
             
-            <div className="text-gray-300 mt-4">Header</div> 
             {/* Second main box */}
-            <MaintenanceSection>
-              <div className="col-span-3 grid grid-cols-3 gap-x-20 gap-3 px-5 pb-4">
+            <MaintenanceSection title="Header">
+              <div className="col-span-3 grid grid-cols-1 xl:grid-cols-3 gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
                   value={formData.billOfLadingCode}
@@ -219,9 +220,9 @@ export default function ItemMaintenance() {
           {/* Right side - Two smaller boxes */}
           <div className="w-80 flex flex-col pr-3">
             {/* First small box */}
-            <MaintenanceSection>
-              <div className="col-span-3 flex flex-col px-2 pb-3">
-                <FormField
+            <MaintenanceSection title="Header">
+              <div className="col-span-3 flex flex-col px-2 pb-5">
+                <FormField  
                   label="Min Supplier QTY"
                   value={formData.minSupplierQty}
                   onChange={handleChange("minSupplierQty")}
@@ -239,9 +240,8 @@ export default function ItemMaintenance() {
               </div>
             </MaintenanceSection>
             
-            <div className="text-gray-300 mt-4">Header</div>
             {/* Second small box */}
-            <MaintenanceSection>
+            <MaintenanceSection title="Header">
                <div className="col-span-3 flex flex-col px-2 pb-4">
                 <FormField
                   label="Cub FT"
