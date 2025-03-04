@@ -20,7 +20,7 @@ export default function MaintenanceSection({
         <div className="grid grid-cols-3 gap-6">{children}</div>
       </div>
     </div>
-
+    
 
   );
 } 

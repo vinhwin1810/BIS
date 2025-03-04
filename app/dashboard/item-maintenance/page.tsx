@@ -70,7 +70,7 @@ export default function ItemMaintenance() {
           <div className="flex-1 flex flex-col gap-1 pr-7">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-1 xl:grid-cols-3"> 
+              <div className="col-span-3 grid grid-cols-1  lg:grid-cols-3"> 
                 <div className="flex flex-col px-5 pb-4">
                   <FormField
                     label="Inv Code"
@@ -133,7 +133,8 @@ export default function ItemMaintenance() {
             
             {/* Second main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-1 xl:grid-cols-3 gap-x-20 gap-3 px-5 pb-4">
+              <div className="col-span-3 grid grid-cols-1 
+              lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.5fr_1fr_1fr] gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
                   value={formData.billOfLadingCode}
@@ -304,7 +305,7 @@ export default function ItemMaintenance() {
         </div>
 
         {/* Buttons at the bottom */}
-        <div className="flex justify-between mt-6 mb-4 pr-3"> 
+        <div className="flex justify-between p-3"> 
           <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
             Clear Screen
           </button>         
