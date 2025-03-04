@@ -9,7 +9,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/app/components/ui/command";
 import { cn } from "@/lib/utils";
 import { itemList } from "./constants/constant";
 
