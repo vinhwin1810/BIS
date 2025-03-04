@@ -71,6 +71,7 @@ function ActionsButton() {
 
 function ActionsOptionsComponent() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredSubIndex, setHoveredSubIndex] = useState<number | null>(null);
 
   return (
     <div className="flex flex-col w-full">
@@ -92,18 +93,36 @@ function ActionsOptionsComponent() {
 
           {/* Submenu positioned correctly relative to each hovered item */}
           {action.items && hoveredIndex === index && (
-            <div className="absolute top-0 left-full -mt-2 bg-blue-50 shadow-md rounded-md z-50 py-2">
+            <div className={`absolute top-0 left-full -mt-2 bg-blue-50 shadow-md rounded-md z-50 py-2`}>
               {action.items.map((subItem: any, subIndex: number) => (
+                <div key={subIndex} className="relative" 
+                onMouseEnter={() => setHoveredSubIndex(subIndex)}
+                onMouseLeave={() => setHoveredSubIndex(null)}
+                  >
                 <button
                   key={subIndex}
-                  className="flex items-center px-5 py-2 text-gray-700 hover:bg-blue-100 w-full text-left whitespace-nowrap"
+                  className={`flex items-center px-5 py-2 text-gray-700 hover:bg-blue-100 w-full text-left whitespace-nowrap
+                    ${hoveredSubIndex === subIndex ? "bg-blue-100" : ""}`}
                 >
                   {subItem.icon && <span className="mr-2">{subItem.icon}</span>}
                   <span className="text-sm font-medium">{subItem.title}</span>
-                  {subItem.items && <ChevronRight size={15} className="text-gray-500 ml-auto" />}
+                  {subItem.items && <ChevronRight size={15} className="text-gray-500 ml-2" />}
                 </button>
+                {/* SubSubmenu positioned correctly relative to each hovered item */}
+                {subItem.items && hoveredSubIndex === subIndex && (
+                <div className="absolute top-0 left-full -mt-2 bg-blue-50 shadow-md rounded-md z-50 py-2">
+                  {subItem.items.map((subSubItem: string, subSubIndex: number) => (
+                    <button
+                      key={subSubIndex}
+                      className="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-100 w-full text-left whitespace-nowrap"
+                    >
+                      <span className="text-sm font-medium">{subSubItem}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+                </div>
               ))}
-
             </div>
           )}
         </div>
