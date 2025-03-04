@@ -3,20 +3,41 @@
 import { useState } from "react";
 import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search"; 
-import { Plus } from "lucide-react";
-import { Pencil } from "lucide-react";
+import { Plus, Pencil, X, Warehouse } from "lucide-react";
+import MaintenanceSection from "@/app/components/MaintenanceSection";
+import FormField from "@/app/components/FormField"; 
 
+// Define types for warehouse objects
+interface Warehouse {
+    loc_code: string;
+    name: string;
+    city: string;
+    state_code: string;
+    default_loc: string;
+    active_status: string;
+  }
 
-function AddEntryButton() {
+interface AddEntryButtonProps {
+    setIsModalOpen: (value: boolean) => void;
+}
+
+function AddEntryButton({ setIsModalOpen }: AddEntryButtonProps) {
     return (
-        <button className="flex items-center px-6 py-3 bg-[#D2E2FF] text-black rounded-2xl hover:bg-[#B5CBF4]">
+        <button 
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center px-6 py-3 bg-[#D2E2FF] text-black rounded-2xl hover:bg-[#B5CBF4]"
+        >
             <Plus className="w-5 h-5 mr-2"/>
             Add Location
         </button>
     );
 }
 
-function WarehouseTable({ warehouses }) { 
+interface WarehouseTableProps {
+    warehouses: Warehouse[];
+}
+
+function WarehouseTable({ warehouses }: WarehouseTableProps) { 
     return (
         <div className="pl-5 pr-3 overflow-x-auto">
             <table className="bg-[#EDEDED] bg-opacity-55 w-full max-w-[calc(100%-2rem)]">
@@ -55,9 +76,10 @@ function WarehouseTable({ warehouses }) {
 
 
 export default function Warehouses() {
-    const [warehouses, setWarehouses] = useState([
+    const [warehouses, setWarehouses] = useState<Warehouse[]>([
         { loc_code: "-", name: "-", city: "-", state_code: "-", default_loc: "-", active_status: "-" },
     ]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <div>
@@ -73,8 +95,37 @@ export default function Warehouses() {
 
         {/* add entry button */}
         <div className="flex justify-start p-4">
-            <AddEntryButton />
+            <AddEntryButton setIsModalOpen={setIsModalOpen} />
         </div>
+
+        {/* Modal */}
+        {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg relative">
+                        <h2 className="text-xl font-bold mb-4">Add Location</h2>
+                        <button 
+                            onClick={() => setIsModalOpen(false)} 
+                            className="absolute top-2 right-2 text-gray-600 hover:text-black"
+                        >
+                            X
+                        </button>
+
+                        <MaintenanceSection>
+                            <FormField
+                                label="Loc Code"
+                                value=""
+                            />
+                            <FormField
+                                label="Name"
+                                value=""
+                            />
+
+                        </MaintenanceSection>
+                        
+                    </div>
+                </div>
+            )}
+
 
         {/* table */}
         <WarehouseTable warehouses={warehouses} />
