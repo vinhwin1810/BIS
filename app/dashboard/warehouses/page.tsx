@@ -15,6 +15,10 @@ interface Warehouse {
     state_code: string;
     default_loc: string;
     active_status: string;
+    address_line_1: string;
+    address_line_2: string;
+    zip: string;
+    country: string;
   }
 
 interface AddEntryButtonProps {
@@ -95,13 +99,21 @@ export default function Warehouses() {
         name: "",
         city: "",
         state_code: "",
-        default_loc: "",
-        active_status: "",
+        default_loc: "N",
+        active_status: "N",
+        address_line_1: "",
+        address_line_2: "",
+        zip: "",
+        country: "",
     });
     
     // Function to handle input changes
     const handleInputChange = (field: keyof Warehouse, value: string) => {
         setNewWarehouse((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const handleCheckBoxChange = (field: "default_loc" | "active_status", checked: boolean) => {
+        setNewWarehouse((prev) => ({ ...prev, [field]: checked ? "Y" : "N" }));
     };
     
     // Function to add the new warehouse to the list
@@ -109,7 +121,18 @@ export default function Warehouses() {
         if (isFormValid()) {
             setWarehouses((prev) => [...prev, newWarehouse]); // Update state
             setIsModalOpen(false); // Close modal
-            setNewWarehouse({ loc_code: "", name: "", city: "", state_code: "", default_loc: "", active_status: "" }); // Reset form
+            setNewWarehouse({ 
+                loc_code: "", 
+                name: "", 
+                city: "", 
+                state_code: "", 
+                default_loc: "", 
+                active_status: "",
+                address_line_1: "",
+                address_line_2: "",
+                zip: "",
+                country: "", 
+            }); // Reset form
         }
         else {
             alert("Please fill out all fields before submitting.");
@@ -149,55 +172,157 @@ export default function Warehouses() {
                             <X className="w-5 h-5"/>
                         </button>
 
-                        <MaintenanceSection>
-                            <FormField 
-                                label="Loc Code"
-                                value={newWarehouse.loc_code}
-                                onChange={(e) => handleInputChange("loc_code", e)}
-                                type="text"
-                                maxLength={3}
-                            />
-                            <FormField
-                                label="Name"
-                                value={newWarehouse.name}
-                                onChange={(e) => handleInputChange("name", e)}
-                            />
+                        {/* Form */}
+                        <form>
+                            {/* Top Section: Loc Code, Name, Default, Active */}
+                            <div className="flex space-x-4 mb-4">
+                                <div className="w-1/4">
+                                    <label htmlFor="loc_code" className="block text-sm text-gray-500">
+                                        Loc Code
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="loc_code"
+                                        value={newWarehouse.loc_code}
+                                        onChange={(e) => handleInputChange("loc_code", e.target.value)}
+                                        maxLength={3}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required
+                                    />
+                                </div>
 
-                            <FormField
-                                label="City"
-                                value={newWarehouse.city}
-                                onChange={(e) => handleInputChange("city", e)}
-                            />
+                                <div className="w-1/4">
+                                    <label htmlFor="name" className="block text-sm text-gray-500">
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        value={newWarehouse.name}
+                                        onChange={(e) => handleInputChange("name", e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        required
+                                    />
+                                </div>
 
-                            <FormField
-                                label="State Code"
-                                value={newWarehouse.state_code}
-                                onChange={(e) => handleInputChange("state_code", e)}
-                                maxLength={2}
-                            />
+                                <div className="w-1/4 flex items-center">
+                                    <label htmlFor="default_loc" className="text-sm text-gray-500 mr-2">
+                                        Default
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="default_loc"
+                                        checked={newWarehouse.default_loc === "Y"}
+                                        onChange={(e) => handleCheckBoxChange("default_loc", e.target.checked)}
+                                        className="w-5 h-5 border rounded-md"
+                                    />
+                                </div>
 
-                            <FormField
-                                label="Default Loc"
-                                value={newWarehouse.default_loc}
-                                onChange={(e) => handleInputChange("default_loc", e)}
-                            />
+                                <div className="w-1/4 flex items-center">
+                                    <label htmlFor="active_status" className="text-sm text-gray-500 mr-2">
+                                        Active
+                                    </label>
+                                    <input
+                                        type="checkbox"
+                                        id="active_status"
+                                        checked={newWarehouse.active_status === "Y"}
+                                        onChange={(e) => handleCheckBoxChange("active_status", e.target.checked)}
+                                        className="w-5 h-5 border rounded-md"
+                                    />
+                                </div>
+                            </div>
 
-                            <FormField
-                                label="Active Status"
-                                value={newWarehouse.active_status}
-                                onChange={(e) => handleInputChange("active_status", e)}
-                            />
-                        </MaintenanceSection>
+                            {/* Address Section: Address Line 1 and Address Line 2 */}
+                            <div className="mb-4">
+                                <label htmlFor="address_line_1" className="block text-sm text-gray-500">
+                                    Address Line 1
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address_line_1"
+                                    value={newWarehouse.address_line_1}
+                                    onChange={(e) => handleInputChange("address_line_1", e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
 
-                        {/*  Submit Button to Add Warehouse */}
-                        <button 
-                            onClick={handleAddWarehouse} 
-                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                            disabled={!isFormValid()}
-                        >
-                            Add Warehouse
-                        </button>
-                        
+                            <div className="mb-4">
+                                <label htmlFor="address_line_2" className="block text-sm text-gray-500">
+                                    Address Line 2
+                                </label>
+                                <input
+                                    type="text"
+                                    id="address_line_2"
+                                    value={newWarehouse.address_line_2}
+                                    onChange={(e) => handleInputChange("address_line_2", e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+
+                            {/* Bottom Section: City, State Code, Zip, Country */}
+                            <div className="flex space-x-4 mb-4">
+                                <div className="w-1/4">
+                                    <label htmlFor="city" className="block text-sm text-gray-500">
+                                        City
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        value={newWarehouse.city}
+                                        onChange={(e) => handleInputChange("city", e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+
+                                <div className="w-1/4">
+                                    <label htmlFor="state_code" className="block text-sm text-gray-500">
+                                        State Code
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="state_code"
+                                        value={newWarehouse.state_code}
+                                        onChange={(e) => handleInputChange("state_code", e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+
+                                <div className="w-1/4">
+                                    <label htmlFor="zip" className="block text-sm text-gray-500">
+                                        Zip
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="zip"
+                                        value={newWarehouse.zip}
+                                        onChange={(e) => handleInputChange("zip", e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+
+                                <div className="w-1/4">
+                                    <label htmlFor="country" className="block text-sm text-gray-500">
+                                        Country
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="country"
+                                        value={newWarehouse.country}
+                                        onChange={(e) => handleInputChange("country", e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Submit Button */}
+                            <button
+                                type="button"
+                                onClick={handleAddWarehouse}
+                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                            >
+                                Add Warehouse
+                            </button>
+                        </form>
                     </div>
                 </div>
             )}
