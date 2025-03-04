@@ -1,11 +1,12 @@
+"use client"
+
 import * as React from "react";
 
 import {
   Select,
   SelectContent,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
+  SelectTrigger
 } from "@/app/components/ui/select";
 
 import Hamburger from "./IM_Hamburger"
@@ -13,7 +14,7 @@ import Hamburger from "./IM_Hamburger"
 interface FormFieldProps {
   label: string;
   value?: string;
-  type?: "text" | "number" | "select" | "checkbox" | "long text" | "hamburger";
+  type?: "text" | "select" | "checkbox" | "long text" | "hamburger";
   options?: string[];
   onChange?: (value: string) => void;
   disabled?: boolean;
@@ -32,6 +33,9 @@ export default function FormField({
   className,
   isFirst = false,
 }: FormFieldProps) {
+
+  const [selectedValue, setSelectedValue] = React.useState(value || "")
+
   return (
     <div
       className={`flex ${
@@ -42,7 +46,7 @@ export default function FormField({
           : "items-center justify-between"
       } 
                     ${
-                      ["text", "select", "number", "hamburger"].includes(type)
+                      ["text", "select", "hamburger"].includes(type)
                         ? "border-b border-gray-300"
                         : ""
                     } 
@@ -59,9 +63,23 @@ export default function FormField({
         </label>
       )}
       {type === "select" ? (
-        <Select value={value} onValueChange={onChange} disabled={disabled}>
+        <Select
+          value={selectedValue}
+          onValueChange={(newValue) => {
+            setSelectedValue(newValue)
+            onChange?.(newValue)
+          }}
+          disabled={disabled}
+        >
           <SelectTrigger className="text-gray-500">
-            <SelectValue placeholder="Inv Class" />
+            <div className="flex items-center justify-between w-full">
+              <span className="text-muted-foreground">{label}</span>
+              {selectedValue && (
+                <span className="font-medium mr-2 text-gray-500">
+                  {selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1)}
+                </span>
+              )}
+            </div>
           </SelectTrigger>
           <SelectContent className="text-gray-500">
             {options?.map((opt) => (
