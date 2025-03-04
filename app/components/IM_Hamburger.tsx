@@ -1,5 +1,6 @@
-import { List, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { TwoLineHamburger } from "./constants/constant";
 
 export default function Hamburger() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,28 +20,29 @@ export default function Hamburger() {
   }, [isOpen]);
 
   return (
-    <div className="relative">
+    <>
       {/* Hamburger Button */}
-      <button onClick={toggleMenu} className="p-2 rounded-md bg-white hover:bg-gray-100 active:bg-gray-200">
-        <List color="grey" />
+      <button 
+        onClick={toggleMenu} 
+        className="relative rounded-md bg-white hover:bg-gray-100 active:bg-gray-200"
+      >
+        <TwoLineHamburger />
       </button>
-
+  
       {/* Full-screen white rectangle */}
       {isOpen && (
-        <div className ="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-96 h-64 p-6 rounded-lg shadow-lg"
-          >
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-96 h-64 p-6 rounded-lg shadow-lg">
             {/* Close button inside the menu */}
             <button onClick={toggleMenu} className="absolute top-4 right-4 p-2">
               <X className="h-6 w-6 text-gray-700" />
             </button>
-
+  
             <h2 className="text-xl font-semibold">Menu Content Here</h2>
             <p className="text-gray-600 mt-2">Add your items inside this white box.</p>
           </div>
         </div>
       )}
-    </div>
-  );
+    </>
+  );  
 }
