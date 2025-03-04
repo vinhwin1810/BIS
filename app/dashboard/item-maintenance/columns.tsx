@@ -35,11 +35,11 @@ export const columns: ColumnDef<Payment>[] = [
         currency: "USD",
       }).format(price)
  
-      return <div className="font-medium">{formatted}</div>
+      return formatted
     },
   },
   {
     accessorKey: "status",
     header: "Active Inactive",
-  }
+  },
 ]
