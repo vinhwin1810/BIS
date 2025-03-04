@@ -1,244 +1,33 @@
-"use client";
+import { Payment, columns } from "@/app/dashboard/item-maintenance/columns"
+import { DataTable } from "@/app/components/Data-table"
 
-import { useState } from "react";
-import User from "@/app/components/User";
-import SearchBar from "@/app/components/Search";
-import StarButton from "@/app/components/Star";
-import MaintenanceSection from "@/app/components/MaintenanceSection";
-import FormField from "@/app/components/FormField";
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+        code: "341350A-P",
+        item: "EXTECH OYSTER SERIES PH/COND/TDS METER",
+        class: "WATER 7",
+        price: 681.60,
+        status: true,
+    },
+    {
+        code: "341350A-P",
+        item: "EXTECH OYSTER SERIES PH/COND/TDS METER",
+        class: "WATER 7",
+        price: 681.60,
+        status: true,
+    },
+    // ...
+  ]
+}
 
-export default function ItemMaintenance() {
-  const [formData, setFormData] = useState({
-    invCode: "",
-    invClass: "",
-    listPrice: "",
-    uom: "",
-    taxable: "false",
-    active: "false",
-    description: "",
-    descriptionInt: "",
-    minSupplierQty: "",
-    palletCount: "",
-    palletRows: "",
-    billOfLadingCode: "",
-    season: "",
-    glCode: "",
-    molderLaborCost: "",
-    promoCode: "",
-    bulk: "",
-    itemStateExclusionCode: "",
-    saCode: "",
-    maxPercentage: "",
-    productionOverage: "",
-    recycleFee: "",
-    ropPercentage: "",
-    tariffCode: "",
-    voc: "",
-    atCode: "",
-    cubeFt: "",
-    length: "",
-    width: "",
-    height: "",
-    weight: "",
-    netWeight: "",
-    custStockCode: "",
-    vendorCode: "",
-    packQty: "",
-    purchaseUom: "",
-    leadTimeWeeks: "",
-  });
-
-  const handleChange = (field: string) => (value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+export default async function DemoPage() {
+  const data = await getData()
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <div className="flex md:w-4/5 lg:w-3/4 max-w-[700px]">
-          <SearchBar/>
-          <StarButton/>
-        </div>
-        <User />
-      </div>
-
-      <div className="px-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Left side - Two main boxes */}
-          <div className="flex-1 flex flex-col gap-6">
-            {/* First main box */}
-            <MaintenanceSection title="Header">
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
-                {/* Left side - Form fields */}
-                <div className="flex-1">
-                  <FormField
-                    label="Inv Code"
-                    value={formData.invCode}
-                    onChange={handleChange("invCode")}
-                    isFirst={true}
-                  />
-                  <FormField
-                    label="Inv Class"
-                    type="select"
-                    options={["Class A", "Class B", "Class C"]}
-                    value={formData.invClass}
-                    onChange={handleChange("invClass")}
-                  />
-                  <FormField
-                    label="List Price"
-                    value={formData.listPrice}
-                    onChange={handleChange("listPrice")}
-                  />
-                  <FormField
-                    label="UOM"
-                    value={formData.uom}
-                    onChange={handleChange("uom")}
-                  />
-                  <FormField
-                    label="Taxable"
-                    type="checkbox"
-                    value={formData.taxable}
-                    onChange={handleChange("taxable")}
-                  />
-                  <FormField
-                    label="Active"
-                    type="checkbox"
-                    value={formData.active}
-                    onChange={handleChange("active")}
-                  />
-                </div>
-                {/* Right side - Descriptions */}
-                <div className="md:w-2/3">
-                  <FormField
-                    label="Description"
-                    type="long text"
-                    value={formData.description}
-                    onChange={handleChange("description")}
-                  />
-                  <FormField
-                    label="Description (International)"
-                    type="long text"
-                    value={formData.descriptionInt}
-                    onChange={handleChange("descriptionInt")}
-                  />
-                </div>
-              </div>
-            </MaintenanceSection>
-
-            {/* Second main box */}
-            <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-3 gap-6">
-                <FormField
-                  label="Bill of Lading Code"
-                  type="hamburger"
-                />
-                <FormField
-                  label="Season"
-                  value={formData.season}
-                  onChange={handleChange("season")}
-                />
-                <FormField
-                  label="GL Code"
-                  type="hamburger"
-                />
-                {/* ... other fields in the second box */}
-              </div>
-            </MaintenanceSection>
-          </div>
-
-          {/* Right side boxes - Stack in a single column on smaller screens */}
-          <div className="lg:w-80 flex flex-col gap-6">
-            {/* First small box */}
-            <MaintenanceSection title="Header">
-              <FormField
-                label="Min Supplier QTY"
-                value={formData.minSupplierQty}
-                onChange={handleChange("minSupplierQty")}
-                isFirst={true}
-              />
-              <FormField
-                label="Pallet Count"
-                value={formData.palletCount}
-                onChange={handleChange("palletCount")}
-              />
-              <FormField
-                label="Pallet Rows"
-                value={formData.palletRows}
-                onChange={handleChange("palletRows")}
-              />
-            </MaintenanceSection>
-
-            {/* Second small box */}
-            <MaintenanceSection title="Header">
-              <FormField
-                label="Cub FT"
-                value={formData.cubeFt}
-                onChange={handleChange("cubeFt")}
-                isFirst={true}
-              />
-              <FormField
-                label="Length"
-                value={formData.length}
-                onChange={handleChange("length")}
-              />
-              <FormField
-                label="Width"
-                value={formData.width}
-                onChange={handleChange("width")}
-              />
-              <FormField
-                label="Height"
-                value={formData.height}
-                onChange={handleChange("height")}
-              />
-              <FormField
-                label="Weight"
-                value={formData.weight}
-                onChange={handleChange("weight")}
-              />
-              <FormField
-                label="Net Weight"
-                value={formData.netWeight}
-                onChange={handleChange("netWeight")}
-              />
-              <FormField
-                label="Cust Stock Code"
-                value={formData.custStockCode}
-                onChange={handleChange("custStockCode")}
-              />
-              <FormField
-                label="Vendor Code"
-                value={formData.vendorCode}
-                onChange={handleChange("vendorCode")}
-              />
-              <FormField
-                label="Pack QTY"
-                value={formData.packQty}
-                onChange={handleChange("packQty")}
-              />
-              <FormField
-                label="Purchase UOM"
-                value={formData.purchaseUom}
-                onChange={handleChange("purchaseUom")}
-              />
-              <FormField
-                label="Lead Time (wks)"
-                value={formData.leadTimeWeeks}
-                onChange={handleChange("leadTimeWeeks")}
-              />
-            </MaintenanceSection>
-          </div>
-        </div>
-
-        <div className="text-center pb-4 space-x-4">
-          <button className="px-8 py-2 border border-blue-800 text-blue-800 rounded-md hover:bg-blue-50">
-            Delete
-          </button>
-          <button className="px-8 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900">
-            Save
-          </button>
-        </div>
-      </div>
+    <div className="container mx-auto p-10">
+      <DataTable columns={columns} data={data} />
     </div>
-  );
+  )
 }
