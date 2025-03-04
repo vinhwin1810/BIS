@@ -52,22 +52,30 @@ function WarehouseTable({ warehouses }: WarehouseTableProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {warehouses.map((warehouse, index) => (
-                        <tr key={index} className="text-start bg-opacity-50 odd:bg-[#D2E2FF] even:bg-[#B5CBF4]">
-                            <td className="px-4 py-3 font-semibold bg-opacity-80 bg-[#ffffff] w-[10rem]">{warehouse.loc_code}</td>
-                            <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.name}</td>
-                            <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.city}</td>
-                            <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.state_code}</td>
-                            <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.default_loc}</td>
-                            <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.active_status}</td>
-
-                            <td className="px-4 py-3 bg-[#ffffff] bg-opacity-80 text-center">
-                                <button className="text-gray-600 hover:text-black">
-                                    <Pencil className="w-5"/>
-                                </button>
+                    {warehouses.length === 0 ? (
+                        <tr>
+                            <td colSpan={7} className="text-center py-4 text-gray-500">
+                                No warehouses available.
                             </td>
                         </tr>
-                    ))}
+                    ) : ( 
+                        warehouses.map((warehouse, index) => (
+                            <tr key={index} className="text-start bg-opacity-50 odd:bg-[#D2E2FF] even:bg-[#B5CBF4]">
+                                <td className="px-4 py-3 font-semibold bg-opacity-80 bg-[#ffffff] w-[10rem]">{warehouse.loc_code}</td>
+                                <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.name}</td>
+                                <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.city}</td>
+                                <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.state_code}</td>
+                                <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.default_loc}</td>
+                                <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.active_status}</td>
+
+                                <td className="px-4 py-3 bg-[#ffffff] bg-opacity-80 text-center">
+                                    <button className="text-gray-600 hover:text-black">
+                                        <Pencil className="w-5"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>
@@ -76,10 +84,41 @@ function WarehouseTable({ warehouses }: WarehouseTableProps) {
 
 
 export default function Warehouses() {
-    const [warehouses, setWarehouses] = useState<Warehouse[]>([
-        { loc_code: "-", name: "-", city: "-", state_code: "-", default_loc: "-", active_status: "-" },
-    ]);
+    // starts with an empty array 
+    const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
+
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+
+    const [newWarehouse, setNewWarehouse] = useState<Warehouse>({
+        loc_code: "",
+        name: "",
+        city: "",
+        state_code: "",
+        default_loc: "",
+        active_status: "",
+    });
+    
+    // Function to handle input changes
+    const handleInputChange = (field: keyof Warehouse, value: string) => {
+        setNewWarehouse((prev) => ({ ...prev, [field]: value }));
+    };
+    
+    // Function to add the new warehouse to the list
+    const handleAddWarehouse = () => {
+        if (isFormValid()) {
+            setWarehouses((prev) => [...prev, newWarehouse]); // Update state
+            setIsModalOpen(false); // Close modal
+            setNewWarehouse({ loc_code: "", name: "", city: "", state_code: "", default_loc: "", active_status: "" }); // Reset form
+        }
+        else {
+            alert("Please fill out all fields before submitting.");
+        }
+    };
+
+    const isFormValid = () => {
+        return Object.values(newWarehouse).every((value) => value.trim() !== "");
+    };
 
   return (
     <div>
@@ -107,20 +146,57 @@ export default function Warehouses() {
                             onClick={() => setIsModalOpen(false)} 
                             className="absolute top-2 right-2 text-gray-600 hover:text-black"
                         >
-                            X
+                            <X className="w-5 h-5"/>
                         </button>
 
                         <MaintenanceSection>
-                            <FormField
+                            <FormField 
                                 label="Loc Code"
-                                value=""
+                                value={newWarehouse.loc_code}
+                                onChange={(e) => handleInputChange("loc_code", e)}
+                                type="text"
+                                maxLength={3}
                             />
                             <FormField
                                 label="Name"
-                                value=""
+                                value={newWarehouse.name}
+                                onChange={(e) => handleInputChange("name", e)}
                             />
 
+                            <FormField
+                                label="City"
+                                value={newWarehouse.city}
+                                onChange={(e) => handleInputChange("city", e)}
+                            />
+
+                            <FormField
+                                label="State Code"
+                                value={newWarehouse.state_code}
+                                onChange={(e) => handleInputChange("state_code", e)}
+                                maxLength={2}
+                            />
+
+                            <FormField
+                                label="Default Loc"
+                                value={newWarehouse.default_loc}
+                                onChange={(e) => handleInputChange("default_loc", e)}
+                            />
+
+                            <FormField
+                                label="Active Status"
+                                value={newWarehouse.active_status}
+                                onChange={(e) => handleInputChange("active_status", e)}
+                            />
                         </MaintenanceSection>
+
+                        {/*  Submit Button to Add Warehouse */}
+                        <button 
+                            onClick={handleAddWarehouse} 
+                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                            disabled={!isFormValid()}
+                        >
+                            Add Warehouse
+                        </button>
                         
                     </div>
                 </div>

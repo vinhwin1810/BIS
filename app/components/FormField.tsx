@@ -17,6 +17,7 @@ interface FormFieldProps {
   disabled?: boolean;
   className?: string;
   isFirst?: boolean;
+  maxLength?: number;
 }
 
 export default function FormField({
@@ -28,6 +29,7 @@ export default function FormField({
   disabled,
   className,
   isFirst = false,
+  maxLength,
 }: FormFieldProps) {
   return (
     <div
@@ -92,6 +94,8 @@ export default function FormField({
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
           placeholder="01234"
+          maxLength={maxLength} // Applying maxLength to the input field
+
         />
       )}
     </div>
