@@ -127,7 +127,7 @@ export default function Sidebar({
       <div
         className={`${
           isOpen ? "w-64" : "w-16"
-        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
+        } relative rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
       >
         <div className="flex flex-col">
           <div className="h-7" />
@@ -142,7 +142,7 @@ export default function Sidebar({
                 >
                   <div>{item.icon}</div>
                   <span
-                    className={`whitespace-nowrap ${
+                    className={`eqw-nowrap ${
                       isOpen ? "opacity-100" : "opacity-0 w-0"
                     } transition-all duration-500`}
                   >

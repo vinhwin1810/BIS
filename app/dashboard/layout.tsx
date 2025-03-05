@@ -27,7 +27,7 @@ export default function DashboardLayout({
   };
 
   return (
-    <div className="flex h-screen bg-white">
+    <div className="flex z-10 h-screen bg-white">
       <Sidebar
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar} 

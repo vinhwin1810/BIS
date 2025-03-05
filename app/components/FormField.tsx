@@ -56,8 +56,8 @@ export default function FormField({
       {type !== "select" && (
         <label
           className={`${
-            type === "checkbox" ? "w-24" : ""
-          } text-sm text-gray-500`}
+            type === "checkbox" ? "w-full" : ""
+          } text-sm text-gray-600`}
         >
           {label}
         </label>
