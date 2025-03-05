@@ -94,6 +94,9 @@ export default function ItemMaintenance() {
                   />
                   <FormField
                     label="UOM"
+                    type="select"
+                    options={["CARTON","DOZEN","FEET","EACH","PACK","POUNDS","GALLONS","GROSS",
+                      "TEN","HUNDREDS","THOUSANDS","MILLIONS","KILOGRAMS","MINUTES"]}
                     value={formData.uom}
                     onChange={handleChange("uom")}
                     className="mb-5"
@@ -137,22 +140,28 @@ export default function ItemMaintenance() {
               sm:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.5fr_1fr_1fr] gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
+                  type="hamburger"
                   value={formData.billOfLadingCode}
                   onChange={handleChange("billOfLadingCode")}
                 />
                 <FormField
                   label="Season"
+                  type="select"
+                  options={["Spring","Fall","Summer","Winter"]}
                   value={formData.season}
                   onChange={handleChange("season")}
                 />
                 <FormField
                   label="GL Code"
+                  type="hamburger"
                   value={formData.glCode}
                   onChange={handleChange("glCode")}
                 />
 
                 <FormField
                   label="Molder Labor Cost"
+                  type="select"
+                  options={[]}
                   value={formData.molderLaborCost}
                   onChange={handleChange("molderLaborCost")}
                 />
@@ -163,17 +172,22 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Bulk"
+                  type="checkbox"
                   value={formData.bulk}
                   onChange={handleChange("bulk")}
                 />
 
                 <FormField
                   label="Item State Exclusion Code"
+                  type="select"
+                  options={[]}
                   value={formData.itemStateExclusionCode}
                   onChange={handleChange("itemStateExclusionCode")}
                 />
                 <FormField
                   label="SA Code"
+                  type="select"
+                  options={[]}
                   value={formData.saCode}
                   onChange={handleChange("saCode")}
                 />
@@ -206,11 +220,13 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="VOC"
+                  type="checkbox"
                   value={formData.voc}
                   onChange={handleChange("voc")}
                 />
                 <FormField
                   label="AT Code"
+                  type="hamburger"
                   value={formData.atCode}
                   onChange={handleChange("atCode")}
                 />                
@@ -281,6 +297,7 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Vendor Code"
+                  type="hamburger"
                   value={formData.vendorCode}
                   onChange={handleChange("vendorCode")}
                 />
@@ -291,6 +308,7 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Purchase UOM"
+                  type="hamburger"
                   value={formData.purchaseUom}
                   onChange={handleChange("purchaseUom")}
                 />
