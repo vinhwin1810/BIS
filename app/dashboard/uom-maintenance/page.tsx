@@ -47,7 +47,7 @@ function ActionsButton() {
       >
         {/* Button */}
         <button
-          className="text-black px-4 py-1 rounded-full flex items-center gap-10 font-poppins font-medium hover:bg-blue-100"
+          className="text-black px-4 py-1 rounded-full flex items-center gap-20 font-poppins font-medium hover:bg-blue-100"
           onClick={() => setShowOptions((prev) => !prev)}
         >
           Actions
@@ -82,7 +82,7 @@ function ActionsOptionsComponent() {
           onMouseLeave={() => setHoveredIndex(null)}
             > {/* Ensure positioning is relative to each button */}
           <button
-            className={`flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-blue-100 w-full text-left ${
+            className={`flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-blue-100 w-full text-left whitespace-nowrap ${
               index === ActionsOptions.length - 1 ? "mb-2" : ""
             } ${hoveredIndex === index ? "bg-blue-100" : ""}`}
           >
@@ -135,7 +135,7 @@ function ActionsOptionsComponent() {
 function CreateButton(){
   return (
     <div className="relative">
-      <button className="absolute top-0 left-36 bg-blue-50 text-black px-4 py-1 rounded-full shadow-md flex items-center gap-10 font-poppins font-medium hover:bg-blue-100">
+      <button className="absolute top-0 left-48 bg-blue-50 text-black px-4 py-1 rounded-full shadow-md flex items-center gap-20 font-poppins font-medium hover:bg-blue-100">
           Create
           <Plus className="h-4 w-4"/>
       </button>
