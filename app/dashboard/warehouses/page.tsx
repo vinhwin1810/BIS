@@ -3,9 +3,8 @@
 import { useState } from "react";
 import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search"; 
-import { Plus, Pencil, X, Warehouse } from "lucide-react";
-import MaintenanceSection from "@/app/components/MaintenanceSection";
-import FormField from "@/app/components/FormField"; 
+import { Plus, Pencil, X, Warehouse, Trash } from "lucide-react";
+
 
 // Define types for warehouse objects
 interface Warehouse {
@@ -16,7 +15,7 @@ interface Warehouse {
     default_loc: string;
     active_status: string;
     address_line_1: string;
-    address_line_2: string;
+    address_line_2?: string;
     zip: string;
     country: string;
   }
@@ -39,9 +38,11 @@ function AddEntryButton({ setIsModalOpen }: AddEntryButtonProps) {
 
 interface WarehouseTableProps {
     warehouses: Warehouse[];
+    onEditWarehouse: (warehouse: Warehouse) => void;
+    onDeleteWarehouse: (loc_code: string) => void; 
 }
 
-function WarehouseTable({ warehouses }: WarehouseTableProps) { 
+function WarehouseTable({ warehouses, onEditWarehouse, onDeleteWarehouse }: WarehouseTableProps) { 
     return (
         <div className="pl-5 pr-3 overflow-x-auto">
             <table className="bg-[#EDEDED] bg-opacity-55 w-full max-w-[calc(100%-2rem)]">
@@ -63,8 +64,8 @@ function WarehouseTable({ warehouses }: WarehouseTableProps) {
                             </td>
                         </tr>
                     ) : ( 
-                        warehouses.map((warehouse, index) => (
-                            <tr key={index} className="text-start bg-opacity-50 odd:bg-[#D2E2FF] even:bg-[#B5CBF4]">
+                        warehouses.map((warehouse) => (
+                            <tr key={warehouse.loc_code} className="text-start bg-opacity-50 odd:bg-[#D2E2FF] even:bg-[#B5CBF4]">
                                 <td className="px-4 py-3 font-semibold bg-opacity-80 bg-[#ffffff] w-[10rem]">{warehouse.loc_code}</td>
                                 <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.name}</td>
                                 <td className="px-4 py-3 font-semibold w-[30rem]">{warehouse.city}</td>
@@ -73,8 +74,24 @@ function WarehouseTable({ warehouses }: WarehouseTableProps) {
                                 <td className="px-4 py-3 font-semibold w-[15rem]">{warehouse.active_status}</td>
 
                                 <td className="px-4 py-3 bg-[#ffffff] bg-opacity-80 text-center">
-                                    <button className="text-gray-600 hover:text-black">
+                                    <button 
+                                        className="text-gray-600 hover:text-black"
+                                        onClick={() => onEditWarehouse(warehouse)}
+                                    >
+                                        
                                         <Pencil className="w-5"/>
+                                    </button>
+                                </td>
+
+                                <td className="px-4 py-3 bg-[#ffffff] bg-opacity-80 text-center">
+                                    <button 
+                                        className="text-gray-600 hover:text-red-600"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            onDeleteWarehouse(warehouse.loc_code)
+                                        }}
+                                    >
+                                        <Trash className="w-5"/>
                                     </button>
                                 </td>
                             </tr>
@@ -90,8 +107,11 @@ function WarehouseTable({ warehouses }: WarehouseTableProps) {
 export default function Warehouses() {
     // starts with an empty array 
     const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
-
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const handleDeleteWarehouse = (loc_code: string) => {
+        setWarehouses((prev) => prev.filter((warehouse) => warehouse.loc_code !== loc_code));
+    };
 
 
     const [newWarehouse, setNewWarehouse] = useState<Warehouse>({
@@ -106,6 +126,8 @@ export default function Warehouses() {
         zip: "",
         country: "",
     });
+
+    const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | null>(null);
     
     // Function to handle input changes
     const handleInputChange = (field: keyof Warehouse, value: string) => {
@@ -126,8 +148,8 @@ export default function Warehouses() {
                 name: "", 
                 city: "", 
                 state_code: "", 
-                default_loc: "", 
-                active_status: "",
+                default_loc: "N", 
+                active_status: "N",
                 address_line_1: "",
                 address_line_2: "",
                 zip: "",
@@ -135,12 +157,46 @@ export default function Warehouses() {
             }); // Reset form
         }
         else {
-            alert("Please fill out all fields before submitting.");
+            alert("Please fill out all required fields before submitting.");
         }
     };
 
+    const handleUpdateWarehouse = () => {
+        if (editingWarehouse) {
+            setWarehouses((prev) =>
+                prev.map((warehouse) =>
+                    warehouse.loc_code === editingWarehouse.loc_code ? newWarehouse : warehouse
+                )
+            );
+
+            setIsModalOpen(false);
+            setEditingWarehouse(null);
+            setNewWarehouse({
+                loc_code: "",
+                name: "",
+                city: "",
+                state_code: "",
+                default_loc: "",
+                active_status: "",
+                address_line_1: "",
+                address_line_2: "",
+                zip: "",
+                country: "",
+            });
+        }
+    };
+
+    const handleEditWarehouse = (warehouse: Warehouse) => {
+        setEditingWarehouse(warehouse);
+        setNewWarehouse(warehouse);
+        setIsModalOpen(true);
+    };
+
     const isFormValid = () => {
+        const requiredFields = {...newWarehouse};
+        delete requiredFields.address_line_2;
         return Object.values(newWarehouse).every((value) => value.trim() !== "");
+
     };
 
   return (
@@ -164,7 +220,7 @@ export default function Warehouses() {
         {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg relative">
-                        <h2 className="text-xl font-bold mb-4">Add Location</h2>
+                        <h2 className="text-xl font-bold mb-4">{editingWarehouse ? "Edit Location" : "Add Location"}</h2>
                         <button 
                             onClick={() => setIsModalOpen(false)} 
                             className="absolute top-2 right-2 text-gray-600 hover:text-black"
@@ -248,7 +304,7 @@ export default function Warehouses() {
 
                             <div className="mb-4">
                                 <label htmlFor="address_line_2" className="block text-sm text-gray-500">
-                                    Address Line 2
+                                    Address Line 2 (Optional)
                                 </label>
                                 <input
                                     type="text"
@@ -317,10 +373,10 @@ export default function Warehouses() {
                             {/* Submit Button */}
                             <button
                                 type="button"
-                                onClick={handleAddWarehouse}
+                                onClick={editingWarehouse ? handleUpdateWarehouse : handleAddWarehouse}
                                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                             >
-                                Add Warehouse
+                                {editingWarehouse ? "Update Warehouse" : "Add Warehouse"}
                             </button>
                         </form>
                     </div>
@@ -329,9 +385,11 @@ export default function Warehouses() {
 
 
         {/* table */}
-        <WarehouseTable warehouses={warehouses} />
-
-      
+        <WarehouseTable 
+            warehouses={warehouses} 
+            onEditWarehouse={handleEditWarehouse} 
+            onDeleteWarehouse={handleDeleteWarehouse}
+        />
     </div>
   );
 }
