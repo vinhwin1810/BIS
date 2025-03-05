@@ -195,7 +195,7 @@ export default function Warehouses() {
     const isFormValid = () => {
         const requiredFields = {...newWarehouse};
         delete requiredFields.address_line_2;
-        return Object.values(newWarehouse).every((value) => value.trim() !== "");
+        return Object.values(requiredFields).every((value) => value.trim() !== "");
 
     };
 
