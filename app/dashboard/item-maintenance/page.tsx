@@ -55,7 +55,7 @@ export default function ItemMaintenance() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-6 py-4 text-[rgb(51,51,51)] flex items-center justify-between gap-4 mb-6">
-        <div className="flex w-full">
+        <div className="flex md:w-4/5 lg:w-3/4 max-w-[700px]">
           <SearchBar/>
           <StarButton/>
         </div>
@@ -64,18 +64,21 @@ export default function ItemMaintenance() {
         </div>
       </div>
 
-      <div className="boxes px-8">
-        <div className="flex gap-6">
+      <div className="px-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left side - Two main boxes */}
           <div className="flex-1 flex flex-col gap-1 pr-7">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-1  lg:grid-cols-3"> 
+              <div className="col-span-3 grid grid-cols-1 sm:grid-cols-3">
+                {/* Left side - Form fields */}
                 <div className="flex flex-col px-5 pb-4">
                   <FormField
                     label="Inv Code"
                     value={formData.invCode}
                     onChange={handleChange("invCode")}
+                    isFirst={true}
+                    className="mt-5"
                   />
                   <FormField
                     label="Inv Class"
@@ -83,36 +86,36 @@ export default function ItemMaintenance() {
                     options={["Class A", "Class B", "Class C"]}
                     value={formData.invClass}
                     onChange={handleChange("invClass")}
-                    className="mt-5"
                   />
                   <FormField
                     label="List Price"
                     value={formData.listPrice}
                     onChange={handleChange("listPrice")}
-                    className="mt-5"
                   />
                   <FormField
                     label="UOM"
+                    type="select"
+                    options={["CARTON","DOZEN","FEET","EACH","PACK","POUNDS","GALLONS","GROSS",
+                      "TEN","HUNDREDS","THOUSANDS","MILLIONS","KILOGRAMS","MINUTES"]}
                     value={formData.uom}
                     onChange={handleChange("uom")}
-                    className="mt-5"
+                    className="mb-5"
                   />
-                  <div className="flex-1 mt-6 gap-3">
-                    <FormField
-                      label="Taxable"
-                      type="checkbox"
-                      value={formData.taxable}
-                      onChange={handleChange("taxable")}
-                    />
-                    <FormField
-                      label="Active"
-                      type="checkbox"
-                      value={formData.active}
-                      onChange={handleChange("active")}
-                    />
-                  </div>
+                  <FormField
+                    label="Taxable"
+                    type="checkbox"
+                    value={formData.taxable}
+                    onChange={handleChange("taxable")}
+                  />
+                  <FormField
+                    label="Active"
+                    type="checkbox"
+                    value={formData.active}
+                    onChange={handleChange("active")}
+                  />
                 </div>
-                <div className="col-span-2 pr-5">
+                {/* Right side - Descriptions */}
+                <div className="col-span-2 pl-5 pr-5">
                   <FormField
                     label="Description"
                     type="long text"
@@ -134,25 +137,31 @@ export default function ItemMaintenance() {
             {/* Second main box */}
             <MaintenanceSection title="Header">
               <div className="col-span-3 grid grid-cols-1 
-              lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.5fr_1fr_1fr] gap-x-20 gap-3 px-5 pb-4">
+              sm:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.5fr_1fr_1fr] gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
+                  type="hamburger"
                   value={formData.billOfLadingCode}
                   onChange={handleChange("billOfLadingCode")}
                 />
                 <FormField
                   label="Season"
+                  type="select"
+                  options={["Spring","Fall","Summer","Winter"]}
                   value={formData.season}
                   onChange={handleChange("season")}
                 />
                 <FormField
                   label="GL Code"
+                  type="hamburger"
                   value={formData.glCode}
                   onChange={handleChange("glCode")}
                 />
 
                 <FormField
                   label="Molder Labor Cost"
+                  type="select"
+                  options={[]}
                   value={formData.molderLaborCost}
                   onChange={handleChange("molderLaborCost")}
                 />
@@ -163,17 +172,22 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Bulk"
+                  type="checkbox"
                   value={formData.bulk}
                   onChange={handleChange("bulk")}
                 />
 
                 <FormField
                   label="Item State Exclusion Code"
+                  type="select"
+                  options={[]}
                   value={formData.itemStateExclusionCode}
                   onChange={handleChange("itemStateExclusionCode")}
                 />
                 <FormField
                   label="SA Code"
+                  type="select"
+                  options={[]}
                   value={formData.saCode}
                   onChange={handleChange("saCode")}
                 />
@@ -206,11 +220,13 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="VOC"
+                  type="checkbox"
                   value={formData.voc}
                   onChange={handleChange("voc")}
                 />
                 <FormField
                   label="AT Code"
+                  type="hamburger"
                   value={formData.atCode}
                   onChange={handleChange("atCode")}
                 />                
@@ -218,8 +234,8 @@ export default function ItemMaintenance() {
             </MaintenanceSection>
           </div>
 
-          {/* Right side - Two smaller boxes */}
-          <div className="w-80 flex flex-col pr-3">
+          {/* Right side boxes - Stack in a single column on smaller screens */}
+          <div className="lg:w-80 flex flex-col pr-3">
             {/* First small box */}
             <MaintenanceSection title="Header">
               <div className="col-span-3 flex flex-col px-2 pb-5">
@@ -281,6 +297,7 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Vendor Code"
+                  type="hamburger"
                   value={formData.vendorCode}
                   onChange={handleChange("vendorCode")}
                 />
@@ -291,6 +308,7 @@ export default function ItemMaintenance() {
                 />
                 <FormField
                   label="Purchase UOM"
+                  type="hamburger"
                   value={formData.purchaseUom}
                   onChange={handleChange("purchaseUom")}
                 />
