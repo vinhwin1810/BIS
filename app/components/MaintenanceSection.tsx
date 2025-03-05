@@ -13,7 +13,7 @@ export default function MaintenanceSection({
       <h2 className="text-gray-300">{title}</h2>
 
       {/* Blue background */}
-      <div className="absolute top-10 left-3 -right-3 -bottom-3 bg-[#1B3487] rounded-3xl"></div>
+      <div className="absolute top-10 left-3 -right-3 -bottom-3 bg-[#1B3487] rounded-3xl z-0"></div>
 
       {/* Main container */}
       <div className="relative bg-white rounded-3xl shadow-md p-6 border">

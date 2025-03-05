@@ -114,7 +114,7 @@ export default function Sidebar({
 
 
   return (
-    <aside className="fixed bg-gray-50">
+    <aside className="fixed z-50 bg-gray-50">
       {/* Menu button container */}
       <div
         className={`p-5 rounded-tr-xl bg-[#1B3487] text-white transition-all duration-500 ease-in-out
@@ -127,7 +127,7 @@ export default function Sidebar({
       <div
         className={`${
           isOpen ? "w-64" : "w-16"
-        } relative rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
+        } rounded-br-xl transition-all duration-500 ease-in-out bg-[#1B3487] text-white min-h-screen overflow-hidden`}
       >
         <div className="flex flex-col">
           <div className="h-7" />
