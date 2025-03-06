@@ -5,7 +5,7 @@ import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search";
 import AddEntryButton from "@/app/dashboard/warehouses/warehouse_components/AddEntryButton";
 import WarehouseTable from "@/app/dashboard/warehouses/warehouse_components/WarehouseTable";
-import WarehouseModal from "@/app/dashboard/warehouses/warehouse_components/WarehouseModal"; 
+import WarehouseModal from "@/app/dashboard/warehouses/warehouse_components/WarehouseModal"; // Optional
 
 interface Warehouse {
   loc_code: string;
