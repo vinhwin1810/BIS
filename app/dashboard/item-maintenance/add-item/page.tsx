@@ -59,23 +59,26 @@ export default function ItemMaintenance() {
           <SearchBar/>
           <StarButton/>
         </div>
-        <User />
+        <div className="flex-shrink-0 ml-2">
+          <User />
+        </div>
       </div>
 
-      <div className="px-6">
+      <div className="px-8">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Left side - Two main boxes */}
-          <div className="flex-1 flex flex-col gap-6">
+          <div className="flex-1 flex flex-col gap-1">
             {/* First main box */}
             <MaintenanceSection title="Header">
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
+              <div className="col-span-3 grid grid-cols-1 sm:grid-cols-3">
                 {/* Left side - Form fields */}
-                <div className="flex-1">
+                <div className="flex flex-col px-5 pb-4">
                   <FormField
                     label="Inv Code"
                     value={formData.invCode}
                     onChange={handleChange("invCode")}
                     isFirst={true}
+                    className="mt-5"
                   />
                   <FormField
                     label="Inv Class"
@@ -91,8 +94,12 @@ export default function ItemMaintenance() {
                   />
                   <FormField
                     label="UOM"
+                    type="select"
+                    options={["CARTON","DOZEN","FEET","EACH","PACK","POUNDS","GALLONS","GROSS",
+                      "TEN","HUNDREDS","THOUSANDS","MILLIONS","KILOGRAMS","MINUTES"]}
                     value={formData.uom}
                     onChange={handleChange("uom")}
+                    className="mb-5"
                   />
                   <FormField
                     label="Taxable"
@@ -108,135 +115,226 @@ export default function ItemMaintenance() {
                   />
                 </div>
                 {/* Right side - Descriptions */}
-                <div className="md:w-2/3">
+                <div className="col-span-2 pl-5 pr-5">
                   <FormField
                     label="Description"
                     type="long text"
                     value={formData.description}
                     onChange={handleChange("description")}
+                    className="h-32"
                   />
                   <FormField
                     label="Description (International)"
                     type="long text"
                     value={formData.descriptionInt}
                     onChange={handleChange("descriptionInt")}
+                    className="mt-4 h-32"
                   />
                 </div>
               </div>
             </MaintenanceSection>
-
+            
             {/* Second main box */}
             <MaintenanceSection title="Header">
-              <div className="col-span-3 grid grid-cols-3 gap-6">
+              <div className="col-span-3 grid grid-cols-1 
+              sm:grid-cols-[1.5fr_1fr] xl:grid-cols-[1.5fr_1fr_1fr] gap-x-20 gap-3 px-5 pb-4">
                 <FormField
                   label="Bill of Lading Code"
                   type="hamburger"
+                  value={formData.billOfLadingCode}
+                  onChange={handleChange("billOfLadingCode")}
                 />
                 <FormField
                   label="Season"
+                  type="select"
+                  options={["Spring","Fall","Summer","Winter"]}
                   value={formData.season}
                   onChange={handleChange("season")}
                 />
                 <FormField
                   label="GL Code"
                   type="hamburger"
+                  value={formData.glCode}
+                  onChange={handleChange("glCode")}
                 />
-                {/* ... other fields in the second box */}
+
+                <FormField
+                  label="Molder Labor Cost"
+                  type="select"
+                  options={[]}
+                  value={formData.molderLaborCost}
+                  onChange={handleChange("molderLaborCost")}
+                />
+                <FormField
+                  label="Promo Code"
+                  value={formData.promoCode}
+                  onChange={handleChange("promoCode")}
+                />
+                <FormField
+                  label="Bulk"
+                  type="checkbox"
+                  value={formData.bulk}
+                  onChange={handleChange("bulk")}
+                />
+
+                <FormField
+                  label="Item State Exclusion Code"
+                  type="select"
+                  options={[]}
+                  value={formData.itemStateExclusionCode}
+                  onChange={handleChange("itemStateExclusionCode")}
+                />
+                <FormField
+                  label="SA Code"
+                  type="select"
+                  options={[]}
+                  value={formData.saCode}
+                  onChange={handleChange("saCode")}
+                />
+                <FormField
+                  label="Max %"
+                  value={formData.maxPercentage}
+                  onChange={handleChange("maxPercentage")}
+                />
+
+                <FormField
+                  label="Production Overage %"
+                  value={formData.productionOverage}
+                  onChange={handleChange("productionOverage")}
+                />
+                <FormField
+                  label="Recycle Fee %"
+                  value={formData.recycleFee}
+                  onChange={handleChange("recycleFee")}
+                />
+                <FormField
+                  label="ROP %"
+                  value={formData.ropPercentage}
+                  onChange={handleChange("ropPercentage")}
+                />
+
+                <FormField
+                  label="Tariff Code"
+                  value={formData.tariffCode}
+                  onChange={handleChange("tariffCode")}
+                />
+                <FormField
+                  label="VOC"
+                  type="checkbox"
+                  value={formData.voc}
+                  onChange={handleChange("voc")}
+                />
+                <FormField
+                  label="AT Code"
+                  type="hamburger"
+                  value={formData.atCode}
+                  onChange={handleChange("atCode")}
+                />                
               </div>
             </MaintenanceSection>
           </div>
 
           {/* Right side boxes - Stack in a single column on smaller screens */}
-          <div className="lg:w-80 flex flex-col gap-6">
+          <div className="lg:w-80 flex flex-col pr-3">
             {/* First small box */}
             <MaintenanceSection title="Header">
-              <FormField
-                label="Min Supplier QTY"
-                value={formData.minSupplierQty}
-                onChange={handleChange("minSupplierQty")}
-                isFirst={true}
-              />
-              <FormField
-                label="Pallet Count"
-                value={formData.palletCount}
-                onChange={handleChange("palletCount")}
-              />
-              <FormField
-                label="Pallet Rows"
-                value={formData.palletRows}
-                onChange={handleChange("palletRows")}
-              />
+              <div className="col-span-3 flex flex-col px-2 pb-5">
+                <FormField  
+                  label="Min Supplier QTY"
+                  value={formData.minSupplierQty}
+                  onChange={handleChange("minSupplierQty")}
+                />
+                <FormField
+                  label="Pallet Count"
+                  value={formData.palletCount}
+                  onChange={handleChange("palletCount")}
+                />
+                <FormField
+                  label="Pallet Rows"
+                  value={formData.palletRows}
+                  onChange={handleChange("palletRows")}
+                />
+              </div>
             </MaintenanceSection>
-
+            
             {/* Second small box */}
             <MaintenanceSection title="Header">
-              <FormField
-                label="Cub FT"
-                value={formData.cubeFt}
-                onChange={handleChange("cubeFt")}
-                isFirst={true}
-              />
-              <FormField
-                label="Length"
-                value={formData.length}
-                onChange={handleChange("length")}
-              />
-              <FormField
-                label="Width"
-                value={formData.width}
-                onChange={handleChange("width")}
-              />
-              <FormField
-                label="Height"
-                value={formData.height}
-                onChange={handleChange("height")}
-              />
-              <FormField
-                label="Weight"
-                value={formData.weight}
-                onChange={handleChange("weight")}
-              />
-              <FormField
-                label="Net Weight"
-                value={formData.netWeight}
-                onChange={handleChange("netWeight")}
-              />
-              <FormField
-                label="Cust Stock Code"
-                value={formData.custStockCode}
-                onChange={handleChange("custStockCode")}
-              />
-              <FormField
-                label="Vendor Code"
-                value={formData.vendorCode}
-                onChange={handleChange("vendorCode")}
-              />
-              <FormField
-                label="Pack QTY"
-                value={formData.packQty}
-                onChange={handleChange("packQty")}
-              />
-              <FormField
-                label="Purchase UOM"
-                value={formData.purchaseUom}
-                onChange={handleChange("purchaseUom")}
-              />
-              <FormField
-                label="Lead Time (wks)"
-                value={formData.leadTimeWeeks}
-                onChange={handleChange("leadTimeWeeks")}
-              />
+               <div className="col-span-3 flex flex-col px-2 pb-4">
+                <FormField
+                  label="Cub FT"
+                  value={formData.cubeFt}
+                  onChange={handleChange("cubeFt")}
+                />
+                <FormField
+                  label="Length"
+                  value={formData.length}
+                  onChange={handleChange("length")}
+                />
+                <FormField
+                  label="Width"
+                  value={formData.width}
+                  onChange={handleChange("width")}
+                />
+                <FormField
+                  label="Height"
+                  value={formData.height}
+                  onChange={handleChange("height")}
+                />
+                <FormField
+                  label="Weight"
+                  value={formData.weight}
+                  onChange={handleChange("weight")}
+                />
+                <FormField
+                  label="Net Weight"
+                  value={formData.netWeight}
+                  onChange={handleChange("netWeight")}
+                />
+                <FormField
+                  label="Cust Stock Code"
+                  value={formData.custStockCode}
+                  onChange={handleChange("custStockCode")}
+                />
+                <FormField
+                  label="Vendor Code"
+                  type="hamburger"
+                  value={formData.vendorCode}
+                  onChange={handleChange("vendorCode")}
+                />
+                <FormField
+                  label="Pack QTY"
+                  value={formData.packQty}
+                  onChange={handleChange("packQty")}
+                />
+                <FormField
+                  label="Purchase UOM"
+                  type="hamburger"
+                  value={formData.purchaseUom}
+                  onChange={handleChange("purchaseUom")}
+                />
+                <FormField
+                  label="Lead Time (wks)"
+                  value={formData.leadTimeWeeks}
+                  onChange={handleChange("leadTimeWeeks")}
+                />
+              </div>
             </MaintenanceSection>
           </div>
         </div>
 
-        <div className="text-center pb-4 space-x-4">
-          <button className="px-8 py-2 border border-blue-800 text-blue-800 rounded-md hover:bg-blue-50">
-            Delete
-          </button>
-          <button className="px-8 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-900">
-            Save
-          </button>
+        {/* Buttons at the bottom */}
+        <div className="flex justify-between p-3"> 
+          <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
+            Clear Screen
+          </button>         
+          <div className="flex gap-6"> 
+            <button className="px-20 py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-200">
+              Delete
+            </button>
+            <button className="px-20 py-2 bg-[#1B3487] text-white rounded-lg hover:bg-blue-700">
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>

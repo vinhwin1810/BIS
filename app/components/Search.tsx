@@ -61,7 +61,7 @@ export default function SearchBar() {
               <CommandGroup>
                 {filteredItems.map((item) => (
                   <CommandItem key={item.label} value={item.label}>
-                    <Search className="" />
+                    <Search className="mr-2 h-4 w-4" />
                     <span>{item.label}</span>
                   </CommandItem>
                 ))}
