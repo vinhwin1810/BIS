@@ -5,7 +5,7 @@ import User from "@/app/components/User";
 import SearchBar from "@/app/components/Search";
 import AddEntryButton from "@/app/dashboard/warehouses/warehouse_components/AddEntryButton";
 import WarehouseTable from "@/app/dashboard/warehouses/warehouse_components/WarehouseTable";
-import WarehouseModal from "@/app/dashboard/warehouses/warehouse_components/WarehouseModal"; // Optional
+import WarehouseModal from "@/app/dashboard/warehouses/warehouse_components/WarehouseModal";
 
 interface Warehouse {
   loc_code: string;
@@ -47,49 +47,73 @@ export default function Warehouses() {
     setNewWarehouse((prev) => ({ ...prev, [field]: checked ? "Y" : "N" }));
   };
 
+  const isLocCodeUnique = (locCode: string, excludeLocCode?: string) => {
+    return !warehouses.some(
+      (warehouse) => 
+        warehouse.loc_code === locCode && 
+        (!excludeLocCode || warehouse.loc_code !== excludeLocCode)
+    );
+  };
+
   const handleAddWarehouse = () => {
-    if (isFormValid()) {
-      setWarehouses((prev) => [...prev, newWarehouse]);
-      setIsModalOpen(false);
-      setNewWarehouse({
-        loc_code: "",
-        name: "",
-        city: "",
-        state_code: "",
-        default_loc: "N",
-        active_status: "N",
-        address_line_1: "",
-        address_line_2: "",
-        zip: "",
-        country: "",
-      });
-    } else {
+    if (!isFormValid()) {
       alert("Please fill out all required fields before submitting.");
+      return;
     }
+
+    if (!isLocCodeUnique(newWarehouse.loc_code)) {
+      alert("Location code must be unique. This code is already in use.");
+      return;
+    }
+
+    setWarehouses((prev) => [...prev, newWarehouse]);
+    setIsModalOpen(false);
+    setNewWarehouse({
+      loc_code: "",
+      name: "",
+      city: "",
+      state_code: "",
+      default_loc: "N",
+      active_status: "N",
+      address_line_1: "",
+      address_line_2: "",
+      zip: "",
+      country: "",
+    });
   };
 
   const handleUpdateWarehouse = () => {
-    if (editingWarehouse) {
-      setWarehouses((prev) =>
-        prev.map((warehouse) =>
-          warehouse.loc_code === editingWarehouse.loc_code ? newWarehouse : warehouse
-        )
-      );
-      setIsModalOpen(false);
-      setEditingWarehouse(null);
-      setNewWarehouse({
-        loc_code: "",
-        name: "",
-        city: "",
-        state_code: "",
-        default_loc: "",
-        active_status: "",
-        address_line_1: "",
-        address_line_2: "",
-        zip: "",
-        country: "",
-      });
+    if (!editingWarehouse) return;
+
+    if (!isFormValid()) {
+      alert("Please fill out all required fields before submitting.");
+      return;
     }
+
+    if (!isLocCodeUnique(newWarehouse.loc_code, editingWarehouse.loc_code)) {
+      alert("Location code must be unique. This code is already in use.");
+      return;
+    }
+
+    setWarehouses((prev) =>
+      prev.map((warehouse) =>
+        warehouse.loc_code === editingWarehouse.loc_code ? newWarehouse : warehouse
+      )
+    );
+    setIsModalOpen(false);
+    setEditingWarehouse(null);
+    setNewWarehouse({
+      loc_code: "",
+      name: "",
+      city: "",
+      state_code: "",
+      default_loc: "",
+      active_status: "",
+      address_line_1: "",
+      address_line_2: "",
+      zip: "",
+      country: "",
+    });
   };
 
   const handleEditWarehouse = (warehouse: Warehouse) => {
